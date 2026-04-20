@@ -11,7 +11,7 @@
                 foreach(var member in Model.members)
                 { <div class="col-md-3 mb-3">
 
-           <a asp-action="Details" asp-controller="Home" asp-route-id=@member.Id>
+                <a asp-action="Details" asp-controller="Home" asp-route-id=@member.Id>
                     <div class="card shadow-sm">
 
         
@@ -29,11 +29,12 @@
                             <h5 class="card-title">@member.MemberName</h5>
 
                         </div>
+                      </div>
            </a>
 
         </div>
 
-    </div>
+ 
                 }
             }
    </div>

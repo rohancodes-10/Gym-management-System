@@ -1,0 +1,38 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg p-4">
+
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="~/lib/"
+                     class="img-fluid rounded"
+                     style="max-height:300px; object-fit:cover;" />
+            </div>
+            <div class="col-md-8">
+
+                <h3>@Model.member.MemberName</h3>
+                <hr />
+
+                <p><strong>ID:</strong> @Model.member.Id</p>
+                <p><strong>Address:</strong> @Model.member.Address</p>
+                <p><strong>Phone:</strong> @Model.member.Phone</p>
+                <p><strong>Gender:</strong> @Model.member.Gender</p>
+                <p><strong>City:</strong> @Model.member.city</p>
+
+                <a href="/Home/Index" class="btn btn-primary mt-3">
+                    Back to List
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

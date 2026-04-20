@@ -4,6 +4,7 @@
     {
         IEnumerable<Members> GetAllMembers();
         Members? GetMembers(int id);
-       
+        Members AddMember(Members members);
+        Members Update(Members changes);
     }
 }

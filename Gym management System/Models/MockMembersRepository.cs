@@ -1,6 +1,6 @@
 ﻿namespace Gym_management_System.Models
 {
-    public class MockMembersRepository: IMemberService
+    public class MockMembersRepository 
     {
         private List<Members> _membersList;
         public MockMembersRepository()

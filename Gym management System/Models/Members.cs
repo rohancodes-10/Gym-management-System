@@ -8,5 +8,6 @@
         public string Phone { get; set; }
         public string Gender { get; set; }
         public string city { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using Gym_management_System.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gym_management_System
 {
@@ -10,7 +11,9 @@ namespace Gym_management_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IMemberService, MockMembersRepository>();
+            builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
