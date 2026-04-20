@@ -2,9 +2,9 @@
 {
     public interface IMemberService
     {
-        IEnumerable<Members> GetAllMembers();
-        Members? GetMembers(int id);
-        Members AddMember(Members members);
-        Members Update(Members changes);
+        IEnumerable<Member> GetAllMembers();
+        Member? GetMember(int id);
+        Member AddMember(Member member);
+        Member Update(Member changes);
     }
 }

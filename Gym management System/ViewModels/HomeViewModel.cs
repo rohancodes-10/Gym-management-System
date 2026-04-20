@@ -4,7 +4,7 @@ namespace Gym_management_System.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<Members> members { get; set; }
-        public Members? member { get; set; }
+        public IEnumerable<Member> members { get; set; }
+        public Member? member { get; set; }
     }
 }

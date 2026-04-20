@@ -16,10 +16,10 @@ namespace Gym_management_System.Controllers
 
         public IActionResult Index()
         {
-            var members = _memberservice.GetAllMembers();
+            var member = _memberservice.GetAllMembers();
             HomeViewModel homeViewModel = new HomeViewModel
             {
-                members = members
+                members = member
             };
             return View(homeViewModel);
         }

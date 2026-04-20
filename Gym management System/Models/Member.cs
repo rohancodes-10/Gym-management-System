@@ -1,6 +1,6 @@
 ﻿namespace Gym_management_System.Models
 {
-    public class Members
+    public class Member
     {
         public int Id { get; set; }
         public string MemberName { get; set; } = string.Empty;

@@ -7,21 +7,21 @@
         {
             this.context = context;
         }
-        public IEnumerable<Members> GetAllMembers()
+        public IEnumerable<Member> GetAllMembers()
         {
-            return context.Members;
+            return context.Members.ToList();
         }
-        public Members? GetMembers(int id)
+        public Member? GetMember(int id)
         {
             return context.Members.Find(id);
         }
-        public Members AddMember(Members members)
+        public Member AddMember(Member members)
         {
             context.Members.Add(members);
             context.SaveChanges();
             return members;
         }
-        public Members Update(Members changes)
+        public Member Update(Member changes)
         {
             var member = context.Members.Attach(changes);
             member.State = Microsoft.EntityFrameworkCore.EntityState.Modified;

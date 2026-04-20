@@ -7,6 +7,7 @@ namespace Gym_management_System.Models
         {
 
         }
-        public DbSet<Members> Members { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<Gym> Gyms { get; set; }
     }
 }
