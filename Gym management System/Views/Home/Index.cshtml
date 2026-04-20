@@ -3,35 +3,39 @@
     ViewData["Title"] = "Home Page";
 }
 <h2>Members list</h2>
-<div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>address</th>
-                <th>phone</th>
-                <th>Gender</th>
-                <th>city</th>
-            </tr>
-        </thead>
-        <tbody>
+
+   <div class="row">
+       
             @if(Model.members!= null && Model.members.Any())
             {
                 foreach(var member in Model.members)
-                {
-                    <tr>
-                        <td>@member.Id</td>
-                        <td>@member.MemberName</td>
-                        <td>@member.Address</td>
-                        <td>@member.Phone</td>
-                        <td>@member.Gender</td>
-                        <td>@member.city</td>
-                    </tr>
+                { <div class="col-md-3 mb-3">
+
+           <a asp-action="Details" asp-controller="Home" asp-route-id=@member.Id>
+                    <div class="card shadow-sm">
+
+        
+                        <img src="/lib/"
+                             class="card-img-top"
+                             alt="Member Photo"
+                             style="height:200px; object-fit:cover;" />
+
+                        <div class="card-body text-center">
+
+                
+                            <h6 class="text-muted">ID: @member.Id</h6>
+
+                
+                            <h5 class="card-title">@member.MemberName</h5>
+
+                        </div>
+           </a>
+
+        </div>
+
+    </div>
                 }
             }
-        </tbody>
-        </table>
    </div>
 
 
