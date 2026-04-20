@@ -1,3 +1,5 @@
+using Gym_management_System.Models;
+
 namespace Gym_management_System
 {
     public class Program
@@ -8,6 +10,7 @@ namespace Gym_management_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IMemberService, MockMembersRepository>();
 
             var app = builder.Build();
 

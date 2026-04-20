@@ -7,8 +7,4 @@
     <RootNamespace>Gym_management_System</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>

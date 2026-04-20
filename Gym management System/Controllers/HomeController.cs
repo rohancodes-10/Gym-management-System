@@ -1,4 +1,5 @@
 using Gym_management_System.Models;
+using Gym_management_System.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,11 +7,31 @@ namespace Gym_management_System.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IMemberService _memberservice;
+
+        public HomeController(IMemberService memberService)
         {
-            return View();
+            _memberservice = memberService;
         }
 
+        public IActionResult Index()
+        {
+            var members = _memberservice.GetAllMembers();
+            HomeViewModel homeViewModel = new HomeViewModel
+            {
+                members = members
+            };
+            return View(homeViewModel);
+        }
+        public IActionResult Details(int id)
+        {
+            var members = _memberservice.GetMembers(id);
+            HomeViewModel homeViewModel = new HomeViewModel
+            {
+                member =members
+            };
+            return View(homeViewModel);
+        }
         public IActionResult Privacy()
         {
             return View();
