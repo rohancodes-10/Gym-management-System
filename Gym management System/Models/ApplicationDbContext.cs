@@ -8,9 +8,19 @@ namespace Gym_management_System.Models
 
         }
         public DbSet<Member> Members { get; set; }
+        public DbSet<Gym> Gyms { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+        
+            modelBuilder.Entity<Gym>().HasData(
+                new Gym
+                {
+                    Id = 1,
+                    GymName = "Fitness World",
+                    GymAddress = "Kathmandu"
+                });
+           
             modelBuilder.Entity<Member>().HasData(
                 new Member
                 {
@@ -20,7 +30,8 @@ namespace Gym_management_System.Models
                     Phone = "9876543210",
                     Gender = "Male",
                     city = "Kathmandu",
-                    PhotoUrl = "Blank.jpg"
+                    PhotoUrl = "Blank.jpg",
+                    GymId = 1
                 },
                 new Member
                 {
@@ -30,9 +41,10 @@ namespace Gym_management_System.Models
                     Phone = "9876543211",
                     Gender = "Male",
                     city = "Kathmandu",
-                    PhotoUrl = "Blank.jpg"
+                    PhotoUrl = "Blank.jpg",
+                    GymId = 1
                 });
         }
-        //public DbSet<Gym> Gyms { get; set; }
+       
     }
 }

@@ -55,7 +55,7 @@ namespace Gym_management_System.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
 
                     b.HasData(
                         new
@@ -70,7 +70,7 @@ namespace Gym_management_System.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 1,
                             Address = "Changunarayan-7-Bhaktapur",
                             Gender = "Male",
                             MemberName = "Ram Hari Khatri",
