@@ -12,7 +12,7 @@ namespace Gym_management_System
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IMemberService, MemberService>();
-            builder.Services.AddScoped<IGymService, GymService>();
+            //builder.Services.AddScoped<IGymService, GymService>();
             builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

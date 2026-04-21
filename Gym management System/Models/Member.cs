@@ -1,4 +1,6 @@
-﻿namespace Gym_management_System.Models
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+
+namespace Gym_management_System.Models
 {
     public class Member
     {
@@ -8,6 +10,8 @@
         public string Phone { get; set; }
         public string Gender { get; set; }
         public string city { get; set; }
+        //public int GymId { get; set; }
+        //public Gym Gym { get; set; }
         public string PhotoUrl { get; set; }
     }
 }

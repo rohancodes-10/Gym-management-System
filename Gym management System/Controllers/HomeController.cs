@@ -25,7 +25,7 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Details(int id)
         {
-            var members = _memberservice.GetMembers(id);
+            var members = _memberservice.GetMember(id);
             HomeViewModel homeViewModel = new HomeViewModel
             {
                 member =members
