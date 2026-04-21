@@ -3,6 +3,7 @@ using Gym_management_System.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260421063613_Adding_Gyminfo_table")]
+    partial class Adding_Gyminfo_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,14 +43,6 @@ namespace Gym_management_System.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Gyms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GymAddress = "Kathmandu",
-                            GymName = "Fitness World"
-                        });
                 });
 
             modelBuilder.Entity("Gym_management_System.Models.Member", b =>
@@ -97,7 +92,7 @@ namespace Gym_management_System.Migrations
                             Id = 1,
                             Address = "Changunarayan-8-Bhaktapur",
                             Gender = "Male",
-                            GymId = 1,
+                            GymId = 0,
                             MemberName = "Ram Khatri",
                             Phone = "9876543210",
                             PhotoUrl = "Blank.jpg",
@@ -108,7 +103,7 @@ namespace Gym_management_System.Migrations
                             Id = 2,
                             Address = "Changunarayan-7-Bhaktapur",
                             Gender = "Male",
-                            GymId = 1,
+                            GymId = 0,
                             MemberName = "Ram Hari Khatri",
                             Phone = "9876543211",
                             PhotoUrl = "Blank.jpg",

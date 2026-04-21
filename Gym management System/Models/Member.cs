@@ -10,8 +10,8 @@ namespace Gym_management_System.Models
         public string Phone { get; set; }
         public string Gender { get; set; }
         public string city { get; set; }
-        //public int GymId { get; set; }
-        //public Gym Gym { get; set; }
+        public int GymId { get; set; }
+        public Gym Gym { get; set; }
         public string PhotoUrl { get; set; }
     }
 }
