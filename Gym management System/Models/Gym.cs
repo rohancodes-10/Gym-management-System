@@ -3,7 +3,8 @@
     public class Gym
     {
         public int Id { get; set; }
-        public string GymName { get; set; }
-        public string GymAddress { get; set; } 
+        public string GymName { get; set; } = string.Empty;
+        public string GymAddress { get; set; } = string.Empty;
+        public ICollection<Member> members { get; set; }
     }
 }

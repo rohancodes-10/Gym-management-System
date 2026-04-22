@@ -12,17 +12,6 @@ namespace Gym_management_System.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Gym>().Property(e=>e.Id).UseIdentityColumn(1001,1);
-            modelBuilder.Entity<Member>().Property(e => e.Id).UseIdentityColumn(101, 1);
-
-            modelBuilder.Entity<Gym>().HasData(
-                new Gym
-                {
-                    Id = 1001,
-                    GymName = "Fitness World",
-                    GymAddress = "Kathmandu"
-                });
-           
             modelBuilder.Entity<Member>().HasData(
                 new Member
                 {
@@ -32,8 +21,7 @@ namespace Gym_management_System.Models
                     Phone = "9876543210",
                     Gender = "Male",
                     city = "Kathmandu",
-                    PhotoUrl = "Blank.jpg",
-                    GymId = 1001
+                    PhotoUrl = "Blank.jpg"
                 },
                 new Member
                 {
@@ -43,10 +31,9 @@ namespace Gym_management_System.Models
                     Phone = "9876543211",
                     Gender = "Male",
                     city = "Kathmandu",
-                    PhotoUrl = "Blank.jpg",
-                    GymId = 1001
+                    PhotoUrl = "Blank.jpg"
                 });
         }
-       
+        //public DbSet<Gym> Gyms { get; set; }
     }
 }
