@@ -13,6 +13,7 @@ namespace Gym_management_System
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<IGymService, GymService>();
+            builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
