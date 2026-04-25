@@ -35,7 +35,7 @@ namespace Gym_management_System
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Member}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260422095151_Initial_Create")]
-    partial class Initial_Create
+    [Migration("20260425062822_Initial-create_with_allTables")]
+    partial class Initialcreate_with_allTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,12 @@ namespace Gym_management_System.Migrations
                         new
                         {
                             Id = 1001,
+                            GymAddress = "Kathmandu",
+                            GymName = "Fitness World"
+                        },
+                        new
+                        {
+                            Id = 1,
                             GymAddress = "Kathmandu",
                             GymName = "Fitness World"
                         });
@@ -119,7 +125,48 @@ namespace Gym_management_System.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Gym_management_System.Models.Trainer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GymId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrainerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GymId");
+
+                    b.ToTable("Trainers");
+                });
+
             modelBuilder.Entity("Gym_management_System.Models.Member", b =>
+                {
+                    b.HasOne("Gym_management_System.Models.Gym", "Gym")
+                        .WithMany("members")
+                        .HasForeignKey("GymId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gym");
+                });
+
+            modelBuilder.Entity("Gym_management_System.Models.Trainer", b =>
                 {
                     b.HasOne("Gym_management_System.Models.Gym", "Gym")
                         .WithMany()
@@ -128,6 +175,11 @@ namespace Gym_management_System.Migrations
                         .IsRequired();
 
                     b.Navigation("Gym");
+                });
+
+            modelBuilder.Entity("Gym_management_System.Models.Gym", b =>
+                {
+                    b.Navigation("members");
                 });
 #pragma warning restore 612, 618
         }
