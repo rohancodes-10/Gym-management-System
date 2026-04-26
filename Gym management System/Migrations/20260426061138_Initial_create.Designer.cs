@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260426051040_initialCreate")]
-    partial class initialCreate
+    [Migration("20260426061138_Initial_create")]
+    partial class Initial_create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,12 +50,6 @@ namespace Gym_management_System.Migrations
                             Id = 1001,
                             GymAddress = "Kathmandu",
                             GymName = "Fitness World"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            GymAddress = "Kathmandu",
-                            GymName = "Fitness World"
                         });
                 });
 
@@ -90,7 +84,6 @@ namespace Gym_management_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("city")

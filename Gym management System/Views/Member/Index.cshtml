@@ -19,7 +19,7 @@
                     <div class="card shadow-sm">
 
         
-                        <img src="/lib/"
+                        <img src="@(member.PhotoUrl !=null? "/images/"+member.PhotoUrl:"/images/Blank.jpg")"
                              class="card-img-top"
                              alt="Member Photo"
                              style="height:200px; object-fit:cover;" />

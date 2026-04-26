@@ -7,7 +7,7 @@
 namespace Gym_management_System.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class Initial_create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,7 +39,7 @@ namespace Gym_management_System.Migrations
                     Age = table.Column<int>(type: "int", nullable: false),
                     city = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GymId = table.Column<int>(type: "int", nullable: false),
-                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,11 +77,7 @@ namespace Gym_management_System.Migrations
             migrationBuilder.InsertData(
                 table: "Gyms",
                 columns: new[] { "Id", "GymAddress", "GymName" },
-                values: new object[,]
-                {
-                    { 1, "Kathmandu", "Fitness World" },
-                    { 1001, "Kathmandu", "Fitness World" }
-                });
+                values: new object[] { 1001, "Kathmandu", "Fitness World" });
 
             migrationBuilder.InsertData(
                 table: "Members",

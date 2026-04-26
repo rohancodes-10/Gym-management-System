@@ -47,12 +47,6 @@ namespace Gym_management_System.Migrations
                             Id = 1001,
                             GymAddress = "Kathmandu",
                             GymName = "Fitness World"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            GymAddress = "Kathmandu",
-                            GymName = "Fitness World"
                         });
                 });
 
@@ -87,7 +81,6 @@ namespace Gym_management_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("city")

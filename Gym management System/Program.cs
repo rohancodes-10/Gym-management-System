@@ -34,6 +34,7 @@ namespace Gym_management_System
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();

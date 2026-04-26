@@ -31,9 +31,18 @@ namespace Gym_management_System.Controllers
             };
             return View(homeViewModel);
         }
-        [HttpPost]
-        public async Task<IActionResult> Cretae(AddMemberViewModel model)
+        [HttpGet]
+        public IActionResult Create()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(AddMemberViewModel model)
+        {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
             if (!ModelState.IsValid) 
             {
                 return View(model);

@@ -3,6 +3,7 @@
     ViewBag.Title="Adding Member";
 }
 <form asp-action="Create" asp-controller="Member" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <div class="mb-3">
         <label asp-for="MemberName" class="form-label"></label>
         <input asp-for="MemberName" class="form-control" />
@@ -29,6 +30,10 @@
         <input asp-for="Address" class="form-control" />
     </div>
     <div class="mb-3">
+        <label asp-for="city" class="form-label"></label>
+        <input asp-for="city" class="form-control" />
+    </div>
+    <div class="mb-3">
         <label class="form-label">Upload Photo</label>
         <input type="file" asp-for="Photo" class="form-control" />
     </div>
@@ -36,4 +41,5 @@
         <label asp-for="GymId" class="form-label"></label>
         <input asp-for="GymId" class="form-control" />
     </div>
+   <button type="submit" class="btn btn-primary">Add</button>
 </form>
