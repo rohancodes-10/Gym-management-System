@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-md-4 text-center">
-                <img src="~/lib/"
+                <img src="@(Model.member.PhotoUrl !=null ?"/images/"+Model.member.PhotoUrl : "/images/Blank.jpg")"
                      class="img-fluid rounded"
                      style="max-height:300px; object-fit:cover;" />
             </div>
@@ -25,7 +25,7 @@
                 <p><strong>Gender:</strong> @Model.member.Gender</p>
                 <p><strong>City:</strong> @Model.member.city</p>
 
-                <a href="/Home/Index" class="btn btn-primary mt-3">
+                <a href="/Member/Index" class="btn btn-primary mt-3">
                     Back to List
                 </a>
 
