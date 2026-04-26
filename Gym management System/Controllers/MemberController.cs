@@ -1,6 +1,9 @@
 ﻿using Gym_management_System.Models;
 using Gym_management_System.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Numerics;
+using System.Reflection;
 
 namespace Gym_management_System.Controllers
 {
@@ -67,12 +70,73 @@ namespace Gym_management_System.Controllers
                     Age = model.Age,
                     city = model.city,
                     GymId = model.GymId,
-                    PhotoUrl = uniqueFileName
+                    PhotoUrl = uniqueFileName 
                 };
                 _memberService.AddMember(member);
                 return RedirectToAction("index");
             }
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            Member? member = _memberService.GetMember(Id);
+            if (member == null)
+                return NotFound();
+            MemberEditViewModel memberEditViewModel = new MemberEditViewModel
+            {
+                Id=member.Id,
+                MemberName = member.MemberName,
+                Address = member.Address,
+                Phone = member.Phone,
+                Gender = member.Gender,
+                Age=member.Age,
+                city=member.city,
+                GymId=member.GymId,
+                ExistingPhotoUrl=member.PhotoUrl
+            };
+            return View(memberEditViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(MemberEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Member member = _memberService.GetMember(model.Id);
+                member.MemberName = model.MemberName;
+                member.Address = model.Address;
+                member.Phone = model.Phone;
+                member.Gender = model.Gender;
+                member.Age = model.Age;
+                member.city = model.city;
+                member.GymId = model.GymId;
+                string? uniqueFileName = null;
+                if (model.Photo != null)
+                {
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.Photo.CopyToAsync(fileStream);
+                    }
+                    member.PhotoUrl = "/images/" + uniqueFileName;
+                }
+                else
+                {
+                    member.PhotoUrl = model.ExistingPhotoUrl;
+                }
+                _memberService.Update(member);
+                return RedirectToAction("Details", new { Id = model.Id });
+                }
+            return View(model);
+               
+            }
 
+            
+        }
 
     }
-}
+

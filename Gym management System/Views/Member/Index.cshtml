@@ -19,7 +19,9 @@
                     <div class="card shadow-sm">
 
         
-                        <img src="@(member.PhotoUrl !=null? "/images/"+member.PhotoUrl:"/images/Blank.jpg")"
+                        <img src="@(string.IsNullOrEmpty(member.PhotoUrl)
+                                                               ? Url.Content("~/images/Blank.jpg")
+                                                               : Url.Content("~/images/" + member.PhotoUrl))"
                              class="card-img-top"
                              alt="Member Photo"
                              style="height:200px; object-fit:cover;" />

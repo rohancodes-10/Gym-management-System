@@ -1,0 +1,52 @@
+﻿@model MemberEditViewModel
+@{
+    ViewBag.Title = "Editing Member";
+}
+<form asp-action="Edit" asp-controller="Member" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <input type="hidden" asp-for="Id"/>
+    <input type="hidden" asp-for="ExistingPhotoUrl"/>
+    <img src="@(string.IsNullOrEmpty(Model.ExistingPhotoUrl) ? "/images/Blank.jpg" : "/images/" + Model.ExistingPhotoUrl)"
+         class="img-thumbnail"
+         style="height:150px; object-fit:cover;" />
+        <div class="mb-3">
+        <label asp-for="MemberName" class="form-label"></label>
+        <input asp-for="MemberName" class="form-control" />
+        <span asp-validation-for="MemberName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gender" class="form-label"></label>
+        <select asp-for="Gender" class="form-control">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="city" class="form-label"></label>
+        <input asp-for="city" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Upload New Photo(Optional)</label>
+        <input type="file" asp-for="Photo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="GymId" class="form-label"></label>
+        <input asp-for="GymId" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-primary ms-2">Cancel</a>
+</form>

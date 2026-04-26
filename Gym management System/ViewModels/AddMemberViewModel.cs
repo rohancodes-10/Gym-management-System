@@ -15,7 +15,8 @@ namespace Gym_management_System.ViewModels
         public int Age { get; set; }
         public string city { get; set; }
         public int GymId { get; set; }
-        public Gym? Gym { get; set; }
+     
         public IFormFile? Photo { get; set; }
+      
     }
 }
