@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260425062822_Initial-create_with_allTables")]
-    partial class Initialcreate_with_allTables
+    [Migration("20260426051040_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,9 @@ namespace Gym_management_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -105,6 +108,7 @@ namespace Gym_management_System.Migrations
                         {
                             Id = 101,
                             Address = "Changunarayan-8-Bhaktapur",
+                            Age = 0,
                             Gender = "Male",
                             GymId = 1001,
                             MemberName = "Ram Khatri",
@@ -116,6 +120,7 @@ namespace Gym_management_System.Migrations
                         {
                             Id = 102,
                             Address = "Changunarayan-7-Bhaktapur",
+                            Age = 0,
                             Gender = "Male",
                             GymId = 1001,
                             MemberName = "Ram Hari Khatri",

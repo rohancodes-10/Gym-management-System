@@ -26,14 +26,6 @@ namespace Gym_management_System.Models
                 });
            
 
-            modelBuilder.Entity<Gym>().HasData(
-                new Gym
-                {
-                    Id = 1,
-                    GymName = "Fitness World",
-                    GymAddress = "Kathmandu"
-                });
-
             modelBuilder.Entity<Member>().HasData(
                 new Member
                 {

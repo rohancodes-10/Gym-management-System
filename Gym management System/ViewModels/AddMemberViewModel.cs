@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+﻿using Gym_management_System.Models;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
-namespace Gym_management_System.Models
+namespace Gym_management_System.ViewModels
 {
-    public class Member
+    public class AddMemberViewModel
     {
-        public int Id { get; set; }
+        [Required]
+        [Display(Name = "Name")]
         public string MemberName { get; set; } = string.Empty;
         public string Address { get; set; }
         public string Phone { get; set; }
@@ -13,6 +16,6 @@ namespace Gym_management_System.Models
         public string city { get; set; }
         public int GymId { get; set; }
         public Gym Gym { get; set; }
-        public string? PhotoUrl { get; set; }
+        public IFormFile? Photo { get; set; }
     }
 }

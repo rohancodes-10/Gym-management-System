@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Home\NewFolder\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

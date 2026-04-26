@@ -1,0 +1,39 @@
+﻿@model AddMemberViewModel
+@{
+    ViewBag.Title="Adding Member";
+}
+<form asp-action="Create" asp-controller="Member" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="MemberName" class="form-label"></label>
+        <input asp-for="MemberName" class="form-control" />
+        <span asp-validation-for="MemberName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gender" class="form-label"></label>
+      <select asp-for="Gender" class="form-control">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Upload Photo</label>
+        <input type="file" asp-for="Photo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="GymId" class="form-label"></label>
+        <input asp-for="GymId" class="form-control" />
+    </div>
+</form>

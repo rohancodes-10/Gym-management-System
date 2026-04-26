@@ -7,7 +7,7 @@
 namespace Gym_management_System.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialcreate_with_allTables : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,6 +36,7 @@ namespace Gym_management_System.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     city = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GymId = table.Column<int>(type: "int", nullable: false),
                     PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -84,11 +85,11 @@ namespace Gym_management_System.Migrations
 
             migrationBuilder.InsertData(
                 table: "Members",
-                columns: new[] { "Id", "Address", "Gender", "GymId", "MemberName", "Phone", "PhotoUrl", "city" },
+                columns: new[] { "Id", "Address", "Age", "Gender", "GymId", "MemberName", "Phone", "PhotoUrl", "city" },
                 values: new object[,]
                 {
-                    { 101, "Changunarayan-8-Bhaktapur", "Male", 1001, "Ram Khatri", "9876543210", "Blank.jpg", "Kathmandu" },
-                    { 102, "Changunarayan-7-Bhaktapur", "Male", 1001, "Ram Hari Khatri", "9876543211", "Blank.jpg", "Kathmandu" }
+                    { 101, "Changunarayan-8-Bhaktapur", 0, "Male", 1001, "Ram Khatri", "9876543210", "Blank.jpg", "Kathmandu" },
+                    { 102, "Changunarayan-7-Bhaktapur", 0, "Male", 1001, "Ram Hari Khatri", "9876543211", "Blank.jpg", "Kathmandu" }
                 });
 
             migrationBuilder.CreateIndex(
