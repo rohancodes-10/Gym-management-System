@@ -6,5 +6,6 @@
         Member? GetMember(int id);
         Member AddMember(Member member);
         Member Update(Member changes);
+        Member Delete(int id);
     }
 }

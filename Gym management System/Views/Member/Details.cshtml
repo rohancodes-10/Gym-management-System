@@ -27,12 +27,27 @@
                 <p><strong>Gender:</strong> @Model.member.Gender</p>
                 <p><strong>City:</strong> @Model.member.city</p>
 
-                <a href="/Member/Index" class="btn btn-primary mt-3">
-                    Back to List
-                </a>
-                <a asp-controller="Member" asp-action="Edit" asp-route-Id="@Model.member.Id" class="btn btn-primary mt-3">
-                    Edit
-                </a>
+                <div class="d-flex justify-content-between mt-3">
+
+                   
+                    <div>
+                        <a href="/Member/Index" class="btn btn-secondary">
+                            Back to List
+                        </a>
+
+                        <a asp-controller="Member" asp-action="Edit" asp-route-Id="@Model.member.Id" class="btn btn-primary ms-2">
+                        Edit
+                        </a>
+                    </div>
+
+                   
+                    <div>
+                        <a asp-controller="Member" asp-action="Delete" asp-route-Id="@Model.member.Id" class="btn btn-danger">   
+                            Delete
+                        </a>
+                    </div>
+
+                </div>
             </div>
 
         </div>

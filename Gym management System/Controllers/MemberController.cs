@@ -7,14 +7,14 @@ using System.Reflection;
 
 namespace Gym_management_System.Controllers
 {
-    public class MemberController: Controller
+    public class MemberController : Controller
     {
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public MemberController(IMemberService memberservice, IWebHostEnvironment webHostEnvironment )
+        public MemberController(IMemberService memberservice, IWebHostEnvironment webHostEnvironment)
         {
             _memberService = memberservice;
-           _webHostEnvironment = webHostEnvironment;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -46,7 +46,7 @@ namespace Gym_management_System.Controllers
             {
                 Console.WriteLine(error.ErrorMessage);
             }
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -61,20 +61,20 @@ namespace Gym_management_System.Controllers
                     await model.Photo.CopyToAsync(fileStream);
                 }
             }
-                var member = new Member
-                {
-                    MemberName = model.MemberName,
-                    Address = model.Address,
-                    Phone = model.Phone,
-                    Gender = model.Gender,
-                    Age = model.Age,
-                    city = model.city,
-                    GymId = model.GymId,
-                    PhotoUrl = uniqueFileName 
-                };
-                _memberService.AddMember(member);
-                return RedirectToAction("index");
-            }
+            var member = new Member
+            {
+                MemberName = model.MemberName,
+                Address = model.Address,
+                Phone = model.Phone,
+                Gender = model.Gender,
+                Age = model.Age,
+                city = model.city,
+                GymId = model.GymId,
+                PhotoUrl = uniqueFileName
+            };
+            _memberService.AddMember(member);
+            return RedirectToAction("index");
+        }
         [HttpGet]
         public IActionResult Edit(int Id)
         {
@@ -83,15 +83,15 @@ namespace Gym_management_System.Controllers
                 return NotFound();
             MemberEditViewModel memberEditViewModel = new MemberEditViewModel
             {
-                Id=member.Id,
+                Id = member.Id,
                 MemberName = member.MemberName,
                 Address = member.Address,
                 Phone = member.Phone,
                 Gender = member.Gender,
-                Age=member.Age,
-                city=member.city,
-                GymId=member.GymId,
-                ExistingPhotoUrl=member.PhotoUrl
+                Age = member.Age,
+                city = member.city,
+                GymId = member.GymId,
+                ExistingPhotoUrl = member.PhotoUrl
             };
             return View(memberEditViewModel);
         }
@@ -130,10 +130,29 @@ namespace Gym_management_System.Controllers
                 }
                 _memberService.Update(member);
                 return RedirectToAction("Details", new { Id = model.Id });
-                }
-            return View(model);
-               
             }
+            return View(model);
+
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Member? member = _memberService.GetMember(id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            if (!string.IsNullOrEmpty(member.PhotoUrl))
+            {
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", member.PhotoUrl);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+            _memberService.Delet
+        }
 
             
         }

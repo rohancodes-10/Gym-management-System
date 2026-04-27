@@ -1,4 +1,6 @@
-﻿namespace Gym_management_System.Models
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+
+namespace Gym_management_System.Models
 {
     public class MemberService:IMemberService
     {
@@ -27,6 +29,17 @@
             member.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             context.SaveChanges();
             return changes;
+        }
+        public Member Delete(int id)
+        {
+            var member = context.Members.Find(id);
+            if (member == null)
+            {
+                return null;
+            }
+            context.Members.Remove(member);
+            context.SaveChanges();
+            return member;
         }
     }
 }
