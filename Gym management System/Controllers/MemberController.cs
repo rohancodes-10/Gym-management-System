@@ -122,7 +122,7 @@ namespace Gym_management_System.Controllers
                     {
                         await model.Photo.CopyToAsync(fileStream);
                     }
-                    member.PhotoUrl = "/images/" + uniqueFileName;
+                    member.PhotoUrl = uniqueFileName;
                 }
                 else
                 {
