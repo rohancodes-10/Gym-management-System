@@ -134,7 +134,7 @@ namespace Gym_management_System.Controllers
             return View(model);
 
         }
-        [HttpGet]
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             Member? member = _memberService.GetMember(id);
@@ -151,7 +151,8 @@ namespace Gym_management_System.Controllers
                     System.IO.File.Delete(filePath);
                 }
             }
-            _memberService.Delet
+            _memberService.Delete(id);
+            return RedirectToAction("index");
         }
 
             
