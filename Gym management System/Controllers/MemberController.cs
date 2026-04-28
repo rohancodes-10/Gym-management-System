@@ -116,6 +116,14 @@ namespace Gym_management_System.Controllers
                     {
                         Directory.CreateDirectory(uploadsFolder);
                     }
+                    if (!string.IsNullOrEmpty(model.ExistingPhotoUrl))
+                    {
+                        string oldFilePath = Path.Combine(uploadsFolder, model.ExistingPhotoUrl);
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
