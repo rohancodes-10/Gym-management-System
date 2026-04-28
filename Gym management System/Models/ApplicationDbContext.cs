@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Gym_management_System.Models.Members;
+using Gym_management_System.Models.Trainers;
+using Gym_management_System.Models.Gyms;
 namespace Gym_management_System.Models
 {
     public class ApplicationDbContext:DbContext

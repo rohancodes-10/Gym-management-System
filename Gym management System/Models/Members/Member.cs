@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-
-namespace Gym_management_System.Models
+using Gym_management_System.Models.Gyms;
+namespace Gym_management_System.Models.Members
 {
     public class Member
     {

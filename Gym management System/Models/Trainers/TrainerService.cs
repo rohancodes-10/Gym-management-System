@@ -1,4 +1,4 @@
-﻿namespace Gym_management_System.Models
+﻿namespace Gym_management_System.Models.Trainers
 {
     public class TrainerService:ITrainerService
     {

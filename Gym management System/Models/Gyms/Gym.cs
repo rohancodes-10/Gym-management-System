@@ -1,4 +1,5 @@
-﻿namespace Gym_management_System.Models
+﻿using Gym_management_System.Models.Members;
+namespace Gym_management_System.Models.Gyms
 {
     public class Gym
     {

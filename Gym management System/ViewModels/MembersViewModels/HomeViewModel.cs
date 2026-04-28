@@ -1,6 +1,6 @@
-﻿using Gym_management_System.Models;
+﻿using Gym_management_System.Models.Members;
 
-namespace Gym_management_System.ViewModels
+namespace Gym_management_System.ViewModels.Members
 {
     public class HomeViewModel
     {

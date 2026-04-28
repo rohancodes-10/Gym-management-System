@@ -1,4 +1,7 @@
 using Gym_management_System.Models;
+using Gym_management_System.Models.Gyms;
+using Gym_management_System.Models.Trainers;
+using Gym_management_System.Models.Members;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym_management_System

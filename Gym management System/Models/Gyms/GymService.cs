@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
-namespace Gym_management_System.Models
+namespace Gym_management_System.Models.Gyms
 {
     public class GymService : IGymService
     {

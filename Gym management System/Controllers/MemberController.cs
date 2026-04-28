@@ -1,5 +1,5 @@
-﻿using Gym_management_System.Models;
-using Gym_management_System.ViewModels;
+﻿using Gym_management_System.Models.Members;
+using Gym_management_System.ViewModels.Members;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Numerics;

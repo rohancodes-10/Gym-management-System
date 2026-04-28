@@ -1,4 +1,4 @@
-﻿namespace Gym_management_System.Models
+﻿namespace Gym_management_System.Models.Gyms
 {
     public interface IGymService
     {

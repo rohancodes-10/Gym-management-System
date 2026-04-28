@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace Gym_management_System.Models
+namespace Gym_management_System.Models.Members
 {
     public class MemberService:IMemberService
     {

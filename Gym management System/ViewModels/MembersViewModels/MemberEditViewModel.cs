@@ -1,4 +1,4 @@
-﻿namespace Gym_management_System.ViewModels
+﻿namespace Gym_management_System.ViewModels.Members
 {
     public class MemberEditViewModel:AddMemberViewModel
     {
