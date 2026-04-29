@@ -25,7 +25,9 @@ namespace Gym_management_System.Models
                 {
                     Id = 1001,
                     GymName = "Fitness World",
-                    GymAddress = "Kathmandu"
+                    GymAddress = "Gokarneshwor-8-Kathmandu",
+                    Phone="9876543210",
+                    City="kathmandu"
                 });
            
 

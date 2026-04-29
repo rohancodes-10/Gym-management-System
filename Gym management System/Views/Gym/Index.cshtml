@@ -1,0 +1,49 @@
+﻿@using Gym_management_System.ViewModels.GymViewModels;
+@model GymHomeViewModels
+@{
+    ViewData["Title"] = "Gyms";
+}
+<h2>Gyms</h2>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-controller="Gym" asp-action="Create" class="btn btn-primary">Add Gyms</a>
+
+</div>
+
+   <div class="row">
+       
+            @if(Model.Gyms!= null && Model.Gyms.Any())
+            {
+                foreach(var gym in Model.Gyms)
+                { <div class="col-md-3 mb-3">
+
+                <a asp-action="Details" asp-controller="Gym" asp-route-id=@gym.Id>
+                    <div class="card shadow-sm">
+
+                        <div class="card-body text-center">
+
+                            <h6 class="text-muted">ID: @gym.Id</h6>
+                            <h5 class="card-title">@gym.GymName</h5>
+                            <p class="text-muted">📍 @gym.GymAddress</p>
+                            <p class="text-muted">City: 🏙️ @gym.City</p>
+                            <p class="text-muted">Phone: 📞 @gym.Phone</p>
+
+                        </div>
+                      </div>
+           </a>
+
+
+        </div>
+
+ 
+                }
+            }
+    else
+    {
+        <div class="text-center mt-5">
+            <h5 class="text-muted">No gyms added yet</h5>
+            <a asp-controller="Gym" asp-action="Create" class="btn btn-primary mt-2">Add First Gym</a>
+        </div>
+    }
+   </div>
+
+

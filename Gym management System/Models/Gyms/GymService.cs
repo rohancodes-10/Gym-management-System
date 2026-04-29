@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Gym_management_System.Models.Gyms
@@ -16,7 +17,9 @@ namespace Gym_management_System.Models.Gyms
         }
         public Gym GetGym(int id)
         {
-            return context.Gyms.Find(id);
+            return context.Gyms
+            .Include(g => g.members)  
+               .FirstOrDefault(g => g.Id == id);
         }
         public Gym AddGym(Gym gym)
         {
