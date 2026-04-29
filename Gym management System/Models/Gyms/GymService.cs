@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Gym_management_System.Models.Gyms
 {
@@ -23,5 +24,23 @@ namespace Gym_management_System.Models.Gyms
             context.SaveChanges();
             return gym;
         }
+        public Gym Update(Gym changes) 
+        {
+            var gym = context.Gyms.Attach(changes);
+            gym.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+            return changes;
+        }
+        public Gym Delete(int id) 
+        {
+           var gym= context.Gyms.Find(id);
+            if (gym == null)
+            {
+                return null;
+            }
+            context .Gyms.Remove(gym);
+            return gym;
+        }
+
     }
 }
