@@ -20,5 +20,11 @@ namespace Gym_management_System.Controllers
             };
             return View(gymHomeViewModels);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+       
     }
 }
