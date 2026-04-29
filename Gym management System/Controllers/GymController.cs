@@ -25,6 +25,22 @@ namespace Gym_management_System.Controllers
         {
             return View();
         }
-       
+        [HttpPost]
+        public async Task<IActionResult> Create(AddGymViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var gym = new Gym
+            {
+                GymName=model.GymName,
+                GymAddress=model.GymAddress,
+                Phone=model.Phone,
+                City=model.City
+            };
+            gymService.AddGym(gym);
+            return RedirectToAction("Index");
+        }
     }
 }
