@@ -62,10 +62,11 @@ namespace Gym_management_System.Controllers
             }
             EditGymViewModel editGymViewModel = new EditGymViewModel
             {
+                Id = gym.Id,
                 GymName = gym.GymName,
-                GymAddress=gym.GymAddress,
-                City=gym.City,
-                Phone=gym.Phone
+                GymAddress = gym.GymAddress,
+                City = gym.City,
+                Phone = gym.Phone
             };
             return View(editGymViewModel);
         }
@@ -83,6 +84,18 @@ namespace Gym_management_System.Controllers
             }
 
             return RedirectToAction("Details", new { id = model.id });
+        }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Gym? gym = gymService.GetGym(id);
+            if (gym == null)
+            {
+                return NotFound();
+            }
+            gymService.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }

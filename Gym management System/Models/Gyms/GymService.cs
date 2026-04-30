@@ -41,7 +41,8 @@ namespace Gym_management_System.Models.Gyms
             {
                 return null;
             }
-            context .Gyms.Remove(gym);
+            context.Gyms.Remove(gym);
+            context.SaveChanges();
             return gym;
         }
 

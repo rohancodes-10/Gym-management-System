@@ -29,7 +29,7 @@
                asp-route-id="@Model.gym.Id"
                class="btn btn-warning">Edit</a>
 
-            <form asp-action="Delete" asp-controller="Gym" method="post">
+            <form asp-action="Delete" asp-controller="Gym" method="post" onsubmit="return confirm('Do you want to delete TheGYm')">
                 <input type="hidden" name="id" value="@Model.gym.Id" />
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
