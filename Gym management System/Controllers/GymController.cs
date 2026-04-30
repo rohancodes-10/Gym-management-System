@@ -1,6 +1,7 @@
 ﻿using Gym_management_System.Models.Gyms;
 using Gym_management_System.ViewModels.GymViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Gym_management_System.Controllers
 {
@@ -50,6 +51,24 @@ namespace Gym_management_System.Controllers
                 gym = gym
             };
             return View(gymHomeViewModels);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var gym = gymService.GetGym(id);
+            if (gym == null)
+            {
+                return null;
+            }
+            EditGymViewModel editGymViewModel = new EditGymViewModel
+            {
+                GymName = gym.GymName,
+                GymAddress=gym.GymAddress,
+                City=gym.City,
+                Phone=gym.Phone
+            };
+            return View(editGymViewModel);
+
         }
     }
 }
