@@ -2,7 +2,7 @@
 {
     public interface IMemberService
     {
-        IEnumerable<Member> GetAllMembers();
+        IEnumerable<Member> GetAllMembersByGymId(int gymid);
         Member? GetMember(int id);
         Member AddMember(Member member);
         Member Update(Member changes);

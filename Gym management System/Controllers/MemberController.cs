@@ -16,9 +16,9 @@ namespace Gym_management_System.Controllers
             _memberService = memberservice;
             _webHostEnvironment = webHostEnvironment;
         }
-        public IActionResult Index()
+        public IActionResult Index(int gymid)
         {
-            var member = _memberService.GetAllMembers();
+            var member = _memberService.GetAllMembersByGymId(gymid);
             HomeViewModel homeViewModel = new HomeViewModel
             {
                 members = member

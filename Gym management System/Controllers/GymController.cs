@@ -42,5 +42,14 @@ namespace Gym_management_System.Controllers
             gymService.AddGym(gym);
             return RedirectToAction("Index");
         }
+        public IActionResult Details(int id)
+        {
+            var gym = gymService.GetGym(id);
+            GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
+            {
+                gym = gym
+            };
+            return View(gymHomeViewModels);
+        }
     }
 }

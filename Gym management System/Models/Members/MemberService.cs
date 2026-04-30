@@ -9,9 +9,11 @@ namespace Gym_management_System.Models.Members
         {
             this.context = context;
         }
-        public IEnumerable<Member> GetAllMembers()
+        public IEnumerable<Member> GetAllMembersByGymId(int gymId)
         {
-            return context.Members.ToList();
+            return context.Members
+                .Where(m=>m.GymId==gymId)
+                .ToList();
         }
         public Member? GetMember(int id)
         {
