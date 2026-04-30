@@ -68,7 +68,21 @@ namespace Gym_management_System.Controllers
                 Phone=gym.Phone
             };
             return View(editGymViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditGymViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Gym gym = gymService.GetGym(model.id);
+                gym.GymName = model.GymName;
+                gym.GymAddress = model.GymAddress;
+                gym.City = model.City;
+                gym.Phone = model.Phone;
+                gymService.Update(gym);
+            }
 
+            return RedirectToAction("Details", new { id = model.id });
         }
     }
 }
