@@ -73,7 +73,7 @@ namespace Gym_management_System.Controllers
                 PhotoUrl = uniqueFileName
             };
             _memberService.AddMember(member);
-            return RedirectToAction("index");
+            return RedirectToAction("index" ,new {gymid=model.GymId });
         }
         [HttpGet]
         public IActionResult Edit(int Id)
