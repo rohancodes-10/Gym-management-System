@@ -160,7 +160,7 @@ namespace Gym_management_System.Controllers
                 }
             }
             _memberService.Delete(id);
-            return RedirectToAction("index");
+            return RedirectToAction("index", new {gymid=member.GymId});
         }
 
             
