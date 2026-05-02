@@ -21,7 +21,8 @@ namespace Gym_management_System.Controllers
             var member = _memberService.GetAllMembersByGymId(gymid);
             HomeViewModel homeViewModel = new HomeViewModel
             {
-                members = member
+                members = member,
+                gymid = gymid
             };
             return View(homeViewModel);
         }
@@ -35,9 +36,13 @@ namespace Gym_management_System.Controllers
             return View(homeViewModel);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int gymid)
         {
-            return View();
+            AddMemberViewModel model = new AddMemberViewModel
+            {
+                GymId = gymid
+            };
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Create(AddMemberViewModel model)

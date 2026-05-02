@@ -6,5 +6,6 @@ namespace Gym_management_System.ViewModels.Members
     {
         public IEnumerable<Member> members { get; set; }
         public Member? member { get; set; }
+        public int gymid { get; set; }
     }
 }

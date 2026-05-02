@@ -39,8 +39,7 @@
         <input type="file" asp-for="Photo" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="GymId" class="form-label"></label>
-        <input asp-for="GymId" class="form-control" />
+        <input asp-for="GymId" value="@Model.GymId" type="hidden" class="form-control" />
     </div>
    <button type="submit" class="btn btn-primary">Add</button>
 </form>
