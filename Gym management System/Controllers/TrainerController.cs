@@ -8,11 +8,11 @@ namespace Gym_management_System.Controllers
     public class TrainerController:Controller
     {
         public readonly ITrainerService trainerService;
-        public readonly IWebHostEnvironment webHostEnvironment;
+        public readonly IWebHostEnvironment _webHostEnvironment;
         public TrainerController(ITrainerService trainerService, IWebHostEnvironment webHostEnvironment)
         {
             this.trainerService = trainerService;
-            this.webHostEnvironment = webHostEnvironment;
+          _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult index(int gymid)
         {
@@ -32,6 +32,45 @@ namespace Gym_management_System.Controllers
                 trainer = trainer
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Create(int gymid) 
+        {
+            var model = new AddTrainerViewModel
+            {
+                GymId =gymid
+            };
+            return View(model);
+        }
+        public async Task<IActionResult> Create(AddTrainerViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            string? uniqueFileName = null;
+            if (model.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.Photo.CopyToAsync(fileStream);
+                }
+            }
+            Trainer trainer = new Trainer
+            {
+                TrainerName=model.TrainerName,
+                TrainerAddress=model.TrainerAddress,
+                Phone=model.Phone,
+                Age=model.Age,
+                GymId = model.GymId,
+                PhotoUrl=uniqueFileName
+            };
+            trainerService.AddTrainer(trainer);
+            return RedirectToAction("index", new { gymid = model.GymId });
         }
     }
 }
