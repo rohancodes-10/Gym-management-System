@@ -58,7 +58,7 @@ namespace Gym_management_System.Controllers
             var gym = gymService.GetGym(id);
             if (gym == null)
             {
-                return null;
+                return NotFound();
             }
             EditGymViewModel editGymViewModel = new EditGymViewModel
             {
@@ -81,9 +81,10 @@ namespace Gym_management_System.Controllers
                 gym.City = model.City;
                 gym.Phone = model.Phone;
                 gymService.Update(gym);
+                return RedirectToAction("Details", new { id = model.id });
             }
 
-            return RedirectToAction("Details", new { id = model.id });
+            return View(model);
         }
         [HttpPost]
         public IActionResult Delete(int id)

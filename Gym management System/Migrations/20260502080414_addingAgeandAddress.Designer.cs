@@ -3,6 +3,7 @@ using Gym_management_System.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260502080414_addingAgeandAddress")]
+    partial class addingAgeandAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,18 +168,6 @@ namespace Gym_management_System.Migrations
                     b.HasIndex("GymId");
 
                     b.ToTable("Trainers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 29,
-                            GymId = 1001,
-                            Phone = "9876543210",
-                            PhotoUrl = "Blank.jpg",
-                            TrainerAddress = "Gokarneshwor-8-Kathmandu",
-                            TrainerName = "HariLal"
-                        });
                 });
 
             modelBuilder.Entity("Gym_management_System.Models.Members.Member", b =>

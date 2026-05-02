@@ -5,11 +5,13 @@
         private ApplicationDbContext _context;
         public TrainerService(ApplicationDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
-        public IEnumerable<Trainer> GetTrainers()
+        public IEnumerable<Trainer> GetTrainersByGymId(int gymid)
         {
-            return _context.Trainers.ToList();
+            return _context.Trainers.
+                Where(g=>g.GymId==gymid)
+                .ToList();
         }
         public Trainer GetTrainer(int id)
         { 

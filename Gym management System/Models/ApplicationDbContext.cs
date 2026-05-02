@@ -19,6 +19,21 @@ namespace Gym_management_System.Models
 
             modelBuilder.Entity<Gym>().Property(e=>e.Id).UseIdentityColumn(1001,1);
             modelBuilder.Entity<Member>().Property(e => e.Id).UseIdentityColumn(101, 1);
+            modelBuilder.Entity<Trainer>().Property(e => e.Id).UseIdentityColumn(1, 1);
+
+            modelBuilder.Entity<Trainer>().HasData(
+               new Trainer
+               {
+                   Id = 1,
+                   TrainerName = "HariLal",
+                   TrainerAddress = "Gokarneshwor-8-Kathmandu",
+                   Phone = "9876543210",
+                   Age=29,
+                   GymId = 1001,
+                   PhotoUrl="Blank.jpg"
+                   
+               });
+
 
             modelBuilder.Entity<Gym>().HasData(
                 new Gym

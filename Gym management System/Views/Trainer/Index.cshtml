@@ -1,0 +1,50 @@
+﻿@model TrainerHomeViewModels
+@{
+    ViewData["Title"] = "Trainers";
+}
+
+<h2>Trainers List</h2>
+<div class="d-flex justify-content-end mb-3">
+    <a asp-controller="Trainer" asp-action="Create" class="btn btn-primary" asp-route-gymid="@Model.gymid">Add Trainer</a>
+</div>
+
+<div class="row">
+    @if (Model.trainers != null && Model.trainers.Any())
+    {
+        foreach (var trainer in Model.trainers)
+        {
+            <div class="col-md-3 mb-3">
+                <a asp-action="Details" asp-controller="Trainer" asp-route-id="@trainer.Id">
+                    <div class="card shadow-sm">
+
+                        @if (!string.IsNullOrEmpty(trainer.PhotoUrl))
+                        {
+                            <img src="@Url.Content("~/images/" + trainer.PhotoUrl)"
+                                 class="card-img-top" alt="Trainer Photo"
+                                 style="height:200px; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <div style="height:200px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:3rem; font-weight:700; color:#ccc;">
+                                @trainer.TrainerName?.Substring(0, 1).ToUpper()
+                            </div>
+                        }
+
+                        <div class="card-body text-center">
+                            <h6 class="text-muted">ID: @trainer.Id</h6>
+                            <h5 class="card-title">@trainer.TrainerName</h5>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="text-center mt-5">
+            <h5 class="text-muted">No trainers added yet</h5>
+            <a asp-controller="Trainer" asp-action="Create" asp-route-gymid="@Model.gymid" class="btn btn-primary mt-2">Add First Trainer</a>
+        </div>
+    }
+</div>
