@@ -24,5 +24,14 @@ namespace Gym_management_System.Controllers
             };
             return View(model);
         }
+        public IActionResult Details(int id)
+        {
+            var trainer = trainerService.GetTrainer(id);
+            var model = new TrainerHomeViewModels
+            {
+                trainer = trainer
+            };
+            return View(model);
+        }
     }
 }

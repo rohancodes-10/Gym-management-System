@@ -1,0 +1,59 @@
+﻿@model TrainerHomeViewModels
+
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg p-4">
+
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="@(string.IsNullOrEmpty(Model.trainer.PhotoUrl)
+                                                                                     ? Url.Content("~/images/Blank.jpg")
+                                                                                     : Url.Content("~/images/" + Model.trainer.PhotoUrl))"
+                     class="img-fluid rounded"
+                     style="max-height:300px; object-fit:cover;" />
+            </div>
+            <div class="col-md-8">
+
+                <h3>@Model.trainer.TrainerName</h3>
+                <hr />
+
+                <p><strong>ID:</strong> @Model.trainer.Id</p>
+                <p><strong>Address:</strong> @Model.trainer.TrainerAddress</p>
+                <p><strong>Phone:</strong> @Model.trainer.Phone</p>
+               
+
+                <div class="d-flex justify-content-between mt-3">
+
+                   
+                    <div>
+                        <a asp-action="index" asp-controller="Trainer" asp-route-gymid="@Model.trainer.GymId" class="btn btn-secondary">
+                            Back to List
+                        </a>
+
+                        <a asp-controller="Member" asp-action="Edit" asp-route-Id="@Model.trainer.Id" class="btn btn-warning ms-2">
+                            Edit
+                        </a>
+                    </div>
+
+                   
+                    <div>
+                        <form asp-action="Delete" asp-controller="Member" method="post" onsubmit="return confirm('Are you sure you want to delete this member')">
+                            <input type="hidden" name="id" value="@Model.trainer.Id" />
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
