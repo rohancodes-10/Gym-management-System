@@ -1,7 +1,11 @@
 ﻿using Gym_management_System.Models;
+using Gym_management_System.Models.Gyms;
+using Gym_management_System.Models.Members;
 using Gym_management_System.Models.Trainers;
 using Gym_management_System.ViewModels.TrainerViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Gym_management_System.Controllers
 {
@@ -43,6 +47,7 @@ namespace Gym_management_System.Controllers
             };
             return View(model);
         }
+        [HttpPost]
         public async Task<IActionResult> Create(AddTrainerViewModel model)
         {
             if (!ModelState.IsValid)
@@ -71,6 +76,71 @@ namespace Gym_management_System.Controllers
             };
             trainerService.AddTrainer(trainer);
             return RedirectToAction("index", new { gymid = model.GymId });
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+           Trainer? trainer = trainerService.GetTrainer(id);
+            if (trainer == null)
+            {
+                return NotFound();
+            }
+            var model = new EditTrainerViewModel
+            {
+                TrainerName = trainer.TrainerName,
+                TrainerAddress = trainer.TrainerAddress,
+                Phone = trainer.Phone,
+                Age = trainer.Age,
+                GymId = trainer.GymId,
+                ExistingPhotoUrl = trainer.PhotoUrl
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTrainerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Trainer? trainer = trainerService.GetTrainer(model.id);
+                trainer.TrainerName = model.TrainerName;
+                trainer.TrainerAddress = model.TrainerAddress;
+                trainer.Phone = model.Phone;
+                trainer.Age = model.Age;
+                trainer.GymId = model.GymId;
+                string? uniqueFileName = null;
+                if (model.Photo != null)
+                {
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+                    if (!string.IsNullOrEmpty(model.ExistingPhotoUrl))
+                    {
+                        string oldFilePath = Path.Combine(uploadsFolder, model.ExistingPhotoUrl);
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.Photo.CopyToAsync(fileStream);
+                    }
+                    trainer.PhotoUrl = uniqueFileName;
+                }
+                else
+                {
+                    trainer.PhotoUrl = model.ExistingPhotoUrl;
+                }
+
+                trainerService.Update(trainer);
+
+                return RedirectToAction("Details", new { Id = model.Id });
+            }
+            return View(model);
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿@model EditTrainerViewModel
+@{
+    ViewBag.Title = "Adding Trainer";
+}
+<form asp-action="Edit" asp-controller="Trainer" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ExistingPhotoUrl" />
+    <div class="mb-3">
+        <label asp-for="TrainerName" class="form-label"></label>
+        <input asp-for="TrainerName" class="form-control" />
+        <span asp-validation-for="TrainerName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+ 
+    <div class="mb-3">
+        <label asp-for="TrainerAddress" class="form-label"></label>
+        <input asp-for="TrainerAddress" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Upload Photo</label>
+        <input type="file" asp-for="Photo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <input asp-for="GymId" value="@Model.GymId" type="hidden" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
