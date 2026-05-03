@@ -1,6 +1,6 @@
 ﻿namespace Gym_management_System.Models.Staffs
 {
-    public class StaffService
+    public class StaffService:IStaffService
     {
        
     }
