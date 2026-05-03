@@ -1,4 +1,5 @@
 ﻿using Gym_management_System.Models.Members;
+using Gym_management_System.Models.Trainers;
 namespace Gym_management_System.Models.Gyms
 {
     public class Gym
@@ -9,6 +10,7 @@ namespace Gym_management_System.Models.Gyms
         public string City { get; set; } = string.Empty;
         public string Phone {  get; set; } = string.Empty;
         public ICollection<Member> members { get; set; }
-        
+        public ICollection<Trainer> trainers { get; set; }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Gym_management_System.Models.Trainers
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+
+namespace Gym_management_System.Models.Trainers
 {
     public class TrainerService:ITrainerService
     {
@@ -29,6 +31,17 @@
             trainer.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
             return changes;
+        }
+        public Trainer Delete(int id)
+        {
+            var trainer = _context.Trainers.Find(id);
+            if (trainer == null)
+            {
+                return null;
+            }
+            _context.Trainers.Remove(trainer);
+            _context.SaveChanges();
+            return trainer;
         }
     }
 }

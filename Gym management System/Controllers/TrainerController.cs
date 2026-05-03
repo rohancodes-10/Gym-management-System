@@ -142,5 +142,24 @@ namespace Gym_management_System.Controllers
             }
             return View(model);
         }
+        public IActionResult Delete(int id)
+        {
+            var trainer = trainerService.GetTrainer(id);
+            if (trainer == null)
+            {
+                return NotFound();
+            }
+            if (!string.IsNullOrEmpty(trainer.PhotoUrl))
+            {
+                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", trainer.PhotoUrl);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+            trainerService.Delete(id);
+            return RedirectToAction("index", new { gymid = trainer.GymId });
+        }
     }
 }

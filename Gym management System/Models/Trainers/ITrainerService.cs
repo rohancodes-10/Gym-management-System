@@ -6,5 +6,6 @@
          Trainer? GetTrainer(int id);
          Trainer AddTrainer(Trainer trainer);
         Trainer Update(Trainer Changes);
+        Trainer Delete(int id);
     }
 }

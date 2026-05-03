@@ -19,6 +19,7 @@ namespace Gym_management_System.Models.Gyms
         {
             return context.Gyms
             .Include(g => g.members)  
+            .Include(g=>g.trainers)
                .FirstOrDefault(g => g.Id == id);
         }
         public Gym AddGym(Gym gym)
