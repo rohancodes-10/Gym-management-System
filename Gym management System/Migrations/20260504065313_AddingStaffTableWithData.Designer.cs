@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gym_management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260503180418_addingStafftable")]
-    partial class addingStafftable
+    [Migration("20260504065313_AddingStaffTableWithData")]
+    partial class AddingStaffTableWithData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,6 +133,59 @@ namespace Gym_management_System.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Gym_management_System.Models.Staffs.Staff", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 10001L);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GymId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GymId");
+
+                    b.ToTable("Staffs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 10001,
+                            Age = 29,
+                            Gender = "Male",
+                            GymId = 1001,
+                            Phone = "9876543210",
+                            PhotoUrl = "Blank.jpg",
+                            StaffAddress = "Gokarneshwor-8-Kathmandu",
+                            StaffName = "HariLal"
+                        });
+                });
+
             modelBuilder.Entity("Gym_management_System.Models.Trainers.Trainer", b =>
                 {
                     b.Property<int>("Id")
@@ -190,6 +243,17 @@ namespace Gym_management_System.Migrations
                         .IsRequired();
 
                     b.Navigation("Gym");
+                });
+
+            modelBuilder.Entity("Gym_management_System.Models.Staffs.Staff", b =>
+                {
+                    b.HasOne("Gym_management_System.Models.Gyms.Gym", "gym")
+                        .WithMany()
+                        .HasForeignKey("GymId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("gym");
                 });
 
             modelBuilder.Entity("Gym_management_System.Models.Trainers.Trainer", b =>

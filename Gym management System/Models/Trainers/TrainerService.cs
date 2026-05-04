@@ -4,7 +4,7 @@ namespace Gym_management_System.Models.Trainers
 {
     public class TrainerService:ITrainerService
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public TrainerService(ApplicationDbContext context)
         {
             _context = context;

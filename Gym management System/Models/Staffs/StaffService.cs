@@ -4,7 +4,7 @@ namespace Gym_management_System.Models.Staffs
 {
     public class StaffService:IStaffService
     {
-        public readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
        
         public StaffService(ApplicationDbContext context)
         {

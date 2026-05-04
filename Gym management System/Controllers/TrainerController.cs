@@ -11,8 +11,8 @@ namespace Gym_management_System.Controllers
 {
     public class TrainerController:Controller
     {
-        public readonly ITrainerService trainerService;
-        public readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ITrainerService trainerService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public TrainerController(ITrainerService trainerService, IWebHostEnvironment webHostEnvironment)
         {
             this.trainerService = trainerService;

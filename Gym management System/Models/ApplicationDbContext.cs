@@ -2,7 +2,7 @@
 using Gym_management_System.Models.Members;
 using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Gyms;
-using Gym_management_System.Models.Staffs
+using Gym_management_System.Models.Staffs;
 namespace Gym_management_System.Models
 {
     public class ApplicationDbContext:DbContext
@@ -22,7 +22,21 @@ namespace Gym_management_System.Models
             modelBuilder.Entity<Gym>().Property(e=>e.Id).UseIdentityColumn(1001,1);
             modelBuilder.Entity<Member>().Property(e => e.Id).UseIdentityColumn(101, 1);
             modelBuilder.Entity<Trainer>().Property(e => e.Id).UseIdentityColumn(1, 1);
+            modelBuilder.Entity<Staff>().Property(e => e.Id).UseIdentityColumn(10001, 1);
 
+            modelBuilder.Entity<Staff>().HasData(
+              new Staff
+              {
+                  Id = 10001,
+                  StaffName = "HariLal",
+                  StaffAddress = "Gokarneshwor-8-Kathmandu",
+                  Phone = "9876543210",
+                  Age = 29,
+                  Gender="Male",
+                  GymId = 1001,
+                  PhotoUrl = "Blank.jpg"
+
+              });
             modelBuilder.Entity<Trainer>().HasData(
                new Trainer
                {
