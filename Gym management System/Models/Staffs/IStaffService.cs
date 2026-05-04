@@ -2,10 +2,10 @@
 {
     public interface IStaffService
     {
-        public IEnumerable<Staff> GetAllStaff();
-        public Staff GetStaff(int id);
-        public Staff Add (Staff staff);
-        public Staff Update(Staff changes);
-        public Staff Delete(int id);
+         IEnumerable<Staff> GetAllStaffByGymId(int gymId);
+         Staff GetStaff(int id);
+        Staff Add (Staff staff);
+         Staff Update(Staff changes);
+        Staff Delete(int id);
     }
 }
