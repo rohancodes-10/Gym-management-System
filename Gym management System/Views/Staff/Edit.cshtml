@@ -1,0 +1,43 @@
+﻿@model EditStaffViewModel
+@{
+    ViewBag.Title = "Editing Staff";
+}
+<form asp-action="Edit" asp-controller="Staff" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <input type="hidden" asp-for="id" />
+    <input type="hidden" asp-for="ExistingPhotoUrl" />
+    <div class="mb-3">
+        <label asp-for="StaffName" class="form-label"></label>
+        <input asp-for="StaffName" class="form-control" />
+        <span asp-validation-for="StaffName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gender" class="form-label"></label>
+        <select asp-for="Gender" class="form-control">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="StaffAddress" class="form-label"></label>
+        <input asp-for="StaffAddress" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Upload Photo</label>
+        <input type="file" asp-for="Photo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <input asp-for="GymId" value="@Model.GymId" type="hidden" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-primary ms-2">Cancel</a>
+</form>

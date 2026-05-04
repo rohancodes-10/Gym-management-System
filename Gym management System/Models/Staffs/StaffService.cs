@@ -30,6 +30,7 @@ namespace Gym_management_System.Models.Staffs
         {
             var staff=_context.Staffs.Attach(changes);
             staff.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
             return (changes);
         }
         public Staff Delete(int id) 
