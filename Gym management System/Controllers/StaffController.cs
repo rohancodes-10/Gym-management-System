@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Gym_management_System.Models.Staffs;
 using Gym_management_System.ViewModels.StaffViewModels;
+using System.Linq.Expressions;
 
 namespace Gym_management_System.Controllers
 {
@@ -18,6 +19,15 @@ namespace Gym_management_System.Controllers
             {
                 staffs = staff,
                 gymId = gymId
+            };
+            return View(model);
+        }
+        public IActionResult Details(int id)
+        {
+            var staff = staffService.GetStaff(id);
+            var model = new StaffHomeViewModel
+            {
+                staff = staff
             };
             return View(model);
         }
