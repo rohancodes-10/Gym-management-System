@@ -3,6 +3,7 @@ using Gym_management_System.Models.Members;
 using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Gyms;
 using Gym_management_System.Models.Staffs;
+using Gym_management_System.Models.Users;
 namespace Gym_management_System.Models
 {
     public class ApplicationDbContext:DbContext
@@ -15,6 +16,7 @@ namespace Gym_management_System.Models
         public DbSet<Gym> Gyms { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
