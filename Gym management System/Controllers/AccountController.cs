@@ -40,5 +40,24 @@ namespace Gym_management_System.Controllers
             }
             return RedirectToAction("index","Gym");
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel model)
+        {
+            var user = new User
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Role = "Owner", 
+                GymId = null,
+                RoleId = null
+            };
+
+            _authService.Register(user, model.Password);
+            return RedirectToAction("Login");
+        }
     }
 }
