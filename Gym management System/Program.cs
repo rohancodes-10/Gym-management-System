@@ -20,6 +20,7 @@ namespace Gym_management_System
             builder.Services.AddScoped<IGymService, GymService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IStaffService, StaffService>();
+            builder.Services.AddSession();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -43,10 +44,11 @@ namespace Gym_management_System
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.MapStaticAssets();
+          
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Gym}/{action=Index}/{id?}")
