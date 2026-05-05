@@ -140,8 +140,26 @@ namespace Gym_management_System.Controllers
                 staffService.Update(staff);
                 return RedirectToAction("Details", new { id = model.id });
             }
-            return View(model);
-            
+            return View(model);   
+        }
+        public IActionResult Delete(int id)
+        {
+            Staff staff=staffService.GetStaff(id);
+            if (staff == null) 
+            {
+                return NotFound();
+            }
+            if (!string.IsNullOrEmpty(staff.PhotoUrl))
+            {
+                string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images", staff.PhotoUrl);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+            staffService.Delete(id);
+            return RedirectToAction("index", new { gymId = staff.GymId });
         }
     }
 }
