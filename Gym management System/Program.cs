@@ -3,6 +3,7 @@ using Gym_management_System.Models.Gyms;
 using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Members;
 using Gym_management_System.Models.Staffs;
+using Gym_management_System.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym_management_System
@@ -19,6 +20,7 @@ namespace Gym_management_System
             builder.Services.AddScoped<IGymService, GymService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IStaffService, StaffService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
             sqlOptions => sqlOptions.EnableRetryOnFailure(

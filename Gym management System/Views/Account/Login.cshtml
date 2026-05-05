@@ -1,0 +1,17 @@
+﻿@model LoginViewModel
+
+<form asp-action="Login" asp-controller="Account" method="post">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input type="email" asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input type="password" asp-for="Password" class="form-control" />
+    </div>
+   
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
