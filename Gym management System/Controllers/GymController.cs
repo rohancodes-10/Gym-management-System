@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Gym_management_System.Controllers
 {
-    public class GymController:Controller
+    public class GymController:BaseController
     {
         private readonly IGymService gymService;
         public GymController(IGymService gymService)
@@ -14,6 +14,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Index()
         {
+            if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+            if (!IsOwner()) return RedirectToAction("Login", "Account");
             var gym = gymService.GetAllGyms();
             GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
             {
