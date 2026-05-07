@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Gym_management_System.Controllers
 {
-    public class MemberController : Controller
+    public class MemberController : BaseController
     {
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -16,8 +16,16 @@ namespace Gym_management_System.Controllers
             _memberService = memberservice;
             _webHostEnvironment = webHostEnvironment;
         }
+        private IActionResult? CheckAccess()
+        {
+            if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+            if (!IsOwner() && !IsManager()) return RedirectToAction("Login", "Account");
+            return null;
+        }
         public IActionResult Index(int gymid)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             var member = _memberService.GetAllMembersByGymId(gymid);
             HomeViewModel homeViewModel = new HomeViewModel
             {
@@ -28,6 +36,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Details(int id)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             var members = _memberService.GetMember(id);
             HomeViewModel homeViewModel = new HomeViewModel
             {
@@ -38,6 +48,8 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Create(int gymid)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             AddMemberViewModel model = new AddMemberViewModel
             {
                 GymId = gymid
@@ -47,6 +59,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddMemberViewModel model)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
             {
                 Console.WriteLine(error.ErrorMessage);
@@ -83,6 +97,8 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             Member? member = _memberService.GetMember(Id);
             if (member == null)
                 return NotFound();
@@ -103,6 +119,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(MemberEditViewModel model)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             if (ModelState.IsValid)
             {
                 Member member = _memberService.GetMember(model.Id);
@@ -150,6 +168,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
+            var check = CheckAccess();
+            if (check != null) return check;
             Member? member = _memberService.GetMember(id);
             if (member == null)
             {

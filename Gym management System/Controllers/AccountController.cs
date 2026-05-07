@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gym_management_System.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private IAuthService _authService;
         public AccountController(IAuthService authService)
@@ -22,6 +22,8 @@ namespace Gym_management_System.Controllers
         {
             if (!ModelState.IsValid)
             {
+                if (IsLoggedIn()) 
+                { return RedirectToAction("index", "Gym"); }
                 return View(model);
             }
             var user = _authService.Login(model.Email, model.Password);
@@ -40,6 +42,7 @@ namespace Gym_management_System.Controllers
             }
             return RedirectToAction("index","Gym");
         }
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -47,6 +50,10 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var user = new User
             {
                 Name = model.Name,

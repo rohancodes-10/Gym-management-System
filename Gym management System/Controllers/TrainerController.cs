@@ -9,7 +9,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace Gym_management_System.Controllers
 {
-    public class TrainerController:Controller
+    public class TrainerController:BaseController
     {
         private readonly ITrainerService trainerService;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -18,8 +18,16 @@ namespace Gym_management_System.Controllers
             this.trainerService = trainerService;
           _webHostEnvironment = webHostEnvironment;
         }
+        private IActionResult? CheckAccess()
+        {
+            if (!IsLoggedIn()) return RedirectToAction("login", "Account");
+            if (!IsOwner()&&!IsManager()) return RedirectToAction("login", "Account");
+            return null;
+        }
         public IActionResult index(int gymid)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var Trainer = trainerService.GetTrainersByGymId(gymid);
             var model = new TrainerHomeViewModels
             {
@@ -30,6 +38,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Details(int id)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var trainer = trainerService.GetTrainer(id);
             var model = new TrainerHomeViewModels
             {
@@ -41,6 +51,8 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Create(int gymid) 
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var model = new AddTrainerViewModel
             {
                 GymId =gymid
@@ -50,6 +62,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddTrainerViewModel model)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -80,7 +94,9 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-           Trainer? trainer = trainerService.GetTrainer(id);
+            var check = CheckAccess();
+            if (check != null) { return check; }
+            Trainer? trainer = trainerService.GetTrainer(id);
             if (trainer == null)
             {
                 return NotFound();
@@ -99,6 +115,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditTrainerViewModel model)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             if (ModelState.IsValid)
             {
                 Trainer? trainer = trainerService.GetTrainer(model.id);
@@ -144,6 +162,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Delete(int id)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var trainer = trainerService.GetTrainer(id);
             if (trainer == null)
             {

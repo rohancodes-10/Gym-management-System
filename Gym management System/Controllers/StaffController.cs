@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace Gym_management_System.Controllers
 {
-    public class StaffController:Controller
+    public class StaffController:BaseController
     {
         private readonly IStaffService staffService;
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -20,8 +20,16 @@ namespace Gym_management_System.Controllers
             this.staffService = staffService;
             this.webHostEnvironment = webHostEnvironment;
         }
+        private IActionResult? CheckAccess()
+        {
+            if (!IsLoggedIn()) return RedirectToAction("login", "Account");
+            if (!IsOwner()) return RedirectToAction("login", "Account");
+            return null; 
+        }
         public IActionResult Index(int gymId)
         {
+            var check = CheckAccess();
+            if(check!=null) {return check;}
             var staff=staffService.GetAllStaffByGymId(gymId);
             var model = new StaffHomeViewModel
             {
@@ -32,6 +40,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Details(int id)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var staff = staffService.GetStaff(id);
             var model = new StaffHomeViewModel
             {
@@ -42,6 +52,8 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Create(int gymid)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var model = new CreateStaffViewModel
             {
                 GymId=gymid
@@ -51,6 +63,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateStaffViewModel model)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -83,6 +97,8 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             var staff = staffService.GetStaff(id);
             var model = new EditStaffViewModel
             {   id=staff.Id,
@@ -99,6 +115,8 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditStaffViewModel model)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             if (ModelState.IsValid)
             {
                 Staff? staff = staffService.GetStaff(model.id);
@@ -144,6 +162,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Delete(int id)
         {
+            var check = CheckAccess();
+            if (check != null) { return check; }
             Staff staff=staffService.GetStaff(id);
             if (staff == null) 
             {
