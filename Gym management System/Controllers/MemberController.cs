@@ -1,4 +1,5 @@
 ﻿using Gym_management_System.Models.Members;
+using Gym_management_System.Models.Users;
 using Gym_management_System.ViewModels.Members;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -11,10 +12,12 @@ namespace Gym_management_System.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public MemberController(IMemberService memberservice, IWebHostEnvironment webHostEnvironment)
+        private readonly IAuthService _authService;
+        public MemberController(IMemberService memberservice, IWebHostEnvironment webHostEnvironment,IAuthService authService)
         {
             _memberService = memberservice;
             _webHostEnvironment = webHostEnvironment;
+            _authService = authService;
         }
         private IActionResult? CheckAccess()
         {
@@ -36,8 +39,15 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Details(int id)
         {
-            var check = CheckAccess();
-            if (check != null) return check;
+            if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+            // Member can only see their own profile
+            if (IsMember() && GetRoleId() != id)
+                return RedirectToAction("Login", "Account");
+
+            // Owner and Manager can see anyone
+            if (!IsOwner() && !IsManager() && !IsMember())
+                return RedirectToAction("Login", "Account");
+
             var members = _memberService.GetMember(id);
             HomeViewModel homeViewModel = new HomeViewModel
             {
@@ -92,6 +102,16 @@ namespace Gym_management_System.Controllers
                 PhotoUrl = uniqueFileName
             };
             _memberService.AddMember(member);
+            var user = new User
+            {
+                Name=model.MemberName,
+                Email = model.Email,
+                Role="Member",
+                RoleId=member.Id,
+                GymId=model.GymId,
+                CreatedAt = DateTime.Now,
+            };
+            _authService.Register(user, model.Password);
             return RedirectToAction("index" ,new {gymid=model.GymId });
         }
         [HttpGet]

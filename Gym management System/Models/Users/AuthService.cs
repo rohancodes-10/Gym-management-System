@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using System.Diagnostics;
 using System.Text;
 
 namespace Gym_management_System.Models.Users
@@ -17,21 +18,26 @@ namespace Gym_management_System.Models.Users
             var hash=sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
-        public User? Login(string email, string password)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            if (user == null)
-            {
-                return null;
-            }
-            string hashedInput = HashPassword(password);
-            if (hashedInput != user.PasswordHash) 
-            {
-                return null;
-            }
-            return user;
-        }
-        public User Register(User user, string plainPassword)
+        
+
+public User? Login(string email, string password)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+        Debug.WriteLine($"=== Searching for: {email}");
+        Debug.WriteLine($"=== User found: {user != null}");
+
+        if (user == null) return null;
+
+        string hashedInput = HashPassword(password);
+        Debug.WriteLine($"=== Input hash:  {hashedInput}");
+        Debug.WriteLine($"=== Stored hash: {user.PasswordHash}");
+        Debug.WriteLine($"=== Match: {hashedInput == user.PasswordHash}");
+
+        if (hashedInput != user.PasswordHash) return null;
+        return user;
+    }
+    public User Register(User user, string plainPassword)
         {
             user.PasswordHash = HashPassword(plainPassword);
             user.CreatedAt = DateTime.Now;

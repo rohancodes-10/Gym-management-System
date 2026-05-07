@@ -8,6 +8,12 @@ namespace Gym_management_System.Controllers
     public class GymController:BaseController
     {
         private readonly IGymService gymService;
+        //private IActionResult? CheckAccess()
+        //{
+        //    if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+        //    if (!IsOwner() && !IsManager()) return RedirectToAction("Login", "Account");
+        //    return null;
+        //}
         public GymController(IGymService gymService)
         {
            this.gymService = gymService;
@@ -47,6 +53,8 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Details(int id)
         {
+            if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+            if (!IsOwner() && !IsManager()) return RedirectToAction("Login", "Account");
             var gym = gymService.GetGym(id);
             GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
             {

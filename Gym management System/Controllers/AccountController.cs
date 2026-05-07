@@ -15,15 +15,19 @@ namespace Gym_management_System.Controllers
         [HttpGet]
        public IActionResult Login()
         {
+            //if (IsLoggedIn())
+            //{ return RedirectToAction("index", "Gym"); }
             return View();
         }
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine($"Error: {error.ErrorMessage}");
+            }
             if (!ModelState.IsValid)
             {
-                if (IsLoggedIn()) 
-                { return RedirectToAction("index", "Gym"); }
                 return View(model);
             }
             var user = _authService.Login(model.Email, model.Password);
@@ -35,35 +39,24 @@ namespace Gym_management_System.Controllers
             HttpContext.Session.SetInt32("userId", user.Id);
             HttpContext.Session.SetString("userRole", user.Role);
             HttpContext.Session.SetString("userName", user.Name);
+            HttpContext.Session.SetInt32("RoleId", user.RoleId??0);
 
             if (user.GymId.HasValue)
             {
                 HttpContext.Session.SetInt32("GymId", user.GymId.Value);
             }
-            return RedirectToAction("index","Gym");
-        }
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
+            return user.Role switch
             {
-                return View(model);
-            }
-            var user = new User
-            {
-                Name = model.Name,
-                Email = model.Email,
-                Role = "Owner", 
-                GymId = null,
-                RoleId = null
+                "Owner" => RedirectToAction("index", "Gym"),
+                "Manager" => RedirectToAction("Details", "Gym", new { id = user.GymId }),
+                "Trainer" => RedirectToAction("Details", "Trainer", new { id = user.RoleId }),
+                "Member" => RedirectToAction("Details", "Member", new { id = user.RoleId }),
+                _ => RedirectToAction("Login", "Account")
             };
-
-            _authService.Register(user, model.Password);
+        }
+        public  IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
     }
