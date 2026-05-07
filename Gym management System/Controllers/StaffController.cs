@@ -1,6 +1,7 @@
 ﻿using Gym_management_System.Models.Gyms;
 using Gym_management_System.Models.Staffs;
 using Gym_management_System.Models.Trainers;
+using Gym_management_System.Models.Users;
 using Gym_management_System.ViewModels.StaffViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,10 +16,12 @@ namespace Gym_management_System.Controllers
     {
         private readonly IStaffService staffService;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public StaffController(IStaffService staffService, IWebHostEnvironment webHostEnvironment)
+        private readonly IAuthService _authService;
+        public StaffController(IStaffService staffService, IWebHostEnvironment webHostEnvironment, IAuthService authService)
         {
             this.staffService = staffService;
             this.webHostEnvironment = webHostEnvironment;
+            _authService = authService;
         }
         private IActionResult? CheckAccess()
         {
@@ -92,6 +95,16 @@ namespace Gym_management_System.Controllers
                 
             };
             staffService.Add(staff);
+            var user = new User 
+            {
+                Name=model.StaffName,
+                Email=model.Email,
+                GymId=model.GymId,
+                Role="Manager",
+                RoleId=staff.Id,
+                CreatedAt=DateTime.Now
+            };
+            _authService.Register(user,model.Password);
             return RedirectToAction("index", new { gymid = model.GymId });
         }
         [HttpGet]
