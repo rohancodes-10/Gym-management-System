@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var IsloggedIn = Context.Session.GetString("UserId")!=null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,8 +14,15 @@
 </head>
 <body class="BodyLayout">
     <div class="nav">
-        <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
-        <a asp-controller="Account" asp-action="Logout" class="btn btn-success">Logout</a>
+       @if(IsloggedIn)
+            {
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-success">Logout</a>
+            }
+            else
+            {
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
+            }
+
     </div>
     <div class="container">
         <main role="main" class="pb-3">

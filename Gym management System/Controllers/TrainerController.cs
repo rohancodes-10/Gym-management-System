@@ -44,7 +44,7 @@ namespace Gym_management_System.Controllers
 
             if (!IsLoggedIn()) return RedirectToAction("login", "Account");
             if (!IsOwner() && !IsManager() && !IsTrainer()) return RedirectToAction("login","Account");
-            if(!IsTrainer() && GetRoleId() !=id) return RedirectToAction("login", "Account");
+            if(IsTrainer() && GetRoleId() !=id) return RedirectToAction("login", "Account");
             var trainer = trainerService.GetTrainer(id);
             var model = new TrainerHomeViewModels
             {
