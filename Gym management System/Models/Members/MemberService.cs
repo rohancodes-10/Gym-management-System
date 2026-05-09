@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gym_management_System.Models.Members
 {
@@ -17,7 +18,9 @@ namespace Gym_management_System.Models.Members
         }
         public Member? GetMember(int id)
         {
-            return context.Members.Find(id);
+            return context.Members.
+                Include(m => m.Trainer)
+                .FirstOrDefault(m => m.Id==id);
         }
         public Member AddMember(Member members)
         {

@@ -1,4 +1,5 @@
 ﻿using Gym_management_System.Models.Gyms;
+using Gym_management_System.Models.Members;
 namespace Gym_management_System.Models.Trainers
 {
     public class Trainer
@@ -11,6 +12,7 @@ namespace Gym_management_System.Models.Trainers
         public int GymId { get; set; }
 
         public  Gym Gym {  get; set; } 
+        public ICollection<Member>? members { get; set; }
         public string? PhotoUrl { get; set; }
 
     }

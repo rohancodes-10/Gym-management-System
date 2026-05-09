@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Gym_management_System.Models.Gyms;
+using Gym_management_System.Models.Trainers;
 namespace Gym_management_System.Models.Members
+
 {
     public class Member
     {
@@ -13,6 +15,8 @@ namespace Gym_management_System.Models.Members
         public string city { get; set; }
         public int GymId { get; set; }
         public Gym Gym { get; set; }
+        public Trainer Trainer { get; set; }
+        public int? TrainerId { get; set; }
         public string? PhotoUrl { get; set; }
     }
 }
