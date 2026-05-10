@@ -60,9 +60,9 @@
                            
                             <select name="trainerid" class="form-control">
                                 <option value="">Select Trainer </option>
-                            @foreach(var trainer in Model.trainers)
+                                @foreach (var trainer in Model.trainers)
                                 {
-                                    <option value="@trainer.Id">@trainer.TrainerName</option>                             
+                                    <option value="@trainer.Id">@trainer.TrainerName</option>
                                 }
                             </select>
                             <button type="submit" class="btn btn-outline-primary mt-2">Assign trainer</button>

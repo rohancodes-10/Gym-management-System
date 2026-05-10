@@ -216,6 +216,19 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignTrainer(int memberid,int trainerid)
         {
+            if (trainerid == null || trainerid==0)
+            {
+                var members = _memberService.GetMember(memberid);
+                var trainer = trainerService.GetTrainersByGymId(members.GymId);
+                var model = new HomeViewModel
+                {
+                    member = members,
+                    trainers=trainer,
+          
+                };
+      
+                return View("Details", model);
+            }
             var member = _memberService.GetMember(memberid);
             if (member == null)
             {
