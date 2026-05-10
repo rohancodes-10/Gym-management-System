@@ -30,6 +30,7 @@
                 @if (Model.member.Trainer != null)
                 {
                     <p><strong>Assigned trainer:</strong> @Model.member.Trainer.TrainerName</p>
+                    <a asp-action="Details" asp-controller="trainer" class="btn btn-sm btn-info ms-2" asp-route-id="@Model.member.TrainerId">Trainer Details</a>
                 }
 
                 <div class="d-flex justify-content-between mt-3">
