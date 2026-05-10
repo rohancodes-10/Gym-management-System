@@ -27,7 +27,7 @@
                 <p><strong>Phone:</strong> @Model.member.Phone</p>
                 <p><strong>Gender:</strong> @Model.member.Gender</p>
                 <p><strong>City:</strong> @Model.member.city</p>
-
+               
                 <div class="d-flex justify-content-between mt-3">
 
                    
@@ -49,6 +49,22 @@
                                 Delete
                             </button>
                        </form>
+                    </div>
+                    <div>
+                        <form asp-action="AssignTrainer" asp-controller="Member" method="post">
+                            <input type="hidden" name="memberid" value="@Model.member.Id" />
+                           
+                            <select name="trainerid" class="form-control">
+                                <option value="">Select Trainer </option>
+                            @foreach(var trainer in Model.trainers)
+                                {
+                               
+                                    <option value="@trainer.Id">@trainer.TrainerName</option>
+                               
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-outline-primary mt-2">Assign trainer</button>
+                        </form>
                     </div>
 
                 </div>

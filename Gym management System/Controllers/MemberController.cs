@@ -1,4 +1,5 @@
 ﻿using Gym_management_System.Models.Members;
+using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Users;
 using Gym_management_System.ViewModels.Members;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,14 @@ namespace Gym_management_System.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ITrainerService trainerService;
         private readonly IAuthService _authService;
-        public MemberController(IMemberService memberservice, IWebHostEnvironment webHostEnvironment,IAuthService authService)
+        public MemberController(IMemberService memberservice,ITrainerService _trainerService, IWebHostEnvironment webHostEnvironment,IAuthService authService)
         {
             _memberService = memberservice;
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;
+            trainerService = _trainerService;
         }
         private IActionResult? CheckAccess()
         {
@@ -49,9 +52,11 @@ namespace Gym_management_System.Controllers
                 return RedirectToAction("Login", "Account");
 
             var members = _memberService.GetMember(id);
+            var trainer = trainerService.GetTrainersByGymId(members.GymId);
             HomeViewModel homeViewModel = new HomeViewModel
             {
-                member = members
+                member = members,
+                trainers=trainer
             };
             return View(homeViewModel);
         }
@@ -208,7 +213,18 @@ namespace Gym_management_System.Controllers
             return RedirectToAction("index", new {gymid=member.GymId});
         }
 
-            
+        [HttpPost]
+        public async Task<IActionResult> AssignTrainer(int memberid,int trainerid)
+        {
+            var member = _memberService.GetMember(memberid);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            member.TrainerId = trainerid;
+            _memberService.Update(member);
+            return RedirectToAction("Details", new {id=memberid});
+        }
         }
 
     }

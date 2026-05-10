@@ -7,5 +7,6 @@
         Member AddMember(Member member);
         Member Update(Member changes);
         Member Delete(int id);
+        Member? GetMemberWithTrainer(int id);
     }
 }
