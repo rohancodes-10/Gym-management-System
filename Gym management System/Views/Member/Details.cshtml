@@ -5,8 +5,9 @@
     ViewData["Title"] = "Member Details";
 }
 @{
-    var IsManager = Context.Session.GetString("Role") == "Manager";
-    var IsOwner = Context.Session.GetString("Role") == "Owner";
+    var role = Context.Session.GetString("userRole");
+    var IsManager = role == "Manager";
+    var IsOwner = role == "Owner";
 }
 
 <div class="container mt-4">
@@ -36,7 +37,7 @@
                     <p><strong>Assigned trainer:</strong> @Model.member.Trainer.TrainerName</p>
                     <a asp-action="Details" asp-controller="trainer" class="btn btn-sm btn-info ms-2" asp-route-id="@Model.member.TrainerId">Trainer Details</a>
                 }
-                @if(IsManager && IsOwner)
+                @if(IsManager || IsOwner)
                 {
                 <div class="d-flex justify-content-between mt-3">
 
