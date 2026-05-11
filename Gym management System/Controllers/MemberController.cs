@@ -14,6 +14,7 @@ namespace Gym_management_System.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ITrainerService trainerService;
         private readonly IAuthService _authService;
         private readonly ITrainerService _trainerService;
         public MemberController(IMemberService memberservice,ITrainerService trainerService, IWebHostEnvironment webHostEnvironment,IAuthService authService)

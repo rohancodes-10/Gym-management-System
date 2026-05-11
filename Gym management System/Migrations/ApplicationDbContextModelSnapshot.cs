@@ -48,7 +48,7 @@ namespace Gym_management_System.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Gyms");
+                    b.ToTable("Gyms", (string)null);
 
                     b.HasData(
                         new
@@ -107,7 +107,7 @@ namespace Gym_management_System.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
 
                     b.HasData(
                         new
@@ -173,7 +173,7 @@ namespace Gym_management_System.Migrations
 
                     b.HasIndex("GymId");
 
-                    b.ToTable("Staffs");
+                    b.ToTable("Staffs", (string)null);
 
                     b.HasData(
                         new
@@ -222,7 +222,7 @@ namespace Gym_management_System.Migrations
 
                     b.HasIndex("GymId");
 
-                    b.ToTable("Trainers");
+                    b.ToTable("Trainers", (string)null);
 
                     b.HasData(
                         new
@@ -272,7 +272,7 @@ namespace Gym_management_System.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Gym_management_System.Models.Members.Member", b =>

@@ -18,9 +18,14 @@ namespace Gym_management_System.Models.Members
         }
         public Member? GetMember(int id)
         {
-            return context.Members.
-                Include(m => m.Trainer)
-                .FirstOrDefault(m => m.Id==id);
+            return context.Members.Find(id);
+                
+        }
+        public Member? GetMemberWithTrainer(int id)
+        {
+            return context.Members
+                .Include(m => m.Trainer)
+                .FirstOrDefault(m => m.Id == id);
         }
         public Member AddMember(Member members)
         {
@@ -30,8 +35,7 @@ namespace Gym_management_System.Models.Members
         }
         public Member Update(Member changes)
         {
-            var member = context.Members.Attach(changes);
-            member.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.Entry(changes).State = EntityState.Modified;
             context.SaveChanges();
             return changes;
         }
