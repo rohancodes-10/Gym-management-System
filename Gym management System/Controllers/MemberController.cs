@@ -14,7 +14,6 @@ namespace Gym_management_System.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly ITrainerService trainerService;
         private readonly IAuthService _authService;
         private readonly ITrainerService _trainerService;
         public MemberController(IMemberService memberservice,ITrainerService trainerService, IWebHostEnvironment webHostEnvironment,IAuthService authService)
@@ -52,8 +51,9 @@ namespace Gym_management_System.Controllers
             // Owner and Manager can see anyone
             if (!IsOwner() && !IsManager() && !IsMember())
                 return RedirectToAction("Login", "Account");
+           
 
-            var members = _memberService.GetMember(id);
+            var members = _memberService.GetMemberWithTrainer(id);
             var trainers = _trainerService.GetTrainersByGymId(members.GymId);
             var trainerSelectList = trainers.Select(t => new SelectListItem
             {

@@ -15,11 +15,13 @@ namespace Gym_management_System.Controllers
         private readonly ITrainerService trainerService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IAuthService _authService;
-        public TrainerController(ITrainerService trainerService, IWebHostEnvironment webHostEnvironment,IAuthService authService)
+        private readonly IMemberService _memberService;
+        public TrainerController(ITrainerService trainerService,IMemberService memberService, IWebHostEnvironment webHostEnvironment,IAuthService authService)
         {
             this.trainerService = trainerService;
           _webHostEnvironment = webHostEnvironment;
             _authService = authService;
+            _memberService = memberService;
         }
         private IActionResult? CheckAccess()
         {
@@ -43,14 +45,44 @@ namespace Gym_management_System.Controllers
         {
 
             if (!IsLoggedIn()) return RedirectToAction("login", "Account");
-            if (!IsOwner() && !IsManager() && !IsTrainer()) return RedirectToAction("login","Account");
-            if(IsTrainer() && GetRoleId() !=id) return RedirectToAction("login", "Account");
-            var trainer = trainerService.GetTrainer(id);
-            var model = new TrainerHomeViewModels
+            if (IsOwner() || IsManager())
             {
-                trainer = trainer
-            };
-            return View(model);
+                var trainers = trainerService.GetTrainer(id);
+                if (trainers == null)
+                {
+                    return NotFound();
+                }
+                return View(new TrainerHomeViewModels { trainer = trainers });
+            }
+            if(IsTrainer())
+            {
+                if (GetRoleId() != id)
+                {
+                    return RedirectToAction("login", "Account");
+                }
+                var trainers = trainerService.GetTrainer(id);
+                if (trainers == null)
+                {
+                    return NotFound();
+                }
+                return View(new TrainerHomeViewModels { trainer = trainers });
+            }
+            if(IsMember())
+            {
+                var member = _memberService.GetMember(GetRoleId().Value);
+                if (member == null || member.TrainerId != id)
+                {
+                    return NotFound();
+                }
+                var trainers = trainerService.GetTrainer(id);
+                if (trainers == null)
+                {
+                    return NotFound();
+                }
+                return View(new TrainerHomeViewModels{ trainer=trainers});
+            }
+            
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
