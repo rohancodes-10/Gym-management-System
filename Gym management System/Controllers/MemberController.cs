@@ -1,7 +1,9 @@
 ﻿using Gym_management_System.Models.Members;
+using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Users;
 using Gym_management_System.ViewModels.Members;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
 using System.Numerics;
 using System.Reflection;
@@ -13,11 +15,13 @@ namespace Gym_management_System.Controllers
         private readonly IMemberService _memberService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IAuthService _authService;
-        public MemberController(IMemberService memberservice, IWebHostEnvironment webHostEnvironment,IAuthService authService)
+        private readonly ITrainerService _trainerService;
+        public MemberController(IMemberService memberservice,ITrainerService trainerService, IWebHostEnvironment webHostEnvironment,IAuthService authService)
         {
             _memberService = memberservice;
             _webHostEnvironment = webHostEnvironment;
             _authService = authService;
+            _trainerService= trainerService;
         }
         private IActionResult? CheckAccess()
         {
@@ -49,9 +53,16 @@ namespace Gym_management_System.Controllers
                 return RedirectToAction("Login", "Account");
 
             var members = _memberService.GetMember(id);
+            var trainers = _trainerService.GetTrainersByGymId(members.GymId);
+            var trainerSelectList = trainers.Select(t => new SelectListItem
+            {
+                Text=t.TrainerName,
+                Value=t.Id.ToString()
+            }).ToList();
             HomeViewModel homeViewModel = new HomeViewModel
             {
-                member = members
+                member = members,
+                Trainers=trainerSelectList,
             };
             return View(homeViewModel);
         }
@@ -208,7 +219,24 @@ namespace Gym_management_System.Controllers
             return RedirectToAction("index", new {gymid=member.GymId});
         }
 
-            
+        [HttpPost]
+        public IActionResult AssignTrainer(int memberid,int TrainerId)
+        {
+            var member = _memberService.GetMember(memberid);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            var trainer = _trainerService.GetTrainer(TrainerId);
+            if (trainer == null)
+            {
+                return NotFound();
+            }
+            member.TrainerId = TrainerId;
+            _memberService.Update(member);
+            return RedirectToAction("Details", new { id = member.Id });
+
+        }
         }
 
     }

@@ -54,7 +54,7 @@
                 </p>
             </div>
             <a asp-action="Create" asp-controller="Member"
-                   class="btn btn-primary">
+                   class="btn btn-primary" asp-route-gymid="@Model.gym.Id">
                 Add Members →
             </a>
             <a asp-action="Index" asp-controller="Member"

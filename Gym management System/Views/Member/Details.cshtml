@@ -51,6 +51,15 @@
                        </form>
                     </div>
 
+                    <div>
+                        <form asp-action="AssignTrainer" asp-controller="member" method="post">
+                            <input type="hidden" name="memberid" value="@Model.member.Id"/>
+                            <select asp-for="TrainerId" asp-items="@Model.Trainers">
+                                <option value="">...Selcet Trainer</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Assign Trainer</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
