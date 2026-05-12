@@ -16,7 +16,7 @@ namespace Gym_management_System.Models.Members
                 .Where(m=>m.GymId==gymId)
                 .ToList();
         }
-        public IEnumerable<Member> GetAllMembersByTrainerId(int trainerId)
+        public List<Member> GetAllMembersByTrainerId(int trainerId)
         {
             return context.Members
                 .Where(m => m.TrainerId == trainerId)

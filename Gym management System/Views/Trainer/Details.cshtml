@@ -6,6 +6,7 @@
 @{
     var IsOwner = Context.Session.GetString("Role") == "Owner";
     var IsManager = Context.Session.GetString("Role") == "Manager";
+    var IsTrainer = Context.Session.GetString("Role") == "Trainer";
 }
 
 <div class="container mt-4">
@@ -35,7 +36,7 @@
                 <p><strong>ID:</strong> @Model.trainer.Id</p>
                 <p><strong>Address:</strong> @Model.trainer.TrainerAddress</p>
                 <p><strong>Phone:</strong> @Model.trainer.Phone</p>
-               
+                
 
                 <div class="d-flex justify-content-between mt-3">
 
@@ -69,5 +70,43 @@
         </div>
 
     </div>
+    @if (Model.AssignedMember != null)
+    {
+        @if (!Model.AssignedMember.Any())
+        {
+            <p class="text-muted">No members assigned yet.</p>
+        }
+        else
+        {
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var member in Model.AssignedMember)
+                    {
+                        <tr>
+                            <td>@member.MemberName</td>
+                            <td>@member.Phone</td>
+                            <td>@member.Age</td>
+                            <td>
+                                <a asp-controller="Member" asp-action="Details"
+                                       asp-route-id="@member.Id"
+                                       class="btn btn-sm btn-outline-primary">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+   
 
 </div>

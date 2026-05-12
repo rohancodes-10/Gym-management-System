@@ -52,7 +52,8 @@ namespace Gym_management_System.Controllers
                 {
                     return NotFound();
                 }
-                return View(new TrainerHomeViewModels { trainer = trainers });
+                var members = _memberService.GetAllMembersByTrainerId(id);
+                return View(new TrainerHomeViewModels { trainer = trainers,AssignedMember=members });
             }
             if(IsTrainer())
             {
@@ -65,7 +66,12 @@ namespace Gym_management_System.Controllers
                 {
                     return NotFound();
                 }
-                return View(new TrainerHomeViewModels { trainer = trainers });
+                var members = _memberService.GetAllMembersByTrainerId(id);
+                if (members == null)
+                {
+                    return NotFound();
+                }
+                return View(new TrainerHomeViewModels { trainer = trainers, AssignedMember = members });
             }
             if(IsMember())
             {
@@ -79,7 +85,9 @@ namespace Gym_management_System.Controllers
                 {
                     return NotFound();
                 }
-                return View(new TrainerHomeViewModels{ trainer=trainers});
+                var members = _memberService.GetAllMembersByTrainerId(id);
+               
+                return View(new TrainerHomeViewModels { trainer = trainers, AssignedMember = members });
             }
             
             return RedirectToAction("Login", "Account");
@@ -132,7 +140,7 @@ namespace Gym_management_System.Controllers
                 Email = model.Email,
                 RoleId=trainer.Id,
                 Role="Trainer",
-                GymId=trainer.Id,
+                GymId=model.GymId,
                 CreatedAt=DateTime.Now,
             };
             _authService.Register(user, model.Password);
