@@ -4,6 +4,8 @@ using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Members;
 using Gym_management_System.Models.Staffs;
 using Gym_management_System.Models.Users;
+using Gym_management_System.Models.MembershipPlans;
+using Gym_management_System.Models.MembershipPayments;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gym_management_System
@@ -16,6 +18,8 @@ namespace Gym_management_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IMembershipPlansService, MembershipPlansService>();
+            
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<IGymService, GymService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();

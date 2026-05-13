@@ -1,5 +1,6 @@
 ﻿using Gym_management_System.Models.Gyms;
-namespace Gym_management_System.Models.MembershipPlan
+using Microsoft.EntityFrameworkCore;
+namespace Gym_management_System.Models.MembershipPlans
 {
     public class MembershipPlan
     {
@@ -8,6 +9,7 @@ namespace Gym_management_System.Models.MembershipPlan
         public int GymId { get; set; }
         public Gym Gym { get; set; }
         public int DurationInDays { get; set; }
+        [Precision(10,2)]
         public Decimal price { get; set; }
     }
 }

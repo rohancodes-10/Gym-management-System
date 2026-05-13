@@ -1,7 +1,7 @@
 ﻿using Gym_management_System.Models.Members;
-using Gym_management_System.Models.MembershipPlan;
+using Gym_management_System.Models.MembershipPlans;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-namespace Gym_management_System.Models.MembershipPayment
+namespace Gym_management_System.Models.MembershipPayments
 {
     public class MembershipPayment
     {
@@ -19,7 +19,7 @@ namespace Gym_management_System.Models.MembershipPayment
 
         public DateTime EndDate { get; set; }
 
-        public string Status { get; set; } = "Active"; // Active / Expired
+        public string Status { get; set; } = "Active"; 
 
 
     }

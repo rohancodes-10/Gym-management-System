@@ -4,6 +4,8 @@ using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Gyms;
 using Gym_management_System.Models.Staffs;
 using Gym_management_System.Models.Users;
+using Gym_management_System.Models.MembershipPlans;
+using Gym_management_System.Models.MembershipPayments;
 namespace Gym_management_System.Models
 {
     public class ApplicationDbContext:DbContext
@@ -17,11 +19,23 @@ namespace Gym_management_System.Models
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<MembershipPlan> MembershipPlans{get; set; }
+        public DbSet<MembershipPayment> MembershipPayments{get; set; }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+           
+           
 
-            modelBuilder.Entity<Gym>().Property(e=>e.Id).UseIdentityColumn(1001,1);
+            modelBuilder.Entity<MembershipPayment>()
+                .HasOne(mp => mp.MembershipPlan)
+                .WithMany()
+                .HasForeignKey(mp => mp.MembershipPlanId)
+                .OnDelete(DeleteBehavior.Restrict); 
+        
+
+        modelBuilder.Entity<Gym>().Property(e=>e.Id).UseIdentityColumn(1001,1);
             modelBuilder.Entity<Member>().Property(e => e.Id).UseIdentityColumn(101, 1);
             modelBuilder.Entity<Trainer>().Property(e => e.Id).UseIdentityColumn(1, 1);
             modelBuilder.Entity<Staff>().Property(e => e.Id).UseIdentityColumn(10001, 1);
