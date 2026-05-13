@@ -6,6 +6,6 @@
         MembershipPlan GetMembershipPlanById(int id);
         MembershipPlan AddPlan(MembershipPlan plan);
         MembershipPlan UpdatePlan(MembershipPlan changes);
-        MembershipPlan DeletePlan(MembershipPlan plan);
+        MembershipPlan DeletePlan(int id);
     }
 }

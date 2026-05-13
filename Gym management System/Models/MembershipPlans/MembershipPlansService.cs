@@ -27,8 +27,7 @@ namespace Gym_management_System.Models.MembershipPlans
         }
         public MembershipPlan UpdatePlan(MembershipPlan changes) 
         {
-            var Plan = _context.MembershipPlans.Attach(changes);
-            Plan.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.MembershipPlans.Update(changes);
             _context.SaveChanges();
             return changes;
         }
@@ -41,6 +40,7 @@ namespace Gym_management_System.Models.MembershipPlans
                 _context.SaveChanges();
                 return plan;
             }
+            return null;
         }
     }
 }

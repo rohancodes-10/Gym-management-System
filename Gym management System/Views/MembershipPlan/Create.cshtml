@@ -1,0 +1,26 @@
+﻿@model AddplanViewModel
+
+
+<form asp-action="Create" asp-controller="MembershipPlan" method="post">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="MembershipPlanName" class="form-label"></label>
+        <input asp-for="MembershipPlanName" class="form-control" />
+        <span asp-validation-for="MembershipPlanName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DurationInDays" class="form-label"></label>
+        <input asp-for="DurationInDays" class="form-control" />
+    </div>
+   
+   
+    <div class="mb-3">
+        <label asp-for="price" class="form-label"></label>
+        <input asp-for="price" class="form-control" />
+    </div>
+<div class="mb-3">
+    <input asp-for="GymId" value="@Model.GymId" type="hidden" class="form-control" />
+</div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
