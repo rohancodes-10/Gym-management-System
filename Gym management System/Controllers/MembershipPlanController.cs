@@ -76,5 +76,15 @@ namespace Gym_management_System.Controllers
             _membershipPlansService.UpdatePlan(plan);
             return RedirectToAction("index", new { gymid = model.GymId });
         }
+        public IActionResult Delete(int id)
+        {
+            var plan = _membershipPlansService.GetMembershipPlanById(id);
+            if (plan == null)
+            {
+                return NotFound();
+            }
+            _membershipPlansService.DeletePlan(id);
+            return RedirectToAction("index", new { gymid = plan.GymId });
+        }
     }
 }
