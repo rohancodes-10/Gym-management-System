@@ -1,6 +1,7 @@
 ﻿using Gym_management_System.Models.MembershipPlans;
 using Gym_management_System.ViewModels.MembershipPlanViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 
 namespace Gym_management_System.Controllers
 {
@@ -48,6 +49,32 @@ namespace Gym_management_System.Controllers
             return RedirectToAction("index", new { gymid = model.GymId });
         }
         [HttpGet]
-        public IActionResult
+        public IActionResult Edit (int id)
+        {
+            var plans = _membershipPlansService.GetMembershipPlanById(id);
+            var model = new EditPlanViewModel
+            {
+                Id =id,
+                GymId=plans.GymId,
+                MembershipPlanName=plans.MembershipPlanName,
+                price = plans.price,
+                DurationInDays = plans.DurationInDays
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Edit(EditPlanViewModel model)
+        {
+            var plan= _membershipPlansService.GetMembershipPlanById(model.Id);
+            if (plan == null)
+            {
+                return NotFound();
+            }
+            plan.MembershipPlanName = model.MembershipPlanName;
+            plan.price = model.price;
+            plan.DurationInDays = model.DurationInDays;
+            _membershipPlansService.UpdatePlan(plan);
+            return RedirectToAction("index", new { gymid = model.GymId });
+        }
     }
 }

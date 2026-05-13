@@ -21,8 +21,8 @@
             {
                 <tr>
                     <td>@plan.MembershipPlanName</td>
-                    <td>@plan.DurationInDays</td>
-                    <td>@plan.price.ToString("C")</td>
+                    <td>@plan.DurationInDays Days</td>
+                    <td>RS. @plan.price.ToString("N2")</td>
                     <td>
                         <a asp-action="Edit" asp-controller="MembershipPlan"
                            asp-route-id="@plan.id" class="btn btn-sm btn-warning">Edit</a>
