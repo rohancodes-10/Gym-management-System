@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewModels\MembershipPaymentViewModels\" />
+    <Folder Include="Views\MembershipPayment\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
