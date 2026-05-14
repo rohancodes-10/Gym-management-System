@@ -24,22 +24,12 @@ namespace Gym_management_System.Models.MembershipPayments
                 .OrderByDescending(p => p.PaymentDate)
                 .ToList();
         }
-        public MembershipPayment AddPayment(int memberId,int planId)
+        public MembershipPayment AddPayment(MembershipPayment payment)
         {
-            var plan= _context.MembershipPlans.Find(planId);
-            var Payment=new MembershipPayment
-            {
-                MemberId = memberId,
-                MembershipPlanId = planId,
-                AmountPaid = plan.price,
-                PaymentDate = DateTime.Now,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(plan.DurationInDays),
-                Status = "Active"
-            };
-            _context.MembershipPayments.Add(Payment);
+       
+            _context.MembershipPayments.Add(payment);
             _context.SaveChanges();
-            return Payment;
+            return payment;
         }
         public void UpdateExpiredAsync()
         {
