@@ -12,7 +12,7 @@ namespace Gym_management_System.Models.MembershipPayments
 
         public int MembershipPlanId {  get; set; }
         public MembershipPlan MembershipPlan { get; set; }
-        public int AmountPaid { get; set; }
+        public Decimal AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
 
         public DateTime StartDate { get; set; }
