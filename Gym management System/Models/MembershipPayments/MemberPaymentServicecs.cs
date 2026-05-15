@@ -9,6 +9,14 @@ namespace Gym_management_System.Models.MembershipPayments
         {
             _context = context;
         }
+        public IEnumerable<MembershipPayment> GetAllPayments()
+        {
+            return _context.MembershipPayments
+                .Include(p => p.Member)
+                .Include(p => p.MembershipPlan)
+                .OrderByDescending(p => p.PaymentDate)
+                .ToList();
+        }
         public MembershipPayment GetMembershipPaymentById(int id)
         {
             return _context.MembershipPayments

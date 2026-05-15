@@ -9,6 +9,7 @@ namespace Gym_management_System.Models.MembershipPlans
         {
             _context = context;
         }
+       
         public IEnumerable<MembershipPlan> GetMembershipPlansByGymId(int gymid)
         {
             return _context.MembershipPlans

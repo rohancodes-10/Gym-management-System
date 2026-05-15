@@ -1,5 +1,6 @@
 ﻿using Gym_management_System.Models.MembershipPayments;
 using Gym_management_System.Models.MembershipPlans;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
@@ -15,6 +16,11 @@ namespace Gym_management_System.Controllers
             _membershipPaymentService = membershipPaymentService;
             _membershipPlansService = membershipPlansService;
         }
+        public IActionResult Index()
+        {
+            var payments = _membershipPaymentService.GetAllPayments();
+           var 
+        }
         public IActionResult Create(int memberId,int planId)
         {
             var plan = _membershipPlansService.GetMembershipPlanById(planId);
@@ -29,7 +35,7 @@ namespace Gym_management_System.Controllers
                 Status = "Active"
             };
             _membershipPaymentService.AddPayment(payment);
-            return RedirectToAction("index",);
+            return RedirectToAction("index");
         }
     }
 }
