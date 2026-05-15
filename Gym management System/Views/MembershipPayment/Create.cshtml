@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Gym_management_System.Models.MembershipPayments.MembershipPayment>
+@{
+    ViewData["Title"] = "Membership Payments";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Membership payments</h2>
+        <a asp-action="Create" class="btn btn-primary">+ New payment</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Member</th>
+                <th>Plan</th>
+                <th>Amount paid</th>
+                <th>Payment date</th>
+                <th>Start → End</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in Model)
+            {
+                <tr>
+                    <td>@payment.id</td>
+                    <td>@payment.Member?.FullName</td>
+                    <td>@payment.MembershipPlan?.Name</td>
+                    <td>@payment.AmountPaid.ToString("C")</td>
+                    <td>@payment.PaymentDate.ToString("dd MMM yyyy")</td>
+                    <td>
+                        @payment.StartDate.ToString("dd MMM yyyy") →
+                        <span class="@(payment.EndDate < DateTime.Now ? "text-danger fw-bold" : "")">
+                            @payment.EndDate.ToString("dd MMM yyyy")
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge @(payment.Status == "Active" ? "bg-success" : "bg-secondary")">
+                            @payment.Status
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@payment.id" class="btn btn-sm btn-outline-secondary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@payment.id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted mt-3">No payments found.</p>
+    }
+</div>

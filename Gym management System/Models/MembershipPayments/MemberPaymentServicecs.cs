@@ -17,6 +17,15 @@ namespace Gym_management_System.Models.MembershipPayments
                 .OrderByDescending(p => p.PaymentDate)
                 .ToList();
         }
+        public IEnumerable<MembershipPayment> GetAllPaymentsByGymId(int gymid)
+        {
+            return _context.MembershipPayments
+                .Include(p => p.Member)
+                .Include(p => p.MembershipPlan)
+                .Where(p=>p.Member.GymId==gymid)
+                .OrderByDescending(p => p.PaymentDate)
+                .ToList();
+        }
         public MembershipPayment GetMembershipPaymentById(int id)
         {
             return _context.MembershipPayments

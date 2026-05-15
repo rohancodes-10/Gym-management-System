@@ -90,6 +90,12 @@
             <a class="btn btn-primary" asp-action="index" asp-controller="MembershipPlan" asp-route-gymid="@Model.gym.Id">
                 View Plans →
             </a>
+            <a class="btn btn-primary"
+                   asp-action="Index"
+                   asp-controller="MembershipPayment"
+                   asp-route-gymid="@Model.gym.Id">
+                View Payments →
+            </a>
         </div>
     </div>
     @if (IsOwner)

@@ -1,5 +1,6 @@
 ﻿using Gym_management_System.Models.MembershipPayments;
 using Gym_management_System.Models.MembershipPlans;
+using Gym_management_System.ViewModels.MembershipPaymentViewModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System.Numerics;
 
 namespace Gym_management_System.Controllers
 {
-    public class MembershipPaymentController
+    public class MembershipPaymentController:Controller
     {
         private readonly IMembershipPaymentService _membershipPaymentService;
         private readonly IMembershipPlansService _membershipPlansService;
@@ -16,10 +17,14 @@ namespace Gym_management_System.Controllers
             _membershipPaymentService = membershipPaymentService;
             _membershipPlansService = membershipPlansService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int gymid)
         {
-            var payments = _membershipPaymentService.GetAllPayments();
-           var 
+            var payments = _membershipPaymentService.GetAllPaymentsByGymId(gymid);
+            var model = new PaymentsHomeDetailsView
+            {
+                payments = payments
+            };
+            return View(model);
         }
         public IActionResult Create(int memberId,int planId)
         {
