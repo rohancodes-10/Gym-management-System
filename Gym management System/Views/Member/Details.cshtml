@@ -50,6 +50,9 @@
                         <a asp-controller="Member" asp-action="Edit" asp-route-Id="@Model.member.Id" class="btn btn-warning ms-2">
                         Edit
                         </a>
+                            <a asp-controller="MembershipPayment" asp-action="Create" asp-route-memberId="@Model.member.Id" class="btn btn-warning ms-2">
+                                Add Payment
+                            </a>
                     </div>
 
                    

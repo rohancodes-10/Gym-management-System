@@ -1,8 +1,10 @@
-﻿using Gym_management_System.Models.MembershipPayments;
+﻿using Gym_management_System.Models.Members;
+using Gym_management_System.Models.MembershipPayments;
 using Gym_management_System.Models.MembershipPlans;
 using Gym_management_System.ViewModels.MembershipPaymentViewModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
@@ -12,10 +14,12 @@ namespace Gym_management_System.Controllers
     {
         private readonly IMembershipPaymentService _membershipPaymentService;
         private readonly IMembershipPlansService _membershipPlansService;
-        public MembershipPaymentController(IMembershipPaymentService membershipPaymentService,IMembershipPlansService membershipPlansService)
+        private readonly IMemberService _memberService;
+        public MembershipPaymentController(IMemberService memberService,IMembershipPaymentService membershipPaymentService,IMembershipPlansService membershipPlansService)
         {
             _membershipPaymentService = membershipPaymentService;
             _membershipPlansService = membershipPlansService;
+            _memberService= memberService;
         }
         public IActionResult Index(int gymid)
         {
@@ -26,21 +30,49 @@ namespace Gym_management_System.Controllers
             };
             return View(model);
         }
-        public IActionResult Create(int memberId,int planId)
+        [HttpGet]
+        public IActionResult Create(int memberId)
         {
-            var plan = _membershipPlansService.GetMembershipPlanById(planId);
+            var member=_memberService.GetMember(memberId);
+            if (member == null)
+            {
+                return RedirectToAction("index");
+            }
+            var plans=_membershipPlansService.GetMembershipPlansByGymId(member.GymId);
+            var model = new CreatePaymentViewModel
+            {
+                MemberId = member.Id,
+                MemberName=member.MemberName,
+                GymId=member.GymId,
+                MembershipPlans = plans.Select(p => new SelectListItem
+                {
+                    Value = p.id.ToString(),
+                    Text = $"{p.MembershipPlanName} - ${p.price} ({p.DurationInDays} days)"
+                }).ToList()
+            };
+
+            return View(model);
+        }
+
+        
+        [HttpPost]
+        public IActionResult Create(CreatePaymentViewModel model)
+        {
+            
+            var plan = _membershipPlansService.GetMembershipPlanById(model.MembershipPlanId);
+            var now=DateTime.UtcNow;
             var payment = new MembershipPayment
             {
-                MemberId = memberId,
-                MembershipPlanId = planId,
+                MemberId = model.MemberId,
+                MembershipPlanId = model.MembershipPlanId,
                 AmountPaid = plan.price,
-                PaymentDate = DateTime.Now,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(plan.DurationInDays),
+                PaymentDate = now,
+                StartDate = now,
+                EndDate =now.AddDays(plan.DurationInDays),
                 Status = "Active"
             };
             _membershipPaymentService.AddPayment(payment);
-            return RedirectToAction("index");
+            return RedirectToAction("index", new { gymid=model.GymId});
         }
     }
 }
