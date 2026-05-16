@@ -21,12 +21,20 @@ namespace Gym_management_System.Controllers
             _membershipPlansService = membershipPlansService;
             _memberService= memberService;
         }
-        public IActionResult Index(int gymid)
+        public IActionResult Index(int gymid,string search)
         {
             var payments = _membershipPaymentService.GetAllPaymentsByGymId(gymid);
+            if (!string.IsNullOrEmpty(search)) 
+            {
+                payments = payments.Where(p =>
+                    p.Member.MemberName.Contains(search, StringComparison.OrdinalIgnoreCase)
+                );
+            }
             var model = new PaymentsHomeDetailsView
             {
-                payments = payments
+                payments = payments,
+                search=search,
+                gymid=gymid
             };
             return View(model);
         }

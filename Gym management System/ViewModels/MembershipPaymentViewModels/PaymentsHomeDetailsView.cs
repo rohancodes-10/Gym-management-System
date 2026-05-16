@@ -9,5 +9,6 @@ namespace Gym_management_System.ViewModels.MembershipPaymentViewModels
         public IEnumerable<MembershipPayment> payments { get; set; }
         public MembershipPlan membershipPlan { get; set; }
         public int gymid { get; set; }
+        public string search { get; set; } = string.Empty;
     }
 }

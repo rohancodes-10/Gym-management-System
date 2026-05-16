@@ -7,6 +7,14 @@
         <h2>Membership payments</h2>
         <a asp-action="Create" class="btn btn-primary">+ New payment</a>
     </div>
+    
+      <form asp-action="index" method="get" class="d-flex gap-2 mb-3">
+          <input type="hidden" name="gymid" value="@Model.gymid"/>
+          <input type="text" name="search" value="@Model.search" class="form-control" placeholder="Search"/>
+          <button type="submit" class="btn btn-primary">Search</button>
+          <a asp-action="index" asp-route-gymid="@Model.gymid" class="btn btn-secondary">Clear</a>
+      </form>
+   
     <table class="table">
         <thead>
            <tr>
