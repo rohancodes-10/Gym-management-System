@@ -10,5 +10,6 @@ namespace Gym_management_System.ViewModels.MembershipPaymentViewModels
         public MembershipPlan membershipPlan { get; set; }
         public int gymid { get; set; }
         public string search { get; set; } = string.Empty;
+        public string ReturnUrl { get; set; }
     }
 }

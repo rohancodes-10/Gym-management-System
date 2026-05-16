@@ -21,7 +21,7 @@ namespace Gym_management_System.Controllers
             _membershipPlansService = membershipPlansService;
             _memberService= memberService;
         }
-        public IActionResult Index(int gymid,string search)
+        public IActionResult Index(int gymid,string search,string? returnUrl)
         {
             var payments = _membershipPaymentService.GetAllPaymentsByGymId(gymid);
             if (!string.IsNullOrEmpty(search)) 
@@ -34,7 +34,8 @@ namespace Gym_management_System.Controllers
             {
                 payments = payments,
                 search=search,
-                gymid=gymid
+                gymid=gymid,
+                 ReturnUrl = returnUrl ?? Url.Action("Index", "Gym")
             };
             return View(model);
         }

@@ -89,12 +89,19 @@
             </a>
             <a class="btn btn-primary" asp-action="index" asp-controller="MembershipPlan" asp-route-gymid="@Model.gym.Id">
                 View Plans →
+          </a>
+        </div>
+    </div>
+    <div class="card shadow-sm mt-3">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <h5> Payments</h5>
+            </div>
+            <a class="btn btn-primary" asp-action="Create" asp-controller="MembershipPayment" asp-route-gymid="@Model.gym.Id">
+                Add Payment
             </a>
-            <a class="btn btn-primary"
-                   asp-action="Index"
-                   asp-controller="MembershipPayment"
-                   asp-route-gymid="@Model.gym.Id">
-                View Payments →
+            <a class="btn btn-primary" asp-action="index" asp-controller="MembershipPayment" asp-route-gymid="@Model.gym.Id" asp-route-returnUrl="@Url.Action("Details","Gym",new{id=@Model.gym.Id})">
+                View Paymnts →
             </a>
         </div>
     </div>
