@@ -1,4 +1,5 @@
 ﻿using Gym_management_System.Models.Gyms;
+using Gym_management_System.Models.MembershipPayments;
 using Gym_management_System.ViewModels.GymViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -8,15 +9,17 @@ namespace Gym_management_System.Controllers
     public class GymController:BaseController
     {
         private readonly IGymService gymService;
+        private readonly IMembershipPaymentService _membershipPaymentService;
         //private IActionResult? CheckAccess()
         //{
         //    if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
         //    if (!IsOwner() && !IsManager()) return RedirectToAction("Login", "Account");
         //    return null;
         //}
-        public GymController(IGymService gymService)
+        public GymController(IGymService gymService,IMembershipPaymentService membershipPaymentService)
         {
            this.gymService = gymService;
+            _membershipPaymentService = membershipPaymentService;
         }
         public IActionResult Index()
         {
@@ -55,11 +58,20 @@ namespace Gym_management_System.Controllers
         {
             if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
             if (!IsOwner() && !IsManager()) return RedirectToAction("Login", "Account");
+            _membershipPaymentService.UpdateExpired();
+            var payments = _membershipPaymentService.GetAllPaymentsByGymId(id);
+            var latestPerMember = payments
+            .GroupBy(p => p.MemberId)
+             .Select(g => g.OrderByDescending(p => p.EndDate).First());
+
             var gym = gymService.GetGym(id);
             GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
             {
-                gym = gym
+                gym = gym,
+                TotalActiveMembers = latestPerMember.Count(p => p.Status == "Active"),
+                TotalInactiveMembers=latestPerMember.Count(p=>p.Status=="Inactive")
             };
+            
             return View(gymHomeViewModels);
         }
         [HttpGet]

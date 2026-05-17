@@ -27,6 +27,8 @@
             <p>📞 <strong>Phone:</strong> @Model.gym.Phone</p>
             <p>👥 <strong>Total Members:</strong> @Model.gym.members?.Count</p>
             <p>🏃 <strong>Total Trainers:</strong> @Model.gym.trainers?.Count</p>
+            <p>✅ <strong>Active Members:</strong> @Model.TotalActiveMembers</p>
+            <p>❌ <strong>Inactive Members:</strong> @Model.TotalInactiveMembers</p>
         </div>
 
         @if (IsOwner)

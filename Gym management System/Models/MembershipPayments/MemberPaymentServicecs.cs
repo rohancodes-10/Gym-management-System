@@ -41,6 +41,12 @@ namespace Gym_management_System.Models.MembershipPayments
                 .OrderByDescending(p => p.PaymentDate)
                 .ToList();
         }
+        public MembershipPayment GetActivePaymentByMemberId(int memberid)
+        {
+            return _context.MembershipPayments
+                .Where(p => p.MemberId == memberid && p.Status == "Active")
+                .FirstOrDefault();
+        }
         public MembershipPayment AddPayment(MembershipPayment payment)
         {
        
