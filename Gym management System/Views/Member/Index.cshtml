@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
 <h2>Members list</h2>
 <div class="d-flex justify-content-end mb-3">
     <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-secondary">← Back</a>

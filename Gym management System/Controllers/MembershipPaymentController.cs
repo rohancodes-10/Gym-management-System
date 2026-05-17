@@ -43,6 +43,7 @@ namespace Gym_management_System.Controllers
         [HttpGet]
         public IActionResult Create(int memberId)
         {
+
             var member=_memberService.GetMember(memberId);
             if (member == null)
             {
@@ -68,7 +69,13 @@ namespace Gym_management_System.Controllers
         [HttpPost]
         public IActionResult Create(CreatePaymentViewModel model)
         {
-            
+            _membershipPaymentService.UpdateExpired();
+            var ExistingActivePayment = _membershipPaymentService.GetActivePaymentByMemberId(model.MemberId);
+            if (ExistingActivePayment != null)
+            {
+                TempData["Error"] = "The member already has active membership";
+                return RedirectToAction("index", "member", new { gymid = model.GymId });
+            }
             var plan = _membershipPlansService.GetMembershipPlanById(model.MembershipPlanId);
             var now=DateTime.UtcNow;
             var payment = new MembershipPayment
