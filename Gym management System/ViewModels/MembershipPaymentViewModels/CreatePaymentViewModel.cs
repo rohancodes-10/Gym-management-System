@@ -13,5 +13,6 @@ namespace Gym_management_System.ViewModels.MembershipPaymentViewModels
       public List<SelectListItem> MembershipPlans { get; set; }
       
         public int GymId { get; set; }
+       
     }
 }

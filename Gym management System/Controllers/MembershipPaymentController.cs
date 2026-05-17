@@ -33,9 +33,9 @@ namespace Gym_management_System.Controllers
             var model = new PaymentsHomeDetailsView
             {
                 payments = payments,
-                search=search,
-                gymid=gymid,
-                 ReturnUrl = returnUrl ?? Url.Action("Index", "Gym")
+                search = search,
+                gymid = gymid,
+                ReturnUrl = returnUrl
             };
             return View(model);
         }
