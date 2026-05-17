@@ -48,7 +48,7 @@ namespace Gym_management_System.Models.MembershipPayments
             _context.SaveChanges();
             return payment;
         }
-        public void UpdateExpiredAsync()
+        public void UpdateExpired()
         {
             var payments =  _context.MembershipPayments
                 .Where(p => p.Status == "Active")
@@ -60,7 +60,7 @@ namespace Gym_management_System.Models.MembershipPayments
                     payment.Status = "Expired";
             }
 
-             _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
     }
 }

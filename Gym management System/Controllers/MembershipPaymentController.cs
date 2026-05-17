@@ -23,6 +23,7 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult Index(int gymid,string search,string? returnUrl)
         {
+            _membershipPaymentService.UpdateExpired();
             var payments = _membershipPaymentService.GetAllPaymentsByGymId(gymid);
             if (!string.IsNullOrEmpty(search)) 
             {
