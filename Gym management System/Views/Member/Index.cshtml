@@ -13,42 +13,56 @@
     <a asp-controller="Member" asp-action="Create" class="btn btn-primary" asp-route-gymid="@Model.gymid">Add members</a>
 
 </div>
-
+<div class="mb-3">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search members by name..." />
+</div>
    <div class="row">
        
             @if(Model.members!= null && Model.members.Any())
             {
-                foreach(var member in Model.members)
-                { <div class="col-md-3 mb-3">
-
-                <a asp-action="Details" asp-controller="Member" asp-route-id=@member.Id>
-                    <div class="card shadow-sm">
-
-        
-                        <img src="@(string.IsNullOrEmpty(member.PhotoUrl)
-                                                               ? Url.Content("~/images/Blank.jpg")
-                                                               : Url.Content("~/images/" + member.PhotoUrl))"
-                             class="card-img-top"
-                             alt="Member Photo"
-                             style="height:200px; object-fit:cover;" />
-
-                        <div class="card-body text-center">
-
-                
-                            <h6 class="text-muted">ID: @member.Id</h6>
-
-                
-                            <h5 class="card-title">@member.MemberName</h5>
-
-                        </div>
-                      </div>
-           </a>
-
-        </div>
-
- 
-                }
+               foreach(var member in Model.members)
+{
+    <div class="col-md-3 mb-3 member-card" data-name="@member.MemberName.ToLower()">
+        <a asp-action="Details" asp-controller="Member" asp-route-id=@member.Id>
+            <div class="card shadow-sm">
+                <img src="@(string.IsNullOrEmpty(member.PhotoUrl)
+                               ? Url.Content("~/images/Blank.jpg")
+                               : Url.Content("~/images/" + member.PhotoUrl))"
+                     class="card-img-top"
+                     alt="Member Photo"
+                     style="height:200px; object-fit:cover;" />
+                <div class="card-body text-center">
+                    <h6 class="text-muted">ID: @member.Id</h6>
+                    <h5 class="card-title">@member.MemberName</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+}
             }
    </div>
+<p id="noResults" class="text-muted" style="display:none;">No members found.</p>
+
+@section Scripts {
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.member-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(query)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    </script>
+}
 
 
