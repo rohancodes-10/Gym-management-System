@@ -36,15 +36,7 @@
 
                     <div class="card shadow-sm">
 
-                        @if (!string.IsNullOrEmpty(trainer.PhotoUrl))
-                        {
-                            <img src="@Url.Content("~/images/" + trainer.PhotoUrl)"
-                                 class="card-img-top"
-                                 alt="Trainer Photo"
-                                 style="height:200px; object-fit:cover;" />
-                        }
-                        else
-                        {
+                     
                             <div style="height:200px;
                                 background:#f0f0f0;
                                 display:flex;
@@ -55,7 +47,7 @@
                                 color:#ccc;">
                                 @trainer.TrainerName?.Substring(0, 1).ToUpper()
                             </div>
-                        }
+                       
 
                         <div class="card-body text-center">
                             <h6 class="text-muted">ID: @trainer.Id</h6>
