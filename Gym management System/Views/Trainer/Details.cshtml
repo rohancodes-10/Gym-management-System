@@ -63,43 +63,44 @@
         </div>
 
     </div>
-    @if (Model.AssignedMember != null)
-    {
-        @if (!Model.AssignedMember.Any())
+    @if (IsOwner || IsManager || IsTrainer)
+        @if (Model.AssignedMember != null)
         {
-            <p class="text-muted">No members assigned yet.</p>
-        }
-        else
-        {
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Age</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var member in Model.AssignedMember)
-                    {
+            @if (!Model.AssignedMember.Any())
+            {
+                <p class="text-muted">No members assigned yet.</p>
+            }
+            else
+            {
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
                         <tr>
-                            <td>@member.MemberName</td>
-                            <td>@member.Phone</td>
-                            <td>@member.Age</td>
-                            <td>
-                                <a asp-controller="Member" asp-action="Details"
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Age</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in Model.AssignedMember)
+                        {
+                            <tr>
+                                <td>@member.MemberName</td>
+                                <td>@member.Phone</td>
+                                <td>@member.Age</td>
+                                <td>
+                                    <a asp-controller="Member" asp-action="Details"
                                        asp-route-id="@member.Id"
                                        class="btn btn-sm btn-outline-primary">
-                                    View
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         }
-    }
    
 
 </div>
