@@ -4,9 +4,9 @@
     ViewData["Title"] = "Member Details";
 }
 @{
-    var IsOwner = Context.Session.GetString("Role") == "Owner";
-    var IsManager = Context.Session.GetString("Role") == "Manager";
-    var IsTrainer = Context.Session.GetString("Role") == "Trainer";
+    var IsOwner = Context.Session.GetString("userRole") == "Owner";
+    var IsManager = Context.Session.GetString("userRole") == "Manager";
+    var IsTrainer = Context.Session.GetString("userRole") == "Trainer";
 }
 
 <div class="container mt-4">
@@ -64,6 +64,7 @@
 
     </div>
     @if (IsOwner || IsManager || IsTrainer)
+    {
         @if (Model.AssignedMember != null)
         {
             @if (!Model.AssignedMember.Any())
@@ -90,8 +91,8 @@
                                 <td>@member.Age</td>
                                 <td>
                                     <a asp-controller="Member" asp-action="Details"
-                                       asp-route-id="@member.Id"
-                                       class="btn btn-sm btn-outline-primary">
+                                    asp-route-id="@member.Id"
+                                    class="btn btn-sm btn-outline-primary">
                                         View
                                     </a>
                                 </td>
@@ -101,6 +102,6 @@
                 </table>
             }
         }
-   
 
+    }
 </div>
