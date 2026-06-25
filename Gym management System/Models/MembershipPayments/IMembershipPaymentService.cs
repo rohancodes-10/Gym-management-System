@@ -7,6 +7,7 @@
         MembershipPayment GetMembershipPaymentById(int id);
        IEnumerable<MembershipPayment>  GetMembershipPaymentByMemberId(int id);
         IEnumerable<MembershipPayment> GetActivemembersByGymId(int gymId);
+        IEnumerable<MembershipPayment> GetInActivemembersByGymId(int gymId);
         MembershipPayment? GetActivePaymentByMemberId(int memberid);
         MembershipPayment AddPayment(MembershipPayment payment);
         void UpdateExpired();
