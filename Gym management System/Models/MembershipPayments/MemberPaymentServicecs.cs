@@ -54,6 +54,15 @@ namespace Gym_management_System.Models.MembershipPayments
             _context.SaveChanges();
             return payment;
         }
+        public IEnumerable<MembershipPayment> GetActivemembersByGymId(int gymId)
+        {
+            _context.MembershipPayments
+                .Include(p => p.Member)
+                .Include(p => p.MembershipPlan)
+                .Where(p => p.Member.GymId == gymId && p.EndDate >= DateTime.Now)
+                .OrderByDescending(p => p.PaymentDate)
+                .ToList();
+        }
         public void UpdateExpired()
         {
             var payments =  _context.MembershipPayments
