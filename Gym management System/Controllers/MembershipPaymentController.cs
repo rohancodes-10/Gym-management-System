@@ -96,6 +96,11 @@ namespace Gym_management_System.Controllers
             var members = _membershipPaymentService.GetActivemembersByGymId(gymId);
             return View(members);
         }
+        public IActionResult InActivemembers(int gymId)
+        {
+            var members = _membershipPaymentService.GetInActivemembersByGymId(gymId);
+            return View(members);
+        }
     }
 
 }
