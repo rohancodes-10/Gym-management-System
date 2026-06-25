@@ -91,5 +91,11 @@ namespace Gym_management_System.Controllers
             _membershipPaymentService.AddPayment(payment);
             return RedirectToAction("index", new { gymid=model.GymId});
         }
+        public IActionResult Activemembers(int gymId)
+        {
+            var members = _membershipPaymentService.GetActivemembersByGymId(gymId);
+            return View(members);
+        }
     }
+
 }

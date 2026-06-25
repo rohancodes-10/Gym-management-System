@@ -1,0 +1,30 @@
+﻿@using Gym_management_System.Models.MembershipPayments
+@model IEnumerable<MembershipPayment>
+
+<h2>Active Members</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Plan</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        {
+            <tr>
+                <td>@payment.Member.MemberName</td>
+                <td>@payment.MembershipPlan.MembershipPlanName</td>
+                <td>@payment.StartDate</td>
+                <td>@payment.EndDate</td>
+                <td>
+                    <a action="Details" asp-controller="Member" asp-rout-id="@payment.Member.Id" class="btn btn-info btn-sm">view</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
