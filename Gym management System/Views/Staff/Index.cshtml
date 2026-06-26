@@ -8,7 +8,10 @@
     <a asp-controller="Staff" asp-action="Create" class="btn btn-primary" asp-route-gymid="@Model.gymId">Add Staff</a>
 
 </div>
-
+<div class="mb-3">
+    <a asp-action="Details" asp-controller="Gym" asp-route-id="@Model.gymId"
+       class="btn btn-secondary">← Back to Gyms</a>
+</div>
 <div class="row">
        
     @if (Model.staffs != null && Model.staffs.Any())

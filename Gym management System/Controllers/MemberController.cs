@@ -51,9 +51,16 @@ namespace Gym_management_System.Controllers
             // Owner and Manager can see anyone
             if (!IsOwner() && !IsManager() && !IsMember())
                 return RedirectToAction("Login", "Account");
-           
+
+            Console.WriteLine("Details Id: " + id);
 
             var members = _memberService.GetMemberWithTrainer(id);
+
+            if (members == null)
+            {
+                Console.WriteLine("Member not found for id: " + id);
+                return NotFound();
+            }
             var trainers = _trainerService.GetTrainersByGymId(members.GymId);
             var trainerSelectList = trainers.Select(t => new SelectListItem
             {

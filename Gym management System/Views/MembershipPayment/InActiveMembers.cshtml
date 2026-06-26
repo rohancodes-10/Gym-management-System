@@ -1,7 +1,17 @@
 ﻿@using Gym_management_System.Models.MembershipPayments
+@using System.Linq;
 @model IEnumerable<MembershipPayment>
 
 <h2>InActive Members</h2>
+@if (Model.Any())
+{
+    <a asp-controller="Gym"
+       asp-action="Details"
+       asp-route-id="@Model.FirstOrDefault()?.Member.GymId"
+       class="btn btn-secondary mb-3">
+        Back to Gym
+    </a>
+}
 
 <table class="table">
     <thead>

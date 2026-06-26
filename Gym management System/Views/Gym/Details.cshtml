@@ -4,7 +4,7 @@
     ViewData["Title"] = "Gym Details";
 }
 @{
-    var IsOwner = Context.Session.GetString("Role") == "Owner";
+    var IsOwner = Context.Session.GetString("userRole") == "Owner";
 }
 <div class="container mt-4">
 

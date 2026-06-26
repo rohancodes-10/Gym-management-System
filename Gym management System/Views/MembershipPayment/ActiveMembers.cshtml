@@ -1,7 +1,14 @@
 ﻿@using Gym_management_System.Models.MembershipPayments
+@using System.Linq;
 @model IEnumerable<MembershipPayment>
 
 <h2>Active Members</h2>
+<a asp-controller="Gym"
+   asp-action="Details"
+   asp-route-id="@Model.FirstOrDefault()?.Member.GymId"
+   class="btn btn-secondary mb-3">
+    Back to Gym
+</a>
 
 <table class="table">
     <thead>
@@ -19,10 +26,13 @@
             <tr>
                 <td>@payment.Member.MemberName</td>
                 <td>@payment.MembershipPlan.MembershipPlanName</td>
-                <td>@payment.StartDate</td>
+                <td>@payment.Member.Id</td>
                 <td>@payment.EndDate</td>
                 <td>
-                    <a action="Details" asp-controller="Member" asp-rout-id="@payment.Member.Id" class="btn btn-info btn-sm">view</a>
+                    <a href="/Member/Details/@payment.Member.Id"
+                       class="btn btn-info btn-sm">
+                        View
+                    </a>
                 </td>
             </tr>
         }
