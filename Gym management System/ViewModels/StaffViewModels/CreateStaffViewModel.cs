@@ -11,7 +11,7 @@ namespace Gym_management_System.ViewModels.StaffViewModels
         public int GymId { get; set; }
         public string Gender { get; set; }
         public Gym? gym { get; set; }
-        public IFormFile? Photo { get; set; }
+      
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; }
     }

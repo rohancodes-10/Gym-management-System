@@ -4,6 +4,7 @@
 }
 <form asp-action="Edit" asp-controller="Trainer" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <input type="hidden" asp-for="id" />
     
     <div class="mb-3">
         <label asp-for="TrainerName" class="form-label"></label>

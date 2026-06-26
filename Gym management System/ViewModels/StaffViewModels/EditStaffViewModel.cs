@@ -3,6 +3,6 @@
     public class EditStaffViewModel:CreateStaffViewModel
     {
         public int id { get; set; }
-        public string? ExistingPhotoUrl { get; set; }
+      
     }
 }

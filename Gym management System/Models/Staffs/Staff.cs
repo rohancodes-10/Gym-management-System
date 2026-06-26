@@ -11,6 +11,6 @@ namespace Gym_management_System.Models.Staffs
         public int GymId { get; set; }
         public string Gender { get; set; }
         public Gym? gym { get; set; }
-        public string? PhotoUrl { get; set; }
+       
     }
 }

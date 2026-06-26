@@ -50,7 +50,7 @@ namespace Gym_management_System.Models
                   Age = 29,
                   Gender="Male",
                   GymId = 1001,
-                  PhotoUrl = "Blank.jpg"
+                 
 
               });
             modelBuilder.Entity<Trainer>().HasData(
