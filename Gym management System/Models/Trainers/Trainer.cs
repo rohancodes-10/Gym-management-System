@@ -13,7 +13,7 @@ namespace Gym_management_System.Models.Trainers
 
         public  Gym Gym {  get; set; } 
         public ICollection<Member>? members { get; set; }
-        public string? PhotoUrl { get; set; }
+      
 
     }
 }

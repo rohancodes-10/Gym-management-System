@@ -62,7 +62,7 @@ namespace Gym_management_System.Models
                    Phone = "9876543210",
                    Age=29,
                    GymId = 1001,
-                   PhotoUrl="Blank.jpg"
+                 
                    
                });
 

@@ -113,17 +113,7 @@ namespace Gym_management_System.Controllers
             {
                 return View(model);
             }
-            string? uniqueFileName = null;
-            if (model.Photo != null)
-            {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.Photo.CopyToAsync(fileStream);
-                }
-            }
+          
             Trainer trainer = new Trainer
             {
                 TrainerName=model.TrainerName,
@@ -131,7 +121,7 @@ namespace Gym_management_System.Controllers
                 Phone=model.Phone,
                 Age=model.Age,
                 GymId = model.GymId,
-                PhotoUrl=uniqueFileName
+               
             };
             trainerService.AddTrainer(trainer);
             var user = new User
@@ -163,7 +153,7 @@ namespace Gym_management_System.Controllers
                 Phone = trainer.Phone,
                 Age = trainer.Age,
                 GymId = trainer.GymId,
-                ExistingPhotoUrl = trainer.PhotoUrl
+               
             };
             return View(model);
         }
@@ -180,34 +170,7 @@ namespace Gym_management_System.Controllers
                 trainer.Phone = model.Phone;
                 trainer.Age = model.Age;
                 trainer.GymId = model.GymId;
-                string? uniqueFileName = null;
-                if (model.Photo != null)
-                {
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder);
-                    }
-                    if (!string.IsNullOrEmpty(model.ExistingPhotoUrl))
-                    {
-                        string oldFilePath = Path.Combine(uploadsFolder, model.ExistingPhotoUrl);
-                        if (System.IO.File.Exists(oldFilePath))
-                        {
-                            System.IO.File.Delete(oldFilePath);
-                        }
-                    }
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.Photo.CopyToAsync(fileStream);
-                    }
-                    trainer.PhotoUrl = uniqueFileName;
-                }
-                else
-                {
-                    trainer.PhotoUrl = model.ExistingPhotoUrl;
-                }
+              
 
                 trainerService.Update(trainer);
 
@@ -224,15 +187,7 @@ namespace Gym_management_System.Controllers
             {
                 return NotFound();
             }
-            if (!string.IsNullOrEmpty(trainer.PhotoUrl))
-            {
-                string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", trainer.PhotoUrl);
-
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-            }
+           
             trainerService.Delete(id);
             return RedirectToAction("index", new { gymid = trainer.GymId });
         }

@@ -12,7 +12,7 @@ namespace Gym_management_System.ViewModels.TrainerViewModel
         public string TrainerAddress { get; set; }
         public int Age { get; set; }
         public int GymId { get; set; }
-        public IFormFile? Photo { get; set; }
+       
         public string Email { get; set; }=string.Empty;
         public string Password { get; set; } =string.Empty;
     }
