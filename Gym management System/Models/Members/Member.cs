@@ -17,6 +17,6 @@ namespace Gym_management_System.Models.Members
         public Gym Gym { get; set; }
         public Trainer Trainer { get; set; }
         public int? TrainerId { get; set; }
-        public string? PhotoUrl { get; set; }
+       
     }
 }

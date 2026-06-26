@@ -6,12 +6,7 @@
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
     <input type="hidden" asp-for="Id"/>
-    <input type="hidden" asp-for="ExistingPhotoUrl"/>
-    <input type="hidden" asp-for="GymId" />
-    <img src="@(string.IsNullOrEmpty(Model.ExistingPhotoUrl) ? "/images/Blank.jpg" : "/images/" + Model.ExistingPhotoUrl)"
-         class="img-thumbnail"
-         style="height:150px; object-fit:cover;" />
-        <div class="mb-3">
+    <div class="mb-3">
         <label asp-for="MemberName" class="form-label"></label>
         <input asp-for="MemberName" class="form-control" />
         <span asp-validation-for="MemberName" class="text-danger"></span>
@@ -40,10 +35,7 @@
         <label asp-for="city" class="form-label"></label>
         <input asp-for="city" class="form-control" />
     </div>
-    <div class="mb-3">
-        <label class="form-label">Upload New Photo(Optional)</label>
-        <input type="file" asp-for="Photo" class="form-control" />
-    </div>
+   
     <button type="submit" class="btn btn-primary">Update</button>
     <a asp-action="Index" class="btn btn-primary ms-2">Cancel</a>
 </form>

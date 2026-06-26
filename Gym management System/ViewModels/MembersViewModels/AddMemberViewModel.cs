@@ -16,7 +16,7 @@ namespace Gym_management_System.ViewModels.Members
         public string city { get; set; }
         public int GymId { get; set; }
      
-        public IFormFile? Photo { get; set; }
+      
         [Required]
         public string Email {  get; set; }
         [Required]

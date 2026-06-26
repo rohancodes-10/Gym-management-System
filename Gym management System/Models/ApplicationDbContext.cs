@@ -87,7 +87,7 @@ namespace Gym_management_System.Models
                     Phone = "9876543210",
                     Gender = "Male",
                     city = "Kathmandu",
-                    PhotoUrl = "Blank.jpg",
+                  
 
                     GymId = 1001
 
@@ -102,7 +102,7 @@ namespace Gym_management_System.Models
                     Phone = "9876543211",
                     Gender = "Male",
                     city = "Kathmandu",
-                    PhotoUrl = "Blank.jpg",
+                   
 
                     GymId = 1001
                 });
