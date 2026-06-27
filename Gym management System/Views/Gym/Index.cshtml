@@ -3,6 +3,34 @@
     ViewData["Title"] = "Gyms";
 }
 <h2>Gyms</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm border-primary">
+            <div class="card-body">
+                <h6 class="text-muted">Total Gyms</h6>
+                <h3 class="text-primary">@Model.TotalGyms</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm border-success">
+            <div class="card-body">
+                <h6 class="text-muted">Total Members</h6>
+                <h3 class="text-success">@Model.TotalMembers</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm border-warning">
+            <div class="card-body">
+                <h6 class="text-muted">Total Trainers</h6>
+                <h3 class="text-warning">@Model.TotalTrainers</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="d-flex justify-content-end mb-3">
     <a asp-controller="Gym" asp-action="Create" class="btn btn-primary">Add Gyms</a>
 

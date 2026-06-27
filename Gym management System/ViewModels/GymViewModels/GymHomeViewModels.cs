@@ -8,5 +8,9 @@ namespace Gym_management_System.ViewModels.GymViewModels
         public Gym gym { get; set; }
         public int TotalActiveMembers { get; set; }
         public int TotalInactiveMembers { get; set; }
+
+        public int TotalMembers {  get; set; }
+        public int TotalTrainers {  get; set; }
+        public int TotalGyms { get; set; }
     }
 }

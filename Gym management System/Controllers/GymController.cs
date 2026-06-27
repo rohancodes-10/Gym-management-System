@@ -25,10 +25,13 @@ namespace Gym_management_System.Controllers
         {
             if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
             if (!IsOwner()) return RedirectToAction("Login", "Account");
-            var gym = gymService.GetAllGyms();
+            var gyms = gymService.GetAllGymswithDetails();
             GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
             {
-                Gyms = gym
+                Gyms = gyms,
+                TotalGyms=gyms.Count(),
+                TotalMembers = gyms.Sum(g => g.members?.Count ?? 0),
+                TotalTrainers=gyms.Sum(g=>g.trainers?.Count?? 0)
             };
             return View(gymHomeViewModels);
         }

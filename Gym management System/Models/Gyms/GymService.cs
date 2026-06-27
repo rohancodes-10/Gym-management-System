@@ -15,6 +15,13 @@ namespace Gym_management_System.Models.Gyms
         {
             return context.Gyms.ToList();
         }
+        public IEnumerable<Gym> GetAllGymswithDetails()
+        {
+            return context.Gyms
+                .Include(p=>p.members)
+                .Include(p=>p.trainers)
+                .ToList();
+        }
         public Gym GetGym(int id)
         {
             return context.Gyms
