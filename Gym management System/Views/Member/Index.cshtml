@@ -9,8 +9,10 @@
 }
 <h2>Members list</h2>
 <div class="d-flex justify-content-end mb-3">
-    <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-secondary">← Back</a>
-    <a asp-controller="Member" asp-action="Create" class="btn btn-primary" asp-route-gymid="@Model.gymid">Add members</a>
+  
+        <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-secondary">← Back</a>
+  
+    <a asp-controller="Member" asp-action="Create" class="btn btn-primary ms-2 " asp-route-gymid="@Model.gymid">Add members</a>
 
 </div>
 <div class="mb-3">
