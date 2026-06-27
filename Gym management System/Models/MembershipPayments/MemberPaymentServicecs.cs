@@ -88,5 +88,11 @@ namespace Gym_management_System.Models.MembershipPayments
 
              _context.SaveChanges();
         }
+        public decimal GetRevenue()
+        {
+            return _context.MembershipPayments
+                .Where(p => p.PaymentDate.Month == DateTime.Now.Month && p.PaymentDate.Year == DateTime.Now.Year)
+                .Sum(p => p.AmountPaid);
+        }
     }
 }

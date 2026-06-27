@@ -9,6 +9,7 @@
         IEnumerable<MembershipPayment> GetActivemembersByGymId(int gymId);
         IEnumerable<MembershipPayment> GetInActivemembersByGymId(int gymId);
         MembershipPayment? GetActivePaymentByMemberId(int memberid);
+        Decimal GetRevenue();
         MembershipPayment AddPayment(MembershipPayment payment);
         void UpdateExpired();
     }

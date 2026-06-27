@@ -12,5 +12,6 @@ namespace Gym_management_System.ViewModels.GymViewModels
         public int TotalMembers {  get; set; }
         public int TotalTrainers {  get; set; }
         public int TotalGyms { get; set; }
+        public decimal MonthlyRevenue { get; set; }
     }
 }

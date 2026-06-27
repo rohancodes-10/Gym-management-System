@@ -29,9 +29,10 @@ namespace Gym_management_System.Controllers
             GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
             {
                 Gyms = gyms,
-                TotalGyms=gyms.Count(),
+                TotalGyms = gyms.Count(),
                 TotalMembers = gyms.Sum(g => g.members?.Count ?? 0),
-                TotalTrainers=gyms.Sum(g=>g.trainers?.Count?? 0)
+                TotalTrainers = gyms.Sum(g => g.trainers?.Count ?? 0),
+                MonthlyRevenue = _membershipPaymentService.GetRevenue()
             };
             return View(gymHomeViewModels);
         }
