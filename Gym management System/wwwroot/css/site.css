@@ -56,3 +56,32 @@ table {
 table, th, td {
     color: #eee !important;
 }
+.form-control {
+    background-color: #16213e;
+    color: #eee;
+    border: 1px solid #0f3460;
+}
+
+    .form-control:focus {
+        background-color: #16213e;
+        color: #eee;
+        border-color: #1a6fc4;
+        box-shadow: 0 0 0 0.2rem rgba(26, 111, 196, 0.25);
+    }
+
+    .form-control::placeholder {
+        color: #aaa;
+    }
+
+select.form-control, .form-select {
+    background-color: #16213e;
+    color: #eee;
+    border: 1px solid #0f3460;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #16213e inset !important;
+    -webkit-text-fill-color: #eee !important;
+    caret-color: #eee;
+}
