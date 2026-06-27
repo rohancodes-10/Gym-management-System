@@ -13,15 +13,21 @@
     <link rel="stylesheet" href="~/Gym_management_System.styles.css" asp-append-version="true" />
 </head>
 <body class="BodyLayout">
-    <div class="nav">
-       @if(IsloggedIn)
+        <div class="navbar navbar-dark bg-dark px-4">
+            <span class="navbar-brand">💪 Gym </span>
+            @if (IsloggedIn)
             {
-            <a asp-controller="Account" asp-action="Logout" class="btn btn-success">Logout</a>
+                <span class="text-white">
+                    Hello,<strong>@Context.Session.GetString("userName")</strong>
+                </span>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-success">Logout</a>
+
             }
             else
             {
-            <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
             }
+
 
     </div>
     <div class="container">

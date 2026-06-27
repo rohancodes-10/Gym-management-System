@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Gyms";
 }
-<h2>Gyms</h2>
+
+
+<div class="d-flex justify-content-end mb-3 mt-2">
+    <a asp-controller="Gym" asp-action="Create" class="btn btn-primary">Add Gyms</a>
+</div>
 
 <div class="row mb-4">
     <div class="col-md-4">
@@ -31,10 +35,7 @@
     </div>
 </div>
 
-<div class="d-flex justify-content-end mb-3">
-    <a asp-controller="Gym" asp-action="Create" class="btn btn-primary">Add Gyms</a>
-
-</div>
+<h2>Gyms</h2>
 
    <div class="row">
        
