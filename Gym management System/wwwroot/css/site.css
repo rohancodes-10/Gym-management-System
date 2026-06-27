@@ -32,3 +32,27 @@ body {
 a{
     text-decoration:none;
 }
+body {
+    background-color: #1a1a2e;
+    color: #eee;
+}
+
+.card {
+    background-color: #16213e;
+    color: #eee;
+    border: 1px solid #0f3460;
+}
+table {
+    color: #eee !important;
+}
+.table {
+    --bs-table-bg: #16213e;
+    --bs-table-striped-bg: #1a1a2e;
+    --bs-table-border-color: #0f3460;
+}
+.text-muted {
+    color: #aaa !important;
+}
+table, th, td {
+    color: #eee !important;
+}
