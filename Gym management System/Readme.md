@@ -134,16 +134,6 @@ Open your browser at https://localhost:5001
 
 
 
-📸 Screenshots
-
-
-
-
-
-
-
-
-
 📝 Notes
 
 
