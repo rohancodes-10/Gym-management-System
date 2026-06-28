@@ -1,8 +1,9 @@
 ﻿@model PlansHomeViewModels
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h4>Membership Plans</h4>
+    <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-secondary mt-2">← Back</a>
     <a asp-action="Create" asp-controller="MembershipPlan" 
-       asp-route-gymId="@Model.gymid" class="btn btn-primary">+ Add Plan</a>
+       asp-route-gymId="@Model.gymid" class="btn btn-primary mt-2">+ Add Plan</a>
 </div>
 
 <table class="table table-bordered table-hover">
