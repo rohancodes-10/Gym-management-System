@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gym_management_System.Models.MembershipPayments
 {
@@ -93,6 +94,17 @@ namespace Gym_management_System.Models.MembershipPayments
             return _context.MembershipPayments
                 .Where(p => p.PaymentDate.Month == DateTime.Now.Month && p.PaymentDate.Year == DateTime.Now.Year)
                 .Sum(p => p.AmountPaid);
+        }
+        public MembershipPayment Delete(int id)
+        {
+            var payment = _context.MembershipPayments.Find(id);
+            if (payment == null)
+            {
+                return null;
+            }
+            _context.MembershipPayments.Remove(payment);
+            _context.SaveChanges();
+            return payment;
         }
     }
 }
