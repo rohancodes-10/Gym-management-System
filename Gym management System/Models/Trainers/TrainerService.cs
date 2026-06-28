@@ -39,6 +39,12 @@ namespace Gym_management_System.Models.Trainers
             {
                 return null;
             }
+            var assignedMembers = _context.Members.Where(m => m.TrainerId == trainer.Id).ToList();
+            foreach(var member in assignedMembers)
+            {
+                member.TrainerId = null;
+            }
+            _context.SaveChanges();
             _context.Trainers.Remove(trainer);
             _context.SaveChanges();
             return trainer;
