@@ -101,6 +101,17 @@ namespace Gym_management_System.Controllers
             var members = _membershipPaymentService.GetInActivemembersByGymId(gymId);
             return View(members);
         }
+        public IActionResult Delete(int id)
+        {
+            var payment = _membershipPaymentService.GetMembershipPaymentById(id);
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            int Gymid = payment.Member.GymId;
+            _membershipPaymentService.Delete(id);
+            return RedirectToAction("index", new { gymid =Gymid });
+        }
     }
 
 }

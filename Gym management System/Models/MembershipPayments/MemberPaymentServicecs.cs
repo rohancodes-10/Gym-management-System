@@ -95,16 +95,16 @@ namespace Gym_management_System.Models.MembershipPayments
                 .Where(p => p.PaymentDate.Month == DateTime.Now.Month && p.PaymentDate.Year == DateTime.Now.Year)
                 .Sum(p => p.AmountPaid);
         }
-        public MembershipPayment Delete(int id)
+        public void Delete(int id)
         {
             var payment = _context.MembershipPayments.Find(id);
             if (payment == null)
             {
-                return null;
+                return ;
             }
             _context.MembershipPayments.Remove(payment);
             _context.SaveChanges();
-            return payment;
+           
         }
     }
 }

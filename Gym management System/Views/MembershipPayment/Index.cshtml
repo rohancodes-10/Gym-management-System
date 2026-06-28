@@ -56,8 +56,11 @@
                         </span>
                     </td>
                     <td>
-                       
-                        <a asp-action="Delete" asp-route-id="@payment.id" class="btn btn-sm btn-outline-danger">Delete</a>
+                 
+                        <form asp-action="Delete"  method="post" onsubmit="return confirm('Do you want to delete TheGYm')">
+                            <input type="hidden" name="id" value="@payment.id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             

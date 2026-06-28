@@ -11,7 +11,7 @@
         MembershipPayment? GetActivePaymentByMemberId(int memberid);
         Decimal GetRevenue();
         MembershipPayment AddPayment(MembershipPayment payment);
-        MembershipPayment Delete(int id);
+        void Delete(int id);
         void UpdateExpired();
     }
 }
