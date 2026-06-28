@@ -65,16 +65,25 @@
                        </form>
                     </div>
                    
-
-                    <div>
-                        <form asp-action="AssignTrainer" asp-controller="member" method="post">
-                            <input type="hidden" name="memberid" value="@Model.member.Id"/>
-                            <select asp-for="TrainerId" asp-items="@Model.Trainers">
-                                <option value="">...Selcet Trainer</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Assign Trainer</button>
-                        </form>
-                    </div>
+                        <div>
+                            <form asp-action="AssignTrainer" asp-controller="member" method="post">
+                                <input type="hidden" name="memberid" value="@Model.member.Id" />
+                                <span id="trainerError" class="text-danger" style="display:none;">Please select a trainer.</span>
+                                <select asp-for="TrainerId" asp-items="@Model.Trainers" class="form-select mb-2">
+                                    <option value="">...Select Trainer</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary">Assign Trainer</button>
+                                <script>
+                                                                document.querySelector("form[action*='AssignTrainer']").addEventListener("submit", function (e) {
+                                                                    const trainer = document.querySelector("select[name='TrainerId']");
+                                                                    if (!trainer.value) {
+                                                                        e.preventDefault();
+                                                                        document.getElementById("trainerError").style.display = "block";
+                                                                    }
+                                                                });
+                                </script>
+                            </form>
+                        </div>
                 </div>
                 }
             </div>
