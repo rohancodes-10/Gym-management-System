@@ -35,7 +35,7 @@
         <label asp-for="city" class="form-label"></label>
         <input asp-for="city" class="form-control" />
     </div>
-   
+    <input type="hidden" asp-for="GymId" />
     <button type="submit" class="btn btn-primary">Update</button>
     <a asp-action="Details" asp-controller="member" class="btn btn-primary ms-2" asp-route-id="@Model.Id">Cancel</a>
 </form>

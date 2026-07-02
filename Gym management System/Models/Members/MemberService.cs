@@ -39,12 +39,14 @@ namespace Gym_management_System.Models.Members
             context.SaveChanges();
             return members;
         }
-        public Member Update(Member changes)
+        
+            public Member Update(Member changes)
         {
             context.Entry(changes).State = EntityState.Modified;
             context.SaveChanges();
             return changes;
         }
+        
         public Member Delete(int id)
         {
             var member = context.Members.Find(id);
