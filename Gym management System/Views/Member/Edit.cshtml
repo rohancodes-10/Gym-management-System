@@ -37,5 +37,5 @@
     </div>
    
     <button type="submit" class="btn btn-primary">Update</button>
-    <a asp-action="Index" class="btn btn-primary ms-2">Cancel</a>
+    <a asp-action="Details" asp-controller="member" class="btn btn-primary ms-2" asp-route-id="@Model.Id">Cancel</a>
 </form>

@@ -17,9 +17,9 @@ namespace Gym_management_System.ViewModels.Members
         public int GymId { get; set; }
      
       
-        [Required]
+     
         public string Email {  get; set; }
-        [Required]
+       
         public string Password { get; set; }
       
     }
