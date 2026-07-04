@@ -93,6 +93,7 @@ namespace Gym_management_System.Controllers
             {
                 return NotFound();
             }
+            ViewData["CurrentGymId"] = gym.Id;
             EditGymViewModel editGymViewModel = new EditGymViewModel
             {
                 Id = gym.Id,
@@ -116,7 +117,7 @@ namespace Gym_management_System.Controllers
                 gymService.Update(gym);
                 return RedirectToAction("Details", new { id = model.id });
             }
-
+            ViewData["CurrentGymId"] = model.id;
             return View(model);
         }
         [HttpPost]

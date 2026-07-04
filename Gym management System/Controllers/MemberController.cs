@@ -1,4 +1,5 @@
-﻿using Gym_management_System.Models.Members;
+﻿using Gym_management_System.Models.Gyms;
+using Gym_management_System.Models.Members;
 using Gym_management_System.Models.Trainers;
 using Gym_management_System.Models.Users;
 using Gym_management_System.ViewModels.Members;
@@ -34,6 +35,7 @@ namespace Gym_management_System.Controllers
             var check = CheckAccess();
             if (check != null) return check;
             var member = _memberService.GetAllMembersByGymId(gymid);
+            ViewData["CurrentGymId"] = gymid;
             HomeViewModel homeViewModel = new HomeViewModel
             {
                 members = member,

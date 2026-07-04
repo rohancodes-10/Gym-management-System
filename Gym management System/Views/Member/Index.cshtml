@@ -1,46 +1,68 @@
-﻿
-@model HomeViewModel
+﻿@model HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Members";
 }
+
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
-<h2>Members list</h2>
-<div class="d-flex justify-content-end mb-3">
-  
-        <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-secondary">← Back</a>
-  
-    <a asp-controller="Member" asp-action="Create" class="btn btn-primary ms-2 " asp-route-gymid="@Model.gymid">Add members</a>
 
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-outline-secondary btn-sm mb-2">
+            <i class="bi bi-arrow-left"></i> Back to Gym
+        </a>
+        <h2 class="mb-0">Members</h2>
+        <p class="text-muted small mb-0">@(Model.members?.Count() ?? 0) total members</p>
+    </div>
+    <a asp-controller="Member" asp-action="Create" asp-route-gymid="@Model.gymid" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Add Member
+    </a>
 </div>
-<div class="mb-3">
-    <input type="text" id="searchInput" class="form-control" placeholder="Search members by name..." />
+
+<div class="mb-4">
+    <div class="input-group search-box">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search members by name..." />
+    </div>
 </div>
-   <div class="row">
-       
-            @if(Model.members!= null && Model.members.Any())
-            {
-               foreach(var member in Model.members)
-{
-    <div class="col-md-3 mb-3 member-card" data-name="@member.MemberName.ToLower()">
-        <a asp-action="Details" asp-controller="Member" asp-route-id=@member.Id>
-            <div class="card shadow-sm">
-                        <div style="height:200px; background:#0f3460; display:flex; align-items:center; justify-content:center; font-size:3rem; font-weight:700; color:#ccc;">
+
+<div class="row g-3" id="memberGrid">
+    @if (Model.members != null && Model.members.Any())
+    {
+        foreach (var member in Model.members)
+        {
+            <div class="col-md-3 col-sm-6 member-card" data-name="@member.MemberName.ToLower()">
+                <a asp-action="Details" asp-controller="Member" asp-route-id="@member.Id" class="text-decoration-none">
+                    <div class="card member-item-card shadow-sm h-100">
+                        <div class="member-avatar">
                             @member.MemberName?.Substring(0, 1).ToUpper()
                         </div>
-                <div class="card-body text-center">
-                    <h6 class="text-muted">ID: @member.Id</h6>
-                    <h5 class="card-title">@member.MemberName</h5>
-                </div>
+                        <div class="card-body text-center">
+                            <span class="badge bg-secondary mb-2">ID: @member.Id</span>
+                            <h6 class="card-title mb-0">@member.MemberName</h6>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-}
-            }
-   </div>
-<p id="noResults" class="text-muted" style="display:none;">No members found.</p>
+        }
+    }
+    else
+    {
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-people display-4 text-muted"></i>
+            <h5 class="text-muted mt-3">No members yet</h5>
+            <a asp-controller="Member" asp-action="Create" asp-route-gymid="@Model.gymid" class="btn btn-primary mt-2">
+                Add First Member
+            </a>
+        </div>
+    }
+</div>
+
+<p id="noResults" class="text-muted text-center py-4" style="display:none;">
+    <i class="bi bi-search"></i> No members found matching your search.
+</p>
 
 @section Scripts {
     <script>
@@ -51,17 +73,15 @@
 
             cards.forEach(card => {
                 const name = card.getAttribute('data-name');
-                if (name.includes(query)) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+                const isMatch = name.includes(query);
+                card.style.display = isMatch ? 'block' : 'none';
+                if (isMatch) visibleCount++;
             });
 
             document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
         });
     </script>
 }
-
-
+@section Styles{
+    <link rel="stylesheet" href="~/css/Member_and_trainer_index/MandTindex.css" asp-append-version="true" />
+}

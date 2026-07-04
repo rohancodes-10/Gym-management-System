@@ -295,3 +295,24 @@ body.body-layout {
     min-height: 100vh;
     background-color: #14141f;
 }
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    min-width: 0;
+}
+
+    .main-content main {
+        flex: 1; 
+    }
+
+    .main-content footer {
+        margin-top: auto; 
+    }
