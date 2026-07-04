@@ -2,6 +2,7 @@
 using Gym_management_System.Models.MembershipPayments;
 using Gym_management_System.ViewModels.GymViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Gym_management_System.Controllers
@@ -62,20 +63,26 @@ namespace Gym_management_System.Controllers
         {
             if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
             if (!IsOwner() && !IsManager()) return RedirectToAction("Login", "Account");
+
             _membershipPaymentService.UpdateExpired();
-            var payments = _membershipPaymentService.GetAllPaymentsByGymId(id);
-            var latestPerMember = payments
-            .GroupBy(p => p.MemberId)
-             .Select(g => g.OrderByDescending(p => p.EndDate).First());
 
             var gym = gymService.GetGym(id);
+            if (gym == null) return NotFound();
+
+            ViewData["CurrentGymId"] = gym.Id;
+
+            var payments = _membershipPaymentService.GetAllPaymentsByGymId(id);
+            var latestPerMember = payments
+                .GroupBy(p => p.MemberId)
+                .Select(g => g.OrderByDescending(p => p.EndDate).First());
+
             GymHomeViewModels gymHomeViewModels = new GymHomeViewModels
             {
                 gym = gym,
                 TotalActiveMembers = latestPerMember.Count(p => p.Status == "Active"),
-                TotalInactiveMembers=latestPerMember.Count(p=>p.Status=="Inactive")
+                TotalInactiveMembers = latestPerMember.Count(p => p.Status == "Inactive")
             };
-            
+
             return View(gymHomeViewModels);
         }
         [HttpGet]

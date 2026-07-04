@@ -221,6 +221,17 @@ body.body-layout {
 }
 
 /*Gym index*/
+.gym-detail-card {
+    background-color: #1e1e2f;
+    border: 1px solid #2c2c3e;
+    border-radius: 12px;
+    color: #f1f1f1;
+}
+
+    .gym-detail-card hr {
+        border-color: #2c2c3e;
+    }
+
 .stat-card {
     background-color: #1e1e2f;
     border-radius: 12px;
@@ -232,27 +243,10 @@ body.body-layout {
     }
 
 .stat-icon {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     display: block;
     margin-bottom: 0.4rem;
 }
-
-.gym-card {
-    background-color: #1e1e2f;
-    border: 1px solid #2c2c3e;
-    border-radius: 12px;
-    transition: transform 0.15s ease, border-color 0.15s ease;
-    color: #f1f1f1;
-}
-
-    .gym-card:hover {
-        transform: translateY(-3px);
-        border-color: #6c63ff;
-    }
-
-    .gym-card .card-title {
-        color: #fff;
-    }
 
 /*Gym details page*/
 .gym-detail-card {
@@ -296,3 +290,8 @@ body.body-layout {
     .clickable-row:hover {
         background-color: #2a2a3d;
     }
+
+.page-wrapper {
+    min-height: 100vh;
+    background-color: #14141f;
+}

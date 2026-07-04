@@ -2,130 +2,94 @@
 @model GymHomeViewModels
 @{
     ViewData["Title"] = "Gym Details";
+    var isOwner = Context.Session.GetString("userRole") == "Owner";
 }
-@{
-    var IsOwner = Context.Session.GetString("userRole") == "Owner";
-}
-<div class="container mt-4">
 
-   
-
-    <!-- Gym Info Card -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <h2 class="card-title">💪 @Model.gym.GymName</h2>
-            <hr />
-            <p>📍 <strong>Address:</strong> @Model.gym.GymAddress</p>
-            <p>🏙️ <strong>City:</strong> @Model.gym.City</p>
-            <p>📞 <strong>Phone:</strong> @Model.gym.Phone</p>
-            <p>👥 <strong>Total Members:</strong> @Model.gym.members?.Count</p>
-            <p>🏃 <strong>Total Trainers:</strong> @Model.gym.trainers?.Count</p>
-            <p>✅ <strong>Active Members:</strong> @Model.TotalActiveMembers</p>
-            <p>❌ <strong>Inactive Members:</strong> @Model.TotalInactiveMembers</p>
-        </div>
-
-        @if (IsOwner)
-        {
-            <div class="card-footer d-flex gap-2">
-                <a asp-action="Edit" asp-controller="Gym"
-                   asp-route-id="@Model.gym.Id"
-                   class="btn btn-warning">Edit</a>
-
-                <form asp-action="Delete" asp-controller="Gym" method="post" onsubmit="return confirm('Do you want to delete TheGYm')">
-                    <input type="hidden" name="id" value="@Model.gym.Id" />
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        }
-    </div>
-   <div class="mt-3 mb-3">
-        <a asp-controller="MembershipPayment"
-           asp-action="ActiveMembers"
-           asp-route-gymId="@Model.gym.Id"
-           class="btn btn-success btn-sm">
-            Active Members
-        </a>
-        <a asp-controller="MembershipPayment"
-           asp-action="InActiveMembers"
-           asp-route-gymId="@Model.gym.Id"
-           class="btn btn-danger btn-sm">
-            InActive Members
-        </a>
-   </div>
-   
-    <div class="card shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <h5>👥 Members</h5>
-                <p class="text-muted mb-0">
-                    @Model.gym.members?.Count members in this gym
-                </p>
-            </div>
-            <a asp-action="Create" asp-controller="Member"
-                   class="btn btn-primary" asp-route-gymid="@Model.gym.Id">
-                Add Members →
-            </a>
-            <a asp-action="Index" asp-controller="Member"
-                   class="btn btn-primary" asp-route-gymid="@Model.gym.Id">
-                View Members →
-            </a>
-        </div>
-    </div>
-
-   
-    <div class="card shadow-sm mt-3">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <h5>🏃 Trainers</h5>
-                <p class="text-muted mb-0">@Model.gym.trainers?.Count Trainers in this gym</p>
-            </div>
-            <a class="btn btn-primary" asp-action="Create" asp-controller="Trainer" asp-route-gymid="@Model.gym.Id">
-                Add Trainer
-            </a>
-            <a class="btn btn-primary" asp-action="index" asp-controller="Trainer" asp-route-gymid="@Model.gym.Id">
-                View Trainers →
-            </a>
-        </div>
-    </div>
-    @if (IsOwner)
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a asp-action="Index" asp-controller="Gym" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Back to Gyms
+    </a>
+    @if (isOwner)
     {
-        <div class="card shadow-sm mt-3">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                    <h5> Staffs</h5>
-                </div>
-                <a class="btn btn-primary" asp-action="index" asp-controller="Staff" asp-route-gymid="@Model.gym.Id">
-                    View Staff
-                </a>
-            </div>
+        <div>
+            <a asp-action="Edit" asp-controller="Gym" asp-route-id="@Model.gym.Id" class="btn btn-warning btn-sm">
+                <i class="bi bi-pencil"></i> Edit
+            </a>
+            <form asp-action="Delete" asp-controller="Gym" method="post" class="d-inline"
+                  onsubmit="return confirm('Delete this gym? This cannot be undone.')">
+                <input type="hidden" name="id" value="@Model.gym.Id" />
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+            </form>
         </div>
     }
-    <div class="mt-2"><h2>Finance</h2></div>
-    <div class="card shadow-sm mt-3">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <h5> Membership Plans</h5>
-            </div>
-            <a class="btn btn-primary" asp-action="Create" asp-controller="MembershipPlan" asp-route-gymid="@Model.gym.Id">
-                Add Plans
-            </a>
-            <a class="btn btn-primary" asp-action="index" asp-controller="MembershipPlan" asp-route-gymid="@Model.gym.Id">
-                View Plans →
-          </a>
-        </div>
-    </div>
-   
-    <div class="card shadow-sm mt-3">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <h5> Payments</h5>
-            </div>
-            <a class="btn btn-primary" asp-action="index" asp-controller="MembershipPayment" asp-route-gymid="@Model.gym.Id" asp-route-returnUrl="@Url.Action("Details", "Gym", new { id = @Model.gym.Id })">
-                View Paymnts →
-            </a>
-        </div>
-    </div>
-
-
-
 </div>
+
+<!-- Gym Info Card -->
+<div class="card gym-detail-card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+                <h3 class="mb-1">💪 @Model.gym.GymName</h3>
+                <span class="badge bg-secondary">ID: @Model.gym.Id</span>
+            </div>
+        </div>
+        <hr class="my-3" />
+        <div class="row g-3">
+            <div class="col-md-4">
+                <p class="text-muted small mb-1">Address</p>
+                <p class="mb-0"><i class="bi bi-geo-alt"></i> @Model.gym.GymAddress</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted small mb-1">City</p>
+                <p class="mb-0"><i class="bi bi-building"></i> @Model.gym.City</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-muted small mb-1">Phone</p>
+                <p class="mb-0"><i class="bi bi-telephone"></i> @Model.gym.Phone</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3 col-6">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-people stat-icon text-primary"></i>
+                <h6 class="text-muted mb-1">Total Members</h6>
+                <h3 class="text-primary mb-0">@Model.gym.members?.Count</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-person-badge stat-icon text-warning"></i>
+                <h6 class="text-muted mb-1">Total Trainers</h6>
+                <h3 class="text-warning mb-0">@Model.gym.trainers?.Count</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-check-circle stat-icon text-success"></i>
+                <h6 class="text-muted mb-1">Active Members</h6>
+                <h3 class="text-success mb-0">@Model.TotalActiveMembers</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-x-circle stat-icon text-danger"></i>
+                <h6 class="text-muted mb-1">Inactive Members</h6>
+                <h3 class="text-danger mb-0">@Model.TotalInactiveMembers</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
