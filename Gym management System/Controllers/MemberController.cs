@@ -35,12 +35,13 @@ namespace Gym_management_System.Controllers
             var check = CheckAccess();
             if (check != null) return check;
             var member = _memberService.GetAllMembersByGymId(gymid);
-            ViewData["CurrentGymId"] = gymid;
+           
             HomeViewModel homeViewModel = new HomeViewModel
             {
                 members = member,
                 gymid = gymid
             };
+            ViewData["CurrentGymId"] = gymid;
             return View(homeViewModel);
         }
         public IActionResult Details(int id)
@@ -81,10 +82,12 @@ namespace Gym_management_System.Controllers
         {
             var check = CheckAccess();
             if (check != null) return check;
+           
             AddMemberViewModel model = new AddMemberViewModel
             {
                 GymId = gymid
             };
+            ViewData["CurrentGymId"] = gymid;
             return View(model);
         }
         [HttpPost]
@@ -123,6 +126,7 @@ namespace Gym_management_System.Controllers
                 CreatedAt = DateTime.Now,
             };
             _authService.Register(user, model.Password);
+            ViewData["CurrentGymId"] = model.GymId;
             return RedirectToAction("index" ,new {gymid=model.GymId });
         }
         [HttpGet]
@@ -133,6 +137,8 @@ namespace Gym_management_System.Controllers
             Member? member = _memberService.GetMember(Id);
             if (member == null)
                 return NotFound();
+
+           
             MemberEditViewModel memberEditViewModel = new MemberEditViewModel
             {
                 Id = member.Id,
@@ -145,6 +151,7 @@ namespace Gym_management_System.Controllers
                 GymId = member.GymId,
                
             };
+             ViewData["CurrentGymId"] = member.GymId;
             return View(memberEditViewModel);
         }
         [HttpPost]
@@ -152,6 +159,7 @@ namespace Gym_management_System.Controllers
         {
             var check = CheckAccess();
             if (check != null) return check;
+           
             if (ModelState.IsValid)
             {
                 Member member = _memberService.GetMember(model.Id);
@@ -166,6 +174,7 @@ namespace Gym_management_System.Controllers
                 _memberService.Update(member);
                 return RedirectToAction("Details", new { Id = model.Id });
             }
+            ViewData["CurrentGymId"] = model.GymId;
             return View(model);
 
         }
@@ -179,7 +188,7 @@ namespace Gym_management_System.Controllers
             {
                 return NotFound();
             }
-          
+            ViewData["CurrentGymId"] = member.GymId;
             _memberService.Delete(id);
             return RedirectToAction("index", new {gymid=member.GymId});
         }

@@ -38,6 +38,7 @@ namespace Gym_management_System.Controllers
                 gymid = gymid,
                 ReturnUrl = returnUrl
             };
+            ViewData["CurrentGymId"] = gymid;
             return View(model);
         }
         [HttpGet]
@@ -61,7 +62,7 @@ namespace Gym_management_System.Controllers
                     Text = $"{p.MembershipPlanName} - ${p.price} ({p.DurationInDays} days)"
                 }).ToList()
             };
-
+            ViewData["CurrentGymId"] = model.GymId;
             return View(model);
         }
 
@@ -89,16 +90,19 @@ namespace Gym_management_System.Controllers
                 Status = "Active"
             };
             _membershipPaymentService.AddPayment(payment);
+            ViewData["CurrentGymId"] = model.GymId;
             return RedirectToAction("index", new { gymid=model.GymId});
         }
         public IActionResult Activemembers(int gymId)
         {
             var members = _membershipPaymentService.GetActivemembersByGymId(gymId);
+            ViewData["CurrentGymId"] = gymId;
             return View(members);
         }
         public IActionResult InActivemembers(int gymId)
         {
             var members = _membershipPaymentService.GetInActivemembersByGymId(gymId);
+            ViewData["CurrentGymId"] = gymId;
             return View(members);
         }
         public IActionResult Delete(int id)
@@ -110,6 +114,7 @@ namespace Gym_management_System.Controllers
             }
             int Gymid = payment.Member.GymId;
             _membershipPaymentService.Delete(id);
+            ViewData["CurrentGymId"] = Gymid;
             return RedirectToAction("index", new { gymid =Gymid });
         }
     }
