@@ -400,3 +400,32 @@ table, th, td {
         background-color: #4338ca;
         border-color: #4338ca;
     }
+
+.sidebar-caret {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-link[aria-expanded="true"] .sidebar-caret {
+    transform: rotate(180deg);
+}
+
+.sidebar-sublink {
+    display: block;
+    padding: 0.5rem 0.9rem 0.5rem 2.5rem;
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 0.87rem;
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+    .sidebar-sublink:hover {
+        background-color: #262c47;
+        color: #fff;
+    }
+
+    .sidebar-sublink.active {
+        color: #a5b4fc;
+        font-weight: 600;
+    }

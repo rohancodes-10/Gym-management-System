@@ -20,6 +20,7 @@ namespace Gym_management_System.Controllers
                 Plans = plans,
                 gymid=gymid
             };
+            ViewData["CurrentGymId"] = gymid;
             return View(model);
         }
         [HttpGet]
@@ -29,6 +30,7 @@ namespace Gym_management_System.Controllers
             {
                 GymId = gymid
             };
+            ViewData["CurrentGymId"] = model.GymId;
             return View(model);
         }
         [HttpPost]
@@ -46,6 +48,7 @@ namespace Gym_management_System.Controllers
                 DurationInDays=model.DurationInDays
             };
             _membershipPlansService.AddPlan(MembershipPlan);
+            ViewData["CurrentGymId"] = model.GymId;
             return RedirectToAction("index", new { gymid = model.GymId });
         }
         [HttpGet]
@@ -60,6 +63,7 @@ namespace Gym_management_System.Controllers
                 price = plans.price,
                 DurationInDays = plans.DurationInDays
             };
+            ViewData["CurrentGymId"] = model.GymId;
             return View(model);
         }
         [HttpPost]
@@ -74,6 +78,7 @@ namespace Gym_management_System.Controllers
             plan.price = model.price;
             plan.DurationInDays = model.DurationInDays;
             _membershipPlansService.UpdatePlan(plan);
+            ViewData["CurrentGymId"] = model.GymId;
             return RedirectToAction("index", new { gymid = model.GymId });
         }
         public IActionResult Delete(int id)

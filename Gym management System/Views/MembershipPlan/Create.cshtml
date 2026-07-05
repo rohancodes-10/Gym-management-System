@@ -1,26 +1,64 @@
 ﻿@model AddplanViewModel
+@{
+    ViewData["Title"] = "Add Membership Plan";
+    ViewData["CurrentGymId"] = Model.GymId;
+}
 
-
-<form asp-action="Create" asp-controller="MembershipPlan" method="post">
-    <div asp-validation-summary="All" class="text-danger mb-3"></div>
-
-    <div class="mb-3">
-        <label asp-for="MembershipPlanName" class="form-label"></label>
-        <input asp-for="MembershipPlanName" class="form-control" />
-        <span asp-validation-for="MembershipPlanName" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="DurationInDays" class="form-label"></label>
-        <input asp-for="DurationInDays" class="form-control" />
-    </div>
-   
-   
-    <div class="mb-3">
-        <label asp-for="price" class="form-label"></label>
-        <input asp-for="price" class="form-control" />
-    </div>
-<div class="mb-3">
-    <input asp-for="GymId" value="@Model.GymId" type="hidden" class="form-control" />
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a asp-action="Index" asp-controller="MembershipPlan" asp-route-gymId="@Model.GymId" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Back to Plans
+    </a>
 </div>
-    <button type="submit" class="btn btn-primary">Add</button>
-</form>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card form-card shadow-sm">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <i class="bi bi-card-list form-icon"></i>
+                    <h4 class="mt-2 mb-0">Add Membership Plan</h4>
+                    <p class="text-muted small">Create a new plan for this gym</p>
+                </div>
+
+                <form asp-action="Create" asp-controller="MembershipPlan" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <input asp-for="GymId" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="MembershipPlanName" class="form-label"></label>
+                        <input asp-for="MembershipPlanName" class="form-control" placeholder="e.g. Gold Membership" />
+                        <span asp-validation-for="MembershipPlanName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label asp-for="DurationInDays" class="form-label"></label>
+                            <div class="input-group">
+                                <input asp-for="DurationInDays" class="form-control" />
+                                <span class="input-group-text">days</span>
+                            </div>
+                            <span asp-validation-for="DurationInDays" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="price" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rs</span>
+                                <input asp-for="price" class="form-control" />
+                            </div>
+                            <span asp-validation-for="price" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="bi bi-plus-circle"></i> Add Plan
+                        </button>
+                        <a asp-action="Index" asp-controller="MembershipPlan" asp-route-gymId="@Model.GymId" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
