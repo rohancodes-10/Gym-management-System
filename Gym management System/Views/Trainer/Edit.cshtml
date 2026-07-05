@@ -1,32 +1,69 @@
 ﻿@model EditTrainerViewModel
 @{
-    ViewBag.Title = "Editing Trainer";
+    ViewData["Title"] = "Edit Trainer";
+    ViewData["CurrentGymId"] = Model.GymId;
 }
-<form asp-action="Edit" asp-controller="Trainer" method="post" >
-    <div asp-validation-summary="All" class="text-danger mb-3"></div>
-    <input type="hidden" asp-for="id" />
-    
-    <div class="mb-3">
-        <label asp-for="TrainerName" class="form-label"></label>
-        <input asp-for="TrainerName" class="form-control" />
-        <span asp-validation-for="TrainerName" class="text-danger"></span>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a asp-action="Details" asp-controller="Trainer" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Back
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card form-card shadow-sm">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-badge form-icon"></i>
+                    <h4 class="mt-2 mb-0">Edit Trainer</h4>
+                    <p class="text-muted small">Update trainer details</p>
+                </div>
+
+                <form asp-action="Edit" asp-controller="Trainer" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="GymId" />
+
+                    <div class="mb-3">
+                        <label asp-for="TrainerName" class="form-label"></label>
+                        <input asp-for="TrainerName" class="form-control" />
+                        <span asp-validation-for="TrainerName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="Age" class="form-label"></label>
+                            <input asp-for="Age" class="form-control" />
+                            <span asp-validation-for="Age" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="TrainerAddress" class="form-label"></label>
+                        <input asp-for="TrainerAddress" class="form-control" />
+                        <span asp-validation-for="TrainerAddress" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="bi bi-check-circle"></i> Update Trainer
+                        </button>
+                        <a asp-action="Details" asp-controller="Trainer" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="Age" class="form-label"></label>
-        <input asp-for="Age" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="Phone" class="form-label"></label>
-        <input asp-for="Phone" class="form-control" />
-    </div>
- 
-    <div class="mb-3">
-        <label asp-for="TrainerAddress" class="form-label"></label>
-        <input asp-for="TrainerAddress" class="form-control" />
-    </div>
-    
-    <div class="mb-3">
-        <input asp-for="GymId" value="@Model.GymId" type="hidden" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Member_and_trainer_ index/Edit.css" asp-append-version="true" />
+}

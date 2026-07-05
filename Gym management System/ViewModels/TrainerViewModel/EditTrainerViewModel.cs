@@ -2,7 +2,7 @@
 {
     public class EditTrainerViewModel:AddTrainerViewModel
     {
-        public int id { get; set; }
+        public int Id { get; set; }
       
     }
 }

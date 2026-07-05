@@ -1,60 +1,44 @@
 ﻿@model TrainerHomeViewModels
 @{
     ViewData["Title"] = "Trainers";
+    ViewData["CurrentGymId"] = Model.gymid;
 }
 
-<h2>Trainers List</h2>
-
-<div class="d-flex justify-content-end mb-3">
-    <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-secondary">← Back</a>
-    <a asp-controller="Trainer"
-       asp-action="Create"
-       class="btn btn-primary ms-2"
-       asp-route-gymid="@Model.gymid">
-        Add Trainer
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <a asp-controller="Gym" asp-action="Details" asp-route-id="@Model.gymid" class="btn btn-outline-secondary btn-sm mb-2">
+            <i class="bi bi-arrow-left"></i> Back to Gym
+        </a>
+        <h2 class="mb-0">Trainers</h2>
+        <p class="text-muted small mb-0">@(Model.trainers?.Count() ?? 0) total trainers</p>
+    </div>
+    <a asp-controller="Trainer" asp-action="Create" asp-route-gymid="@Model.gymid" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Add Trainer
     </a>
 </div>
 
-<div class="mb-3">
-    <input type="text"
-           id="searchInput"
-           class="form-control"
-           placeholder="Search trainers by name..." />
+<div class="mb-4">
+    <div class="input-group search-box">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search trainers by name..." />
+    </div>
 </div>
 
-<div class="row" id="trainerContainer">
+<div class="row g-3" id="trainerContainer">
     @if (Model.trainers != null && Model.trainers.Any())
     {
         foreach (var trainer in Model.trainers)
         {
-            <div class="col-md-3 mb-3 member-card"
-                 data-name="@trainer.TrainerName?.ToLower()">
-
-                <a asp-action="Details"
-                   asp-controller="Trainer"
-                   asp-route-id="@trainer.Id"
-                   class="text-decoration-none text-dark">
-
-                    <div class="card shadow-sm">
-
-                     
-                            <div style="height:200px;
-                            background:#0f3460;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                font-size:3rem;
-                                font-weight:700;
-                                color:#ccc;">
-                                @trainer.TrainerName?.Substring(0, 1).ToUpper()
-                            </div>
-                       
-
-                        <div class="card-body text-center">
-                            <h6 class="text-muted">ID: @trainer.Id</h6>
-                            <h5 class="card-title">@trainer.TrainerName</h5>
+            <div class="col-md-3 col-sm-6 member-card" data-name="@trainer.TrainerName?.ToLower()">
+                <a asp-action="Details" asp-controller="Trainer" asp-route-id="@trainer.Id" class="text-decoration-none">
+                    <div class="card member-item-card shadow-sm h-100">
+                        <div class="member-avatar">
+                            @trainer.TrainerName?.Substring(0, 1).ToUpper()
                         </div>
-
+                        <div class="card-body text-center">
+                            <span class="badge bg-secondary mb-2">ID: @trainer.Id</span>
+                            <h6 class="card-title mb-0">@trainer.TrainerName</h6>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -62,21 +46,19 @@
     }
     else
     {
-        <div class="text-center mt-5">
-            <h5 class="text-muted">No trainers added yet</h5>
-            <a asp-controller="Trainer"
-               asp-action="Create"
-               asp-route-gymid="@Model.gymid"
-               class="btn btn-primary mt-2">
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-person-badge display-4 text-muted"></i>
+            <h5 class="text-muted mt-3">No trainers added yet</h5>
+            <a asp-controller="Trainer" asp-action="Create" asp-route-gymid="@Model.gymid" class="btn btn-primary mt-2">
                 Add First Trainer
             </a>
         </div>
     }
 </div>
 
-<div id="noResults" class="text-center mt-3" style="display:none;">
-    <h5 class="text-muted">No trainers found</h5>
-</div>
+<p id="noResults" class="text-muted text-center py-4" style="display:none;">
+    <i class="bi bi-search"></i> No trainers found matching your search.
+</p>
 
 @section Scripts {
     <script>
@@ -87,22 +69,16 @@
 
             cards.forEach(card => {
                 const name = card.getAttribute('data-name');
-
-                if (name.includes(query)) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+                const isMatch = name.includes(query);
+                card.style.display = isMatch ? 'block' : 'none';
+                if (isMatch) visibleCount++;
             });
 
-            const noResults = document.getElementById('noResults');
-
-            if (visibleCount === 0 && query !== "") {
-                noResults.style.display = 'block';
-            } else {
-                noResults.style.display = 'none';
-            }
+            document.getElementById('noResults').style.display = (visibleCount === 0) ? 'block' : 'none';
         });
     </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Member_and_trainer_index/MandTindex.css" asp-append-version="true" />
 }

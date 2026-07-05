@@ -1,0 +1,30 @@
+﻿.form-card {
+    background-color: #ffffff;
+    border: 1px solid #d7dbe4;
+    border-radius: 14px;
+    color: #1f2937;
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.08), 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+
+.form-icon {
+    font-size: 2.2rem;
+    color: #4f46e5;
+}
+
+.form-card .form-control {
+    background-color: #f7f8fb;
+    border: 1px solid #d8dce6;
+    color: #1f2937;
+}
+
+    .form-card .form-control:focus {
+        background-color: #ffffff;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+        color: #1f2937;
+    }
+
+.form-card .form-label {
+    color: #374151;
+    font-weight: 500;
+}

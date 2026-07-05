@@ -39,6 +39,7 @@ namespace Gym_management_System.Controllers
                 trainers = Trainer,
                 gymid = gymid
             };
+            ViewData["CurrentGymId"] = gymid;
             return View(model);
         }
         public IActionResult Details(int id)
@@ -53,6 +54,7 @@ namespace Gym_management_System.Controllers
                     return NotFound();
                 }
                 var members = _memberService.GetAllMembersByTrainerId(id);
+                ViewData["CurrentGymId"] = trainers.GymId;
                 return View(new TrainerHomeViewModels { trainer = trainers,AssignedMember=members });
             }
             if(IsTrainer())
@@ -71,6 +73,8 @@ namespace Gym_management_System.Controllers
                 {
                     return NotFound();
                 }
+
+                ViewData["CurrentGymId"] = trainers.GymId;
                 return View(new TrainerHomeViewModels { trainer = trainers, AssignedMember = members });
             }
             if(IsMember())
@@ -86,10 +90,12 @@ namespace Gym_management_System.Controllers
                     return NotFound();
                 }
                 var members = _memberService.GetAllMembersByTrainerId(id);
-               
+                ViewData["CurrentGymId"] = trainers.GymId;
                 return View(new TrainerHomeViewModels { trainer = trainers, AssignedMember = members });
             }
             
+            
+
             return RedirectToAction("Login", "Account");
         }
 
@@ -102,6 +108,7 @@ namespace Gym_management_System.Controllers
             {
                 GymId =gymid
             };
+            ViewData["CurrentGymId"] = gymid;
             return View(model);
         }
         [HttpPost]
@@ -134,6 +141,7 @@ namespace Gym_management_System.Controllers
                 CreatedAt=DateTime.Now,
             };
             _authService.Register(user, model.Password);
+            ViewData["CurrentGymId"] = model.GymId;
             return RedirectToAction("index", new { gymid = model.GymId });
         }
         [HttpGet]
@@ -148,13 +156,15 @@ namespace Gym_management_System.Controllers
             }
             var model = new EditTrainerViewModel
             {
+                Id = trainer.Id,
                 TrainerName = trainer.TrainerName,
                 TrainerAddress = trainer.TrainerAddress,
                 Phone = trainer.Phone,
                 Age = trainer.Age,
                 GymId = trainer.GymId,
-               
+
             };
+            ViewData["CurrentGymId"] = model.GymId;
             return View(model);
         }
         [HttpPost]
@@ -164,7 +174,8 @@ namespace Gym_management_System.Controllers
             if (check != null) { return check; }
             if (ModelState.IsValid)
             {
-                Trainer? trainer = trainerService.GetTrainer(model.id);
+                Trainer? trainer = trainerService.GetTrainer(model.Id);
+ 
                 trainer.TrainerName = model.TrainerName;
                 trainer.TrainerAddress = model.TrainerAddress;
                 trainer.Phone = model.Phone;
@@ -176,6 +187,7 @@ namespace Gym_management_System.Controllers
 
                 return RedirectToAction("Details", new { Id = model.Id });
             }
+            ViewData["CurrentGymId"] = model.GymId;
             return View(model);
         }
         public IActionResult Delete(int id)

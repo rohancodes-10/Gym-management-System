@@ -56,39 +56,31 @@
 <!-- Stat Cards -->
 <div class="row g-3 mb-4">
     <div class="col-md-3 col-6">
-        <div class="card stat-card border-0 shadow-sm">
-            <div class="card-body text-center">
-                <i class="bi bi-people stat-icon text-primary"></i>
-                <h6 class="text-muted mb-1">Total Members</h6>
-                <h3 class="text-primary mb-0">@Model.gym.members?.Count</h3>
-            </div>
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap blue"><i class="bi bi-people"></i></div>
+            <h6 class="text-muted mb-1">Total Members</h6>
+            <h3 class="text-primary mb-0">@Model.gym.members?.Count</h3>
         </div>
     </div>
     <div class="col-md-3 col-6">
-        <div class="card stat-card border-0 shadow-sm">
-            <div class="card-body text-center">
-                <i class="bi bi-person-badge stat-icon text-warning"></i>
-                <h6 class="text-muted mb-1">Total Trainers</h6>
-                <h3 class="text-warning mb-0">@Model.gym.trainers?.Count</h3>
-            </div>
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap yellow"><i class="bi bi-person-badge"></i></div>
+            <h6 class="text-muted mb-1">Total Trainers</h6>
+            <h3 class="text-warning mb-0">@Model.gym.trainers?.Count</h3>
         </div>
     </div>
     <div class="col-md-3 col-6">
-        <div class="card stat-card border-0 shadow-sm">
-            <div class="card-body text-center">
-                <i class="bi bi-check-circle stat-icon text-success"></i>
-                <h6 class="text-muted mb-1">Active Members</h6>
-                <h3 class="text-success mb-0">@Model.TotalActiveMembers</h3>
-            </div>
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap green"><i class="bi bi-check-circle"></i></div>
+            <h6 class="text-muted mb-1">Active Members</h6>
+            <h3 class="text-success mb-0">@Model.TotalActiveMembers</h3>
         </div>
     </div>
     <div class="col-md-3 col-6">
-        <div class="card stat-card border-0 shadow-sm">
-            <div class="card-body text-center">
-                <i class="bi bi-x-circle stat-icon text-danger"></i>
-                <h6 class="text-muted mb-1">Inactive Members</h6>
-                <h3 class="text-danger mb-0">@Model.TotalInactiveMembers</h3>
-            </div>
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap red"><i class="bi bi-x-circle"></i></div>
+            <h6 class="text-muted mb-1">Inactive Members</h6>
+            <h3 class="text-danger mb-0">@Model.TotalInactiveMembers</h3>
         </div>
     </div>
 </div>
