@@ -1,6 +1,6 @@
 ﻿@{
     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
-    var roleId = Context.Session.GetInt32("roleId");
+    var roleId = Context.Session.GetInt32("RoleId");
 }
 <a class="sidebar-link @(controller == "Trainer" ? "active" : "")" asp-controller="Trainer" asp-action="Details" asp-route-id="@roleId">
     <i class="bi bi-person"></i> My Profile
