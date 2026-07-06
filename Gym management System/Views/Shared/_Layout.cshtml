@@ -1,9 +1,9 @@
 ﻿@{
     var isLoggedIn = Context.Session.GetString("userId") != null;
     var userName = Context.Session.GetString("userName");
-    var role = Context.Session.GetString("role"); // "Owner" or "Staff"
+    var role = Context.Session.GetString("userRole");
     var currentGymId = ViewData["CurrentGymId"] as int?;
-    var showSidebar = isLoggedIn && currentGymId != null;
+    var showSidebar = isLoggedIn && (currentGymId != null || role == "Trainer" || role == "Member");
 
     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
     var action = ViewContext.RouteData.Values["action"]?.ToString();
@@ -17,17 +17,15 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> 
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Gym_management_System.styles.css" asp-append-version="true" />
     @await RenderSectionAsync("Styles", required: false)
-
 </head>
 <body class="body-layout">
 
     @if (showSidebar)
     {
         <div class="app-shell">
-            <!-- LEFT SIDEBAR -->
             <aside class="sidebar">
                 <div class="sidebar-brand">
                     <span>💪</span> Gym Manager
@@ -36,48 +34,16 @@
                 <nav class="sidebar-nav">
                     @if (role == "Owner")
                     {
-                        <a class="sidebar-link @(controller == "Gym" ? "active" : "")" asp-controller="Gym" asp-action="Index">
-                            <i class="bi bi-building"></i> Gyms
-                        </a>
+                        @await Html.PartialAsync("_OwnerSidebarLinks", currentGymId)
                     }
-                    <a class="sidebar-link @(controller == "Gym" ? "active" : "")"
-                       asp-controller="Gym" asp-action="Details" asp-route-id="@currentGymId">
-                        <i class="bi bi-info-circle"></i> Details
-                    </a>
-                    <div class="sidebar-dropdown">
-                        <a class="sidebar-link d-flex justify-content-between align-items-center"
-                           data-bs-toggle="collapse" href="#membersSubmenu" role="button"
-                           aria-expanded="@(controller == "Member" ? "true" : "false")">
-                            <span><i class="bi bi-people"></i> Members</span>
-                            <i class="bi bi-chevron-down sidebar-caret"></i>
-                        </a>
-                        <div class="collapse @(controller == "Member" ? "show" : "")" id="membersSubmenu">
-                            <a class="sidebar-sublink @(action == "Index" ? "active" : "")"
-                               asp-controller="Member" asp-action="Index" asp-route-gymId="@currentGymId">
-                                All Members
-                            </a>
-                            <a class="sidebar-sublink @(action == "ActiveMembers" ? "active" : "")"
-                               asp-controller="MembershipPayment" asp-action="ActiveMembers" asp-route-gymId="@currentGymId">
-                                Active Members
-                            </a>
-                            <a class="sidebar-sublink @(action == "InActiveMembers" ? "active" : "")"
-                               asp-controller="MembershipPayment" asp-action="InActiveMembers" asp-route-gymId="@currentGymId">
-                                Inactive Members
-                            </a>
-                        </div>
-                    </div>
-                    <a class="sidebar-link @(controller == "Trainer" ? "active" : "")"
-                       asp-controller="Trainer" asp-action="Index" asp-route-gymId="@currentGymId">
-                        <i class="bi bi-person-badge"></i> Trainers
-                    </a>
-                    <a class="sidebar-link @(controller == "Payment" ? "active" : "")"
-                       asp-controller="MembershipPayment" asp-action="Index" asp-route-gymId="@currentGymId">
-                        <i class="bi bi-cash-coin"></i> Payments
-                    </a>
-                    <a class="sidebar-link @(controller == "Plan" ? "active" : "")"
-                       asp-controller="MembershipPlan" asp-action="Index" asp-route-gymId="@currentGymId">
-                        <i class="bi bi-card-list"></i> Plans
-                    </a>
+                    else if (role == "Trainer")
+                    {
+                        @await Html.PartialAsync("_TrainerSidebarLinks")
+                    }
+                    else if (role == "Member")
+                    {
+                        @await Html.PartialAsync("_MemberSidebarLinks")
+                    }
                 </nav>
 
                 <div class="sidebar-footer">
@@ -92,7 +58,6 @@
                 </div>
             </aside>
 
-            <!-- MAIN CONTENT -->
             <div class="main-content">
                 <main role="main" class="container-fluid py-4">
                     @RenderBody()
@@ -105,7 +70,6 @@
     }
     else
     {
-        <!-- Login page: no sidebar -->
         <div class="page-wrapper">
             <main role="main" class="container py-4">
                 @RenderBody()

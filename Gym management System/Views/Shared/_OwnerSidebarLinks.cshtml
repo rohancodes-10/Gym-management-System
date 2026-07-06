@@ -1,0 +1,51 @@
+﻿@model int?
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<a class="sidebar-link @(controller == "Gym" && action == "Index" ? "active" : "")" asp-controller="Gym" asp-action="Index">
+    <i class="bi bi-building"></i> Gyms
+</a>
+<a class="sidebar-link @(controller == "Gym" && action == "Details" ? "active" : "")"
+   asp-controller="Gym" asp-action="Details" asp-route-id="@Model">
+    <i class="bi bi-info-circle"></i> Details
+</a>
+<div class="sidebar-dropdown">
+    <a class="sidebar-link d-flex justify-content-between align-items-center"
+       data-bs-toggle="collapse" href="#membersSubmenu" role="button"
+       aria-expanded="@(controller == "Member" ? "true" : "false")">
+        <span><i class="bi bi-people"></i> Members</span>
+        <i class="bi bi-chevron-down sidebar-caret"></i>
+    </a>
+    <div class="collapse @(controller == "Member" ? "show" : "")" id="membersSubmenu">
+        <a class="sidebar-sublink @(action == "Index" ? "active" : "")"
+           asp-controller="Member" asp-action="Index" asp-route-gymId="@Model">
+            All Members
+        </a>
+        <a class="sidebar-sublink @(action == "ActiveMembers" ? "active" : "")"
+           asp-controller="MembershipPayment" asp-action="ActiveMembers" asp-route-gymId="@Model">
+            Active Members
+        </a>
+        <a class="sidebar-sublink @(action == "InActiveMembers" ? "active" : "")"
+           asp-controller="MembershipPayment" asp-action="InActiveMembers" asp-route-gymId="@Model">
+            Inactive Members
+        </a>
+    </div>
+</div>
+<a class="sidebar-link @(controller == "Trainer" ? "active" : "")"
+   asp-controller="Trainer" asp-action="Index" asp-route-gymId="@Model">
+    <i class="bi bi-person-badge"></i> Trainers
+</a>
+<a class="sidebar-link @(controller == "MembershipPayment" && action != "ActiveMembers" && action != "InActiveMembers" ? "active" : "")"
+   asp-controller="MembershipPayment" asp-action="Index" asp-route-gymId="@Model">
+    <i class="bi bi-cash-coin"></i> Payments
+</a>
+<a class="sidebar-link @(controller == "MembershipPlan" ? "active" : "")"
+   asp-controller="MembershipPlan" asp-action="Index" asp-route-gymId="@Model">
+    <i class="bi bi-card-list"></i> Plans
+</a>
+<a class="sidebar-link @(controller == "Complaint" ? "active" : "")"
+   asp-controller="Complaint" asp-action="Index" asp-route-gymId="@Model">
+    <i class="bi bi-flag"></i> Complaints
+</a>
