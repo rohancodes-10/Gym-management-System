@@ -27,7 +27,7 @@ namespace Gym_management_System
             builder.Services.AddScoped<IStaffService, StaffService>();
             builder.Services.AddScoped<IMembershipPaymentService,MemberPaymentServicecs>();
             builder.Services.AddScoped<IAuthService, AuthService>();
-            //builder.Services.AddScoped<IComplaintService, ComplaintService>();
+            builder.Services.AddScoped<IComplaintService, ComplaintService>();
             builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
             sqlOptions => sqlOptions.EnableRetryOnFailure(
