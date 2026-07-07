@@ -1,7 +1,7 @@
 ﻿namespace Gym_management_System.Models.Complaints
 {
-    public class ComplaintService:IComplaintService
-    {
+    //public class ComplaintService:IComplaintService
+    //{
         
-    }
+    //}
 }
