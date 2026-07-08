@@ -33,7 +33,7 @@ namespace Gym_management_System.Models.Complaints
             _context.SaveChanges();
             return complaint;
         }
-        public Complaint Resolved(int id,string ownerResponse)
+        public Complaint Resolve(int id,string ownerResponse)
         {
             var complaint = _context.Complaints.Find(id);
             if(complaint == null) {
@@ -45,4 +45,4 @@ namespace Gym_management_System.Models.Complaints
             return complaint;
         }
     }
-}}
+}
