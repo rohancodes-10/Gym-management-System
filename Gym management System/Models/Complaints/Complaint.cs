@@ -13,5 +13,6 @@
 
         public string? OwnerResponse { get; set; }
         public DateTime? ResolvedAt { get; set; }
+        
     }
 }

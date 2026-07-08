@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Gym_management_System.Models.Complaints;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gym_management_System.ViewModels.ComplaintsViewModels
 {
@@ -14,5 +15,7 @@ namespace Gym_management_System.ViewModels.ComplaintsViewModels
         [Required(ErrorMessage = "Message is Required")]
         [StringLength(100, ErrorMessage = "Message cannot exceed 1000 characters")]
         public string Message { get; set; }
+
+        public List<Complaint>? complaints { get; set; }
     }
 }
