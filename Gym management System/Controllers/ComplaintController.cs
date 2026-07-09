@@ -12,21 +12,21 @@ namespace Gym_management_System.Controllers
         {
             _complaintService=complaintService;
         }
-        //public IActionResult Index(int gymId)
-        //{
-        //    if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
-        //    if (!IsMember() && !IsTrainer()) return RedirectToAction("Login", "Account");
+        public IActionResult Index(int gymId)
+        {
+            if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+            if (!IsMember() && !IsTrainer()) return RedirectToAction("Login", "Account");
 
-        //    var complaints = _complaintService.GetAllComplaintByGymId(gymId);
-        //    ViewData["CurrentGymId"] = gymId;
+            var complaints = _complaintService.GetAllComplaintByGymId(gymId);
+            ViewData["CurrentGymId"] = gymId;
 
-        //    var model = new CreateComplaintsViewModel
-        //    {
-        //       GymId=gymId,
-        //       complaints=complaints,
-        //    };
-        //    return View(model);
-        //}
+            var model = new CreateComplaintsViewModel
+            {
+                GymId = gymId,
+                complaints = complaints,
+            };
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -67,6 +67,18 @@ namespace Gym_management_System.Controllers
             TempData["Success"] = "Your complaint has been submitted.";
 
             return RedirectToAction("MyComplaints");
+        }
+        public IActionResult MyComplaints()
+        {
+
+            if (!IsLoggedIn()) return RedirectToAction("Login", "Account");
+            if (!IsMember() && !IsTrainer()) return RedirectToAction("Login", "Account");
+            var userId = GetUserId() ?? 0;
+            var complaint = _complaintService.GetAllComplaintByUserId(userId);
+
+            ViewData["CurrentGymId"] = GetGymId() ?? 0;
+            return View(complaint);
+            
         }
 
     }

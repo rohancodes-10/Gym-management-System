@@ -1,1 +1,46 @@
-﻿<h1>welcome</h1>
+﻿@model CreateComplaintsViewModel
+@{
+    ViewData["Title"] = "Submit a Complaint";
+    ViewData["CurrentGymId"] = Model.GymId;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a asp-action="MyComplaints" asp-controller="Complaint" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Back to My Complaints
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card form-card shadow-sm">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <i class="bi bi-flag form-icon"></i>
+                    <h4 class="mt-2 mb-0">Submit a Complaint</h4>
+                    <p class="text-muted small">Let us know what's on your mind</p>
+                </div>
+
+                <form asp-action="Create" asp-controller="Complaint" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <input asp-for="GymId" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Subject" class="form-label"></label>
+                        <input asp-for="Subject" class="form-control" placeholder="Brief summary of the issue" />
+                        <span asp-validation-for="Subject" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Message" class="form-label"></label>
+                        <textarea asp-for="Message" class="form-control" rows="5" placeholder="Describe your complaint in detail..."></textarea>
+                        <span asp-validation-for="Message" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-send"></i> Submit Complaint
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

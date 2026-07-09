@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Complaint>
+@{
+    ViewData["Title"] = "My Complaints";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-0">My Complaints</h2>
+        <p class="text-muted small mb-0">@Model.Count() total submitted</p>
+    </div>
+    <a asp-action="Create" asp-controller="Complaint" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Submit New Complaint
+    </a>
+</div>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if(Model!=null && Model.Any())
+{
+    <div class="d-flex flex-column gap-3">
+        @foreach (var complaint in Model)
+        {
+            <div class="card member-detail-card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="mb-0">@complaint.Subject</h5>
+                        @if (complaint.OwnerResponse != null)
+                        {
+                            <span class="badge" style="background-color:#f0fdf4; color:#16a34a;">
+                                <i class="bi bi-check-circle"></i> Resolved
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge" style="background-color:#fffbeb; color:#d97706;">
+                                <i class="bi bi-clock"></i> Pending
+                            </span>
+                        }
+                    </div>
+
+                    <p class="text-muted small mb-1">
+                        Submitted @complaint.CreatedAt.ToString("dd MMM yyyy, h:mm tt")
+                    </p>
+                    <p class="mb-3">@complaint.Message</p>
+
+                    @if (complaint.OwnerResponse != null)
+                    {
+                        <div class="border-top pt-3 mt-3">
+                            <p class="text-muted small mb-1">
+                                <i class="bi bi-reply"></i> Response
+                                @if (complaint.ResolvedAt.HasValue)
+                                {
+                                    <span>· @complaint.ResolvedAt.Value.ToString("dd MMM yyyy")</span>
+                                }
+                            </p>
+                            <p class="mb-0">@complaint.OwnerResponse</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="bi bi-flag empty-state-icon"></i>
+        <h5 class="text-muted mt-3">No complaints submitted yet</h5>
+        <a asp-action="Create" asp-controller="Complaint" class="btn btn-primary mt-2">
+            Submit Your First Complaint
+        </a>
+    </div>
+}
