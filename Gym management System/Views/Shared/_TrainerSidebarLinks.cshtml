@@ -1,7 +1,14 @@
 ﻿@{
     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
     var roleId = Context.Session.GetInt32("RoleId");
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
 }
 <a class="sidebar-link @(controller == "Trainer" ? "active" : "")" asp-controller="Trainer" asp-action="Details" asp-route-id="@roleId">
     <i class="bi bi-person"></i> My Profile
+</a>
+<a class="sidebar-link @(controller == "Complaint" && action == "Create" ? "active" : "")" asp-controller="Complaint" asp-action="Create" asp-route-memberId="@roleId">
+    <i class="bi bi-flag"></i> Submit Complaint
+</a>
+<a class="sidebar-link @(controller == "Complaint" && action == "MyComplaints" ? "active" : "")" asp-controller="Complaint" asp-action="MyComplaints" asp-route-memberId="@roleId">
+    <i class="bi bi-list-check"></i> My Complaints
 </a>
