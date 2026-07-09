@@ -54,6 +54,11 @@ namespace Gym_management_System.Controllers
                 _ => RedirectToAction("Login", "Account")
             };
         }
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
         public  IActionResult Logout()
         {
             HttpContext.Session.Clear();
