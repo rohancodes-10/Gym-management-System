@@ -1,0 +1,91 @@
+﻿@model ComplaintListViewModel
+@{
+    ViewData["Title"] = "Complaints";
+    ViewData["CurrentGymId"] = Model.GymId;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-0">Complaints</h2>
+        <p class="text-muted small mb-0">@Model.Complaints.Count() total</p>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap yellow"><i class="bi bi-clock"></i></div>
+            <h6 class="text-muted mb-1">Pending</h6>
+            <h3 class="text-warning mb-0">@Model.OpenCount</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap green"><i class="bi bi-check-circle"></i></div>
+            <h6 class="text-muted mb-1">Resolved</h6>
+            <h3 class="text-success mb-0">@Model.ResolvedCount</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card border-0 text-center py-3">
+            <div class="stat-icon-wrap blue"><i class="bi bi-flag"></i></div>
+            <h6 class="text-muted mb-1">Total</h6>
+            <h3 class="text-primary mb-0">@Model.Complaints.Count()</h3>
+        </div>
+    </div>
+</div>
+
+@if (Model.Complaints != null && Model.Complaints.Any())
+{
+    <div class="d-flex flex-column gap-3">
+        @foreach (var complaint in Model.Complaints)
+        {
+            <div class="card member-detail-card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="mb-1">@complaint.Subject</h5>
+                            <p class="text-muted small mb-0">
+                                <i class="bi bi-person"></i> @complaint.SubmittedByName
+                                <span class="badge bg-secondary ms-1">@complaint.SubmittedByRole</span>
+                                · @complaint.CreatedAt.ToString("dd MMM yyyy")
+                            </p>
+                        </div>
+                        @if (complaint.OwnerResponse != null)
+                        {
+                            <span class="badge" style="background-color:#f0fdf4; color:#16a34a;">Resolved</span>
+                        }
+                        else
+                        {
+                            <span class="badge" style="background-color:#fffbeb; color:#d97706;">Pending</span>
+                        }
+                    </div>
+
+                    <p class="mb-3">@complaint.Message</p>
+
+                    @if (complaint.OwnerResponse != null)
+                    {
+                        <div class="border-top pt-3">
+                            <p class="text-muted small mb-1"><i class="bi bi-reply"></i> Your Response</p>
+                            <p class="mb-0">@complaint.OwnerResponse</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-action="Resolve" asp-controller="Complaint" asp-route-id="@complaint.Id" class="btn btn-primary btn-sm">
+                            <i class="bi bi-reply"></i> Respond
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="bi bi-flag empty-state-icon"></i>
+        <h5 class="text-muted mt-3">No complaints yet</h5>
+        <p class="text-muted small">Complaints from members and trainers will appear here.</p>
+    </div>
+}
