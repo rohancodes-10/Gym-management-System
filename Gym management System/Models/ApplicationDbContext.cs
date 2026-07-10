@@ -7,6 +7,7 @@ using Gym_management_System.Models.Users;
 using Gym_management_System.Models.MembershipPlans;
 using Gym_management_System.Models.MembershipPayments;
 using Gym_management_System.Models.Complaints;
+using Gym_management_System.Models.Attendences;
 namespace Gym_management_System.Models
 {
     public class ApplicationDbContext:DbContext
@@ -23,6 +24,7 @@ namespace Gym_management_System.Models
         public DbSet<MembershipPlan> MembershipPlans{get; set; }
         public DbSet<MembershipPayment> MembershipPayments{get; set; }
         public DbSet<Complaint> Complaints { get; set; }
+        public DbSet<Attendence> Attendences { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
