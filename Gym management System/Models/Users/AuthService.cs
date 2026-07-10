@@ -45,9 +45,32 @@ namespace Gym_management_System.Models.Users
             _context.SaveChanges();
             return user;
         }
+
+       
         public User? GetUserById(int id)
         {
             return _context.Users.Find(id);
+        }
+
+        public void ResetPassword(int userId, string Newpassword)
+        {
+            Console.WriteLine($"=== ResetPassword CALLED with userId={userId}");
+            var user = _context.Users.Find(userId);
+
+            if (user == null)
+            {
+                Console.WriteLine("=== User NOT FOUND for id " + userId);
+                return;
+            }
+
+            Console.WriteLine($"=== User found: {user.Email}, old hash: {user.PasswordHash}");
+
+            user.PasswordHash = HashPassword(Newpassword);
+            Console.WriteLine($"=== New hash set to: {user.PasswordHash}");
+
+            var rowsAffected = _context.SaveChanges();
+            Console.WriteLine($"=== SaveChanges affected {rowsAffected} row(s)");
+
         }
         public User? GetUserByEmail_username(string email, string username)
         {

@@ -6,5 +6,6 @@
         public User Register(User user, string plainpassword);
         public User? GetUserById(int id);
         public User? GetUserByEmail_username(string email, string username);
+        public void ResetPassword(int userId, string Newpassword);
     }
 }

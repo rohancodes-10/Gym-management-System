@@ -85,6 +85,20 @@ namespace Gym_management_System.Controllers
 
             return View(model);
         }
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel model )
+        {
+            var user = _authService.GetUserById(model.UserId);
+            if (user == null) return NotFound();
+            if (!ModelState.IsValid)
+            {
+                model.UserName = user.Name; 
+                return View(model);
+            }
+
+            _authService.ResetPassword(model.UserId, model.NewPassword);
+            return RedirectToAction("Login", "Account");
+        }
         public  IActionResult Logout()
         {
             HttpContext.Session.Clear();
