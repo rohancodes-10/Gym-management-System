@@ -5,5 +5,6 @@
         public User? Login(string username, string password);
         public User Register(User user, string plainpassword);
         public User? GetUserById(int id);
+        public User? GetUserByEmail_username(string email, string username);
     }
 }

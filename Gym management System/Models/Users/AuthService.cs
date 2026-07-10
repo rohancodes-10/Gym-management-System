@@ -14,30 +14,30 @@ namespace Gym_management_System.Models.Users
         private string HashPassword(string Pawword)
         {
             using var sha256 = SHA256.Create();
-            var bytes=Encoding.UTF8.GetBytes(Pawword);
-            var hash=sha256.ComputeHash(bytes);
+            var bytes = Encoding.UTF8.GetBytes(Pawword);
+            var hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
-        
 
-public User? Login(string email, string password)
-    {
-        var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-        Debug.WriteLine($"=== Searching for: {email}");
-        Debug.WriteLine($"=== User found: {user != null}");
+        public User? Login(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-        if (user == null) return null;
+            Debug.WriteLine($"=== Searching for: {email}");
+            Debug.WriteLine($"=== User found: {user != null}");
 
-        string hashedInput = HashPassword(password);
-        Debug.WriteLine($"=== Input hash:  {hashedInput}");
-        Debug.WriteLine($"=== Stored hash: {user.PasswordHash}");
-        Debug.WriteLine($"=== Match: {hashedInput == user.PasswordHash}");
+            if (user == null) return null;
 
-        if (hashedInput != user.PasswordHash) return null;
-        return user;
-    }
-    public User Register(User user, string plainPassword)
+            string hashedInput = HashPassword(password);
+            Debug.WriteLine($"=== Input hash:  {hashedInput}");
+            Debug.WriteLine($"=== Stored hash: {user.PasswordHash}");
+            Debug.WriteLine($"=== Match: {hashedInput == user.PasswordHash}");
+
+            if (hashedInput != user.PasswordHash) return null;
+            return user;
+        }
+        public User Register(User user, string plainPassword)
         {
             user.PasswordHash = HashPassword(plainPassword);
             user.CreatedAt = DateTime.Now;
@@ -48,6 +48,11 @@ public User? Login(string email, string password)
         public User? GetUserById(int id)
         {
             return _context.Users.Find(id);
+        }
+        public User? GetUserByEmail_username(string email, string username)
+        {
+            return _context.Users
+                .SingleOrDefault(p => p.Email == email && p.Name == username);
         }
     }
 }

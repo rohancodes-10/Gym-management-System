@@ -59,6 +59,32 @@ namespace Gym_management_System.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgotPasswordViewModel model)
+        {
+            var user = _authService.GetUserByEmail_username(model.Email, model.UserName);
+            if (user == null) 
+            {
+                ModelState.AddModelError("","wrong email and username");
+                return View(model);
+            }
+            return RedirectToAction("ResetPassword", new { userId = user.Id });
+        }
+        [HttpGet]
+        public IActionResult ResetPassword(int userId)
+        {
+            var user=_authService.GetUserById(userId);
+            if (user == null) return NotFound();
+
+            var model = new ResetPasswordViewModel
+            {
+                UserId=user.Id,
+                UserName=user.Name
+            };
+
+
+            return View(model);
+        }
         public  IActionResult Logout()
         {
             HttpContext.Session.Clear();
