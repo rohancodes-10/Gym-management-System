@@ -1,5 +1,6 @@
 ﻿using Gym_management_System.Models.Attendences;
 using Gym_management_System.Models.Members;
+using Gym_management_System.ViewModels.AttendenceViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gym_management_System.Controllers
@@ -13,7 +14,7 @@ namespace Gym_management_System.Controllers
         }
         public IActionResult index(int gymId)
         {
-            ViewData["CurrendGymId"] = gymId;
+            ViewData["CurrentGymId"] = gymId;
             var model=attendenceService.GetTodaysAttendenceStatus(gymId);
             return View(model);
         }
@@ -25,9 +26,9 @@ namespace Gym_management_System.Controllers
 
         }
         [HttpPost]
-        public IActionResult MarkCheckOut(int memberId, int gymId)
+        public IActionResult MarkCheckOut(int attendenceId,int gymId)
         {
-            attendenceService.MarkCheckOut(memberId);
+            attendenceService.MarkCheckOut(attendenceId);
             return RedirectToAction("index", new { gymId });
 
         }

@@ -49,3 +49,7 @@
    asp-controller="Complaint" asp-action="Index" asp-route-gymId="@Model">
     <i class="bi bi-flag"></i> Complaints
 </a>
+<a class="sidebar-link @(controller == "Attendence" ? "active" : "")"
+   asp-controller="Attendence" asp-action="Index" asp-route-gymId="@Model">
+    <i class="bi-calendar-check"></i>Attendence
+</a>

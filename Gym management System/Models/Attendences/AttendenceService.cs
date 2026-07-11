@@ -28,7 +28,7 @@ namespace Gym_management_System.Models.Attendences
                     MemberId = m.Id,
                     MemberName = m.MemberName,
                     IsCheckedInToday = att != null,
-                    AttendanceId = att?.Id,
+                    AttendenceId = att?.Id,
                     CheckinTime = att?.CheckinTime,
                     CheckOutTime = att?.CheckOutTime
                 };

@@ -1,1 +1,63 @@
-﻿
+﻿@model List<AttendenceRowViewModel>
+@{
+    ViewData["Title"] = "Attendance";
+    int gymId = (int)ViewData["CurrentGymId"];
+}
+
+<div class="container mt-4">
+    <h3 class="mb-3">Today's Attendance — @DateTime.Today.ToString("dddd, MMM d")</h3>
+
+    <table class="table table-bordered table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Status</th>
+                <th>Check-in Time</th>
+                <th>Check-out Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+            {
+                <tr>
+                    <td>@row.MemberName</td>
+                    <td>
+                        @if (row.IsCheckedInToday)
+                        {
+                            <span class="badge bg-success">Present</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Not Marked</span>
+                        }
+                    </td>
+                    <td>@(row.CheckinTime?.ToString("hh:mm tt") ?? "-")</td>
+                    <td>@(row.CheckOutTime?.ToString("hh:mm tt") ?? "-")</td>
+                    <td>
+                        @if (!row.IsCheckedInToday)
+                        {
+                            <form method="post" asp-action="MarkPresent" asp-controller="Attendence">
+                                <input type="hidden" name="memberId" value="@row.MemberId" />
+                                <input type="hidden" name="gymId" value="@gymId" />
+                                <button type="submit" class="btn btn-sm btn-success">Mark Present</button>
+                            </form>
+                        }
+                        else if (row.CheckOutTime == null)
+                        {
+                            <form method="post" asp-action="MarkCheckOut" asp-controller="Attendence">
+                                <input type="hidden" name="attendenceId" value="@row.AttendenceId" />
+                                <input type="hidden" name="gymId" value="@gymId" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Check Out</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Done</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
