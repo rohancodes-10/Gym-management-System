@@ -8,6 +8,7 @@ using Gym_management_System.Models.MembershipPlans;
 using Gym_management_System.Models.MembershipPayments;
 using Microsoft.EntityFrameworkCore;
 using Gym_management_System.Models.Complaints;
+using Gym_management_System.Models.Attendences;
 
 namespace Gym_management_System
 {
@@ -20,7 +21,6 @@ namespace Gym_management_System
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IMembershipPlansService, MembershipPlansService>();
-            
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<IGymService, GymService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
@@ -28,6 +28,9 @@ namespace Gym_management_System
             builder.Services.AddScoped<IMembershipPaymentService,MemberPaymentServicecs>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IComplaintService, ComplaintService>();
+            builder.Services.AddScoped<IAttendence, AttendenceService>();
+
+
             builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
             sqlOptions => sqlOptions.EnableRetryOnFailure(
