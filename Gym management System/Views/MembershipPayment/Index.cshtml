@@ -1,7 +1,9 @@
 ﻿@model PaymentsHomeDetailsView
 @{
     ViewBag.Title = "Payments";
+    var role = Context.Session.GetString("userRole");
 }
+
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Membership payments</h2>
@@ -32,8 +34,11 @@
                <th>Payment Date</th>
                <th>Start->EndDate</th>
                 <th>Status</th>
-               <th>Actions</th>
-           </tr>
+                @if (role == "Owner")
+                {
+                    <th>Actions</th>
+                }
+            </tr>
         </thead>
         <tbody>
             @foreach(var payment in Model.payments)
@@ -57,10 +62,13 @@
                     </td>
                     <td>
                  
-                        <form asp-action="Delete"  method="post" onsubmit="return confirm('Do you want to delete TheGYm')">
-                            <input type="hidden" name="id" value="@payment.id" />
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                       @if(role=="Owner")
+                        {
+                            <form asp-action="Delete" method="post" onsubmit="return confirm('Do you want to delete TheGYm')">
+                                <input type="hidden" name="id" value="@payment.id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             
