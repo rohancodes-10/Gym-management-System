@@ -42,8 +42,12 @@
                     }
                     else if (role == "Member")
                     {
-                        @await Html.PartialAsync("_MemberSidebarLinks")
+                            @await Html.PartialAsync("_MemberSidebarLinks")
                     }
+                        else if (role == "Manager")
+                        {
+                        @await Html.PartialAsync("_StaffSidebarLinks")
+                        }
                 </nav>
 
                 <div class="sidebar-footer">
