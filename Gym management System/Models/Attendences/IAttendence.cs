@@ -7,5 +7,6 @@ namespace Gym_management_System.Models.Attendences
         List<AttendenceRowViewModel> GetTodaysAttendenceStatus(int gymId);
         void MarkPresent(int memberId);
         void MarkCheckOut(int attendenceId);
+        List<Attendence> GetMemberAttendenceForMonth(int memberId, int year, int month);
     }
 }

@@ -57,5 +57,14 @@ namespace Gym_management_System.Models.Attendences
             attendance.CheckOutTime = DateTime.Now;
             _context.SaveChanges();
         }
+        public List<Attendence> GetMemberAttendenceForMonth(int memberId,int year,int month)
+        {
+            return _context.Attendences
+                .Where(a => a.MemberId == memberId
+                && a.Date.Year == year
+               && a.Date.Month == month)
+                .ToList();
+                
+        }
     }
 }
