@@ -1,5 +1,7 @@
-﻿using Gym_management_System.Models.Gyms;
+﻿using Gym_management_System.Models.Attendences;
+using Gym_management_System.Models.Gyms;
 using Gym_management_System.Models.MembershipPayments;
+using Gym_management_System.ViewModels.AttendenceViewModels;
 using Gym_management_System.ViewModels.GymViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -132,5 +134,6 @@ namespace Gym_management_System.Controllers
 
             return RedirectToAction("Index");
         }
+        
     }
 }

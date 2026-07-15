@@ -32,5 +32,57 @@ namespace Gym_management_System.Controllers
             return RedirectToAction("index", new { gymId });
 
         }
+        [HttpGet]
+        public IActionResult MyAttendance(int? month, int? year)
+        {
+            if (GetRole() != "Member") return Forbid();
+
+            int memberId = int.Parse(HttpContext.Session.GetString("userId"));
+            var today = DateOnly.FromDateTime(DateTime.Today);
+
+            int y = year ?? today.Year;
+            int m = month ?? today.Month;
+
+            var records = attendenceService.GetMemberAttendenceForMonth(memberId, y, m);
+            var recordsByDate = records.ToDictionary(a =>a.Date, a => a);
+
+            var firstOfMonth = new DateOnly(y, m, 1);
+            int daysInMonth = DateTime.DaysInMonth(y, m);
+            int leadingBlanks = (int)firstOfMonth.DayOfWeek; // Sunday = 0
+
+            var vm = new MemberAttendenceCalenderViewModel { Month = m, Year = y };
+
+            for (int i = 0; i < leadingBlanks; i++)
+                vm.Days.Add(new CalenderDayViewModel()); // padding
+
+            for (int d = 1; d <= daysInMonth; d++)
+            {
+                var date = new DateOnly(y, m, d);
+                bool isFuture = date > today;
+                recordsByDate.TryGetValue(date, out var record);
+
+                vm.Days.Add(new CalenderDayViewModel
+                {
+                    Date = date,
+                    IsFuture = isFuture,
+                    IsToday = date == today,
+                    IsPresent = record != null,
+                    CheckIn = record != null
+    ? TimeOnly.FromDateTime(record.CheckinTime)
+    : null,
+                    CheckOut = record?.CheckOutTime.HasValue == true
+    ? TimeOnly.FromDateTime(record.CheckOutTime.Value)
+    : null
+                });
+
+                if (!isFuture)
+                {
+                    vm.TotalDaysElapsed++;
+                    if (record != null) vm.TotalPresentDays++;
+                }
+            }
+
+            return View(vm);
+        }
     }
 }
