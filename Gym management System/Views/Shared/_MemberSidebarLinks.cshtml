@@ -13,4 +13,7 @@
 <a class="sidebar-link @(controller == "Complaint" && action == "MyComplaints" ? "active" : "")" asp-controller="Complaint" asp-action="MyComplaints" asp-route-memberId="@roleId">
     <i class="bi bi-list-check"></i> My Complaints
 </a>
-
+<a class="sidebar-link @(controller == "Attendence" ? "active" : "")"
+   asp-controller="Attendence" asp-action="MyAttendance" asp-route-gymId="@Model">
+    <i class="bi-calendar-check"></i>Attendence
+</a>

@@ -1,0 +1,45 @@
+﻿@model MemberAttendenceCalenderViewModel
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a class="btn btn-outline-secondary btn-sm"
+       asp-action="MyAttendance"
+       asp-route-month="@(Model.Month == 1 ? 12 : Model.Month - 1)"
+       asp-route-year="@(Model.Month == 1 ? Model.Year - 1 : Model.Year)">&laquo; Prev</a>
+
+    <h5 class="mb-0">@Model.MonthName</h5>
+
+    <a class="btn btn-outline-secondary btn-sm"
+       asp-action="MyAttendance"
+       asp-route-month="@(Model.Month == 12 ? 1 : Model.Month + 1)"
+       asp-route-year="@(Model.Month == 12 ? Model.Year + 1 : Model.Year)">Next &raquo;</a>
+</div>
+
+<p class="text-muted">Present @Model.TotalPresentDays / @Model.TotalDaysElapsed days so far</p>
+
+<div class="calendar-grid">
+    @foreach (var wd in new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" })
+    {
+        <div class="calendar-header">@wd</div>
+    }
+    @foreach (var day in Model.Days)
+    {
+        if (day.Date == null)
+        {
+            <div class="calendar-cell empty"></div>
+        }
+        else
+        {
+            string cssClass = day.IsFuture ? "future" : (day.IsPresent ? "present" : "absent");
+            <div class="calendar-cell @cssClass @(day.IsToday ? "today" : "")">
+                <div class="day-number">@day.Date.Value.Day</div>
+                @if (day.IsPresent)
+                {
+                    <div class="day-time">@day.CheckIn?.ToString("hh:mm tt")</div>
+                }
+            </div>
+        }
+    }
+</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Attendance/Attendance.css" asp-append-version="true" />
+}

@@ -37,14 +37,18 @@ namespace Gym_management_System.Controllers
         {
             if (GetRole() != "Member") return Forbid();
 
-            int memberId = int.Parse(HttpContext.Session.GetString("userId"));
-            var today = DateOnly.FromDateTime(DateTime.Today);
+            var memberId = HttpContext.Session.GetInt32("RoleId");
+            if (memberId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
+            var today = DateOnly.FromDateTime(DateTime.Today);
             int y = year ?? today.Year;
             int m = month ?? today.Month;
 
-            var records = attendenceService.GetMemberAttendenceForMonth(memberId, y, m);
-            var recordsByDate = records.ToDictionary(a =>a.Date, a => a);
+            var records = attendenceService.GetMemberAttendenceForMonth(memberId.Value, y, m);
+            var recordsByDate = records.ToDictionary(a => a.Date, a => a);
 
             var firstOfMonth = new DateOnly(y, m, 1);
             int daysInMonth = DateTime.DaysInMonth(y, m);
